@@ -1,7 +1,7 @@
 ## Projet Dev. Web
 
 <div style="text-align:center">
-  <img src="assets/logo_example.png" width="50%">
+<img src="assets/logo_example.png" width="50%">
 </div>
 
 ## Objectif
