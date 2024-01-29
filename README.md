@@ -6,7 +6,7 @@
 
 ## Objectif
 
-(EXEMPLE) Description de l'objectif du projet.
+(EXEMPLE) Description de l'objectif du projet.<br/>
 Deuxième phrase.
 
 ## Prérequis
