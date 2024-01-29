@@ -7,6 +7,7 @@
 ## Objectif
 
 (EXEMPLE) Description de l'objectif du projet.
+Deuxième phrase.
 
 ## Prérequis
 
