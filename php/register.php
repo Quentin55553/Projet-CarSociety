@@ -23,8 +23,8 @@
 
         <div class="menu">
             <div class="menu-header">MENU</div>
-            <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
-            <a href="php/contact.php"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="../index.html"><i class="fas fa-home"></i> Accueil</a>
+            <a href="contact.php"><i class="fas fa-envelope"></i> Contact</a>
 
             <hr>
 
