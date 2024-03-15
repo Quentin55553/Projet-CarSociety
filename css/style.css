@@ -8,7 +8,9 @@ body {
 }
 
 .header {
-    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0px;
     background-image: linear-gradient(to bottom right, black, black, #555);
     padding: 20px 10px;
     display: flex;
@@ -30,17 +32,16 @@ body {
 
 .header img {
     width: 20%;
-    height: auto;
     pointer-events: none;
 }
 
-.header a:hover {
+.header a:hover, .header a.active:hover {
     background-color: #ddd;
     color: black;
 }
 
 .header a.active {
-    background-color: red;
+    background-color:rgb(154, 181, 0);
     color: white;
 }
 
@@ -55,9 +56,9 @@ body {
 
 .menu {
     position: fixed;
-    height: 750px;
-    width: 250px;
-    bottom: 0px;
+    margin-top: 170px;
+    padding-bottom: 35px;
+    width: 230px;
     background-color: #333;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -95,20 +96,21 @@ hr {
 
 .content {
     padding-left: 270px;
+    min-height: 81.1vh;
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
+    position: relative;
+    margin-bottom: 0px;
     width: 100%;
-    background-color:cadetblue;
+    background-color: #333;
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 10px;
 }
 
-
 h1.main-title {
+    padding-top: 130px;
     font-size: 2rem;
     margin: 2rem 0;
 }
