@@ -63,9 +63,11 @@
                 
                 <label for="date_naissance">Date de naissance :</label><br>
                 <input type="date" id="date_naissance" name="date_naissance"><br>
-                
+
                 <label for="fonction">Fonction :</label><br>
-                <input type="text" id="fonction" name="fonction"><br>
+                <select name="fonction" id="fonction">
+                    <option value="valeur">A déterminer</option>
+                </select><br>
                 
                 <label for="sujet">Sujet :</label><br>
                 <input type="text" id="sujet" name="sujet"><br>
@@ -77,8 +79,11 @@
             </form>
         </div>
 
+        <br>
+
         <footer class="footer">
-            <p>Copyright, mentions légales</p>
+            <p>Copyright (c) 2024, CarSociety</p>
+            <p>Tous droits réservés.</p>
         </footer>
     </body>
 </html>

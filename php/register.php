@@ -60,7 +60,8 @@
         </div>
 
         <footer class="footer">
-            <p>Copyright, mentions légales</p>
+            <p>Copyright (c) 2024, CarSociety</p>
+            <p>Tous droits réservés.</p>
         </footer>
     </body>
 </html>
