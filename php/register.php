@@ -37,31 +37,55 @@
         <div class="content">
             <h1 class="main-title">Créer un compte</h1>
 
-            <form id="register-form" action="register.php" method="post">
-                <div class="input-group">
-                    <label for="register-email">Email</label>
-                    <input type="email" id="register-email" name="email" required>
-                </div>
+            <div class="form-container">
+                <form id="register-form" action="register.php" method="post">
+                    <div class="input-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
 
-                <div class="input-group">
-                    <label for="register-password">Mot de passe</label>
-                    <input type="password" id="register-password" name="password" required>
-                </div>
+                    <div class="input-group">
+                        <label for="register-password">Mot de passe</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
 
-                <div class="input-group">
-                    <label for="register-password">Confirmer mot de passe</label>
-                    <input type="password" id="register-password1" name="password_confirm" required>
-                </div>
+                    <div class="input-group">
+                        <label for="register-password">Confirmer mot de passe</label>
+                        <input type="password" id="register-password1" name="password_confirm" required>
+                    </div>
 
-                <div class="center">
-                    <button type="submit">S'inscrire</button>
-                </div>
-            </form>
+                    <div class="center">
+                        <button type="submit">S'inscrire</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <footer class="footer">
-            <p>Copyright (c) 2024, CarSociety</p>
-            <p>Tous droits réservés.</p>
+            <div class="legal-informations">
+                <h2>CarSociety</h2>
+                <p>Copyright (c) 2024, CarSociety</p>
+                <p>Tous droits réservés</p>
+            </div>
+
+            <div class="networks">
+                <h2>Nos réseaux</h2>
+                <div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+            </div>
+
+            <div class="contact">
+                <h2>Contact</h2>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:carsociety758@gmail.com">carsociety758@gmail.com</a></p>
+                <p>Service client :</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
+            </div>
         </footer>
+
+        <script src="../js/goUpButton.js"></script>
     </body>
 </html>
