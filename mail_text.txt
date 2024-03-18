@@ -1,0 +1,16 @@
+Bonjour,
+
+Une nouvelle demande de contact a été effectuée sur le site internet CarSociety, en voici les détails :
+
+Date de contact : {CONTACT_DATE}
+Nom : {LASTNAME}
+Prénom : {FIRSTNAME}
+Email : {EMAIL}
+Genre : {GENDER}
+Date de naissance : {BIRTHDATE}
+Fonction : {JOB}
+Sujet de la demande : {OBJECT}
+Contenu de la demande : {CONTENT}
+
+Cordialement,
+CarSociety
