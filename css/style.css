@@ -23,6 +23,7 @@ body {
 }
 
 .header {
+    z-index: 2;
     position: fixed;
     width: 100%;
     top: 0px;
@@ -70,6 +71,7 @@ body {
 }
 
 .menu {
+    z-index:5;
     position: fixed;
     margin-top: 180px;
     padding-bottom: 35px;
@@ -124,10 +126,11 @@ h1.main-title {
 }
 
 .content {
+    text-align: center;
     padding-top: 130px;
     padding-left: 270px;
+    padding-right: 20px;
     min-height: 87vh;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; 
@@ -302,4 +305,102 @@ button {
 #goUpButton.show {
     opacity: 1;
     visibility: visible;
+}
+
+
+.tab{
+  z-index: -1;
+  background: #f5f5f5;
+  border-collapse: separate;
+  box-shadow: inset 0 1px 0 #fff;
+  font-size: 12px;
+  line-height: 24px;
+  margin: 30px auto;
+  text-align: center;
+  width: 100%;
+}
+
+.tab th{
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+  border-left: 1px solid #555;
+  border-right: 1px solid #777;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #333;
+  box-shadow: inset 0 1px 0 #999;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  position: relative;
+  text-shadow: 0 1px 0 #000; 
+}
+
+.tab td {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 15px;
+    position: relative;
+    transition: all 300ms;
+}
+
+.tab img,button{
+    transition: all 300ms;
+}
+
+.tab tr {
+    background: url(https://jackrugile.com/images/misc/noise-diagonal.png); 
+}
+
+.tab img{
+    max-width:150px;
+    max-height:150px;
+}
+
+.tab tbody:hover td {
+    color: transparent;
+    text-shadow: 0 0 3px #aaa;
+}
+
+.tab tbody:hover img {
+    filter:blur(3px);
+}
+
+.tab tbody:hover button {
+    filter:blur(3px);
+}
+
+.tab tbody:hover tr:hover td {
+    color: #444;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.tab tbody:hover tr:hover img {
+    filter:blur(0);
+}
+
+.tab tbody:hover tr:hover button {
+    filter:blur(0);
+}
+
+.invisible{
+    display:none;
+}
+
+.commande{
+    display: inline flex;
+}
+
+.commande button{
+    height:25px;
+    width:25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top:10px;
+}
+
+
+#stock-button{
+    margin-right: auto;
+    margin-left: auto;
 }
