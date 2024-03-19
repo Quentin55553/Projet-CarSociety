@@ -8,7 +8,6 @@
         <link rel="icon" href="../img/favicon.ico">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="../js/produits.js"></script>
     </head>
 
 
@@ -29,7 +28,7 @@
 
             <hr>
 
-            <div class="menu-header">Nos véhicules</div>
+            <div class="menu-header">Nos produits</div>
             <a href="produits.php?cat=Citadines"><i class="fas fa-car-side"></i> Citadines</a>
             <a href="produits.php?cat=Berlines"><i class="fas fa-car-alt"></i> Berlines</a>
             <a href="produits.php?cat=Sportives"><i class="fas fa-flag-checkered"></i> Sportives</a>
@@ -73,8 +72,30 @@
         </div>
 
         <footer class="footer">
-            <p>Copyright (c) 2024, CarSociety</p>
-            <p>Tous droits réservés.</p>
+            <div class="legal-informations">
+                <h2>CarSociety</h2>
+                <p>Copyright (c) 2024, CarSociety</p>
+                <p>Tous droits réservés</p>
+            </div>
+
+            <div class="networks">
+                <h2>Nos réseaux</h2>
+                <div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+            </div>
+
+            <div class="contact">
+                <h2>Contact</h2>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:carsociety758@gmail.com">carsociety758@gmail.com</a></p>
+                <p>Service client :</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
+            </div>
         </footer>
+
+        <script src="/js/goUpButton.js"></script>
     </body>
 </html>
