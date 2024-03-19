@@ -1,20 +1,5 @@
-:root {
-    --mexican-pink: #e42d8cff;
-    --pistachio: #9fc36aff;
-    --picton-blue: #00a9deff;
-    --midnight-blue: #101f75ff;
-    --silver: #c4c5c7ff;
-    --dim-gray: #707176ff;
-    --white: #ffffffff;
-    --amaranth-red : #D3212CFF;
-    --yellow-orange: #FF980EFF;
-    --shamrock-green: #069C56FF;
-    --tufts-blue: #3a8aceff;
-}
-
 * {
     box-sizing: border-box;
-    --main-color: var(--amaranth-red);
 }
 
 body { 
@@ -23,6 +8,7 @@ body {
 }
 
 .header {
+    z-index: 2;
     position: fixed;
     width: 100%;
     top: 0px;
@@ -56,7 +42,7 @@ body {
 }
 
 .header a.active {
-    background-color:var(--main-color);
+    background-color:rgb(154, 181, 0);
     color: white;
 }
 
@@ -71,7 +57,8 @@ body {
 
 .menu {
     position: fixed;
-    margin-top: 180px;
+    z-index:5;
+    margin-top: 170px;
     padding-bottom: 35px;
     width: 230px;
     background-color: #333;
@@ -109,28 +96,11 @@ hr {
     border: 1px solid red;
 }
 
-h1.main-title {
-    font-size: 2rem;
-    margin: 2rem 0;
-    background-image: linear-gradient(120deg, var(--main-color) 0%, var(--mexican-pink) 100%);
-    background-repeat: no-repeat;
-    background-size: 100% 0.2em;
-    background-position: 0 88%;
-    transition: background-size 0.25s ease-in;
-
-    &:hover {
-        background-size: 100% 88%;
-    }
-}
-
 .content {
-    padding-top: 130px;
+    position: relative;
     padding-left: 270px;
-    min-height: 87vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; 
+    min-height: 81.1vh;
+    text-align: center;
 }
 
 .footer {
@@ -139,167 +109,111 @@ h1.main-title {
     width: 100%;
     background-color: #333;
     color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.legal-informations {
-    margin-left: 10%;
-}
-
-.legal-informations p {
-    line-height: 5px;
-}
-
-.contact {
-    margin-right: 4%;
-}
-
-.contact a {
-    text-decoration: underline;
-    color: white;
-}
-
-.networks .social-links a {
-	display: inline-block;
-	height: 40px;
-	width: 40px;
-	background-color: rgba(255,255,255,0.2);
-	margin:0 10px 10px 0;
-	text-align: center;
-	line-height: 40px;
-	border-radius: 50%;
-	color: #ffffff;
-	transition: all 0.5s ease;
-}
-
-.networks .social-links a:hover {
-	color: #24262b;
-	background-color: var(--main-color);
-}
-
-footer h2 {
-	font-size: 18px;
-	color: #ffffff;
-	text-transform: capitalize;
-	margin-bottom: 35px;
-	font-weight: 500;
-	position: relative;
-}
-
-footer h2::before{
-	content: '';
-	position: absolute;
-	left:0;
-	bottom: -10px;
-	background-color: #e91e63;
-	height: 2px;
-	box-sizing: border-box;
-	width: 120px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin: 1.5rem 0;
-}
-
-.input-group input {
-    margin-top: 0.5rem;
-    padding: 0.5em 1em;
-    background-color: #ECECEC;
-    font-size: 1em;
-    border: none;
-    border-bottom: 2px solid var(--main-color);
-    border-radius: 5px 5px 0 0;
-}
-
-.input-group textarea {
-    margin-top: 0.5rem;
-    padding: 0.5em 1em;
-    background-color: #ECECEC;
-    font-size: 1em;
-    border: none;
-    border-bottom: 2px solid var(--main-color);
-    resize: none;
-    border-radius: 5px 5px 0 0;
-}
-
-.input-group select {
-    margin-top: 0.5rem;
-    padding: 0.5em 1em;
-    background-color: #ECECEC;
-    font-size: 1em;
-    border: none;
-    border-bottom: 2px solid var(--main-color);
-    resize: none;
-    border-radius: 5px 5px 0 0;
-}
-
-.center {
-    display: flex;
-    flex-direction: column;
-    align-content: center;    
-}
-
-button {
-    font-size: 1.25rem;
-    padding: 0.75rem 2rem;
-    line-height: 2rem;
-    min-height: 3.5rem;
-    color: var(--white);
-    background-color: var(--main-color);
-    margin-top: 1.5rem;
-    border: none;
-    cursor: pointer;
-}
-
-.form-container {
-    width: 70%;
-}
-
-.gender-option {
-    margin-left: 30px;
-}
-
-#goUpButton {
-    display: inline-block;
-    background-color: #FF9800;
-    width: 50px;
-    height: 50px;
     text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 80px;
-    right: 80px;
-    transition: background-color .3s, 
-    opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
+    padding: 10px;
 }
 
-#goUpButton::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
+h1.main-title {
+    padding-top: 130px;
+    font-size: 2rem;
+    margin: 2rem 0;
+    text-align: center;
 }
 
-#goUpButton:hover {
-    cursor: pointer;
-    background-color: #333;
+
+.tab{
+  z-index: -1;
+  background: #f5f5f5;
+  border-collapse: separate;
+  box-shadow: inset 0 1px 0 #fff;
+  font-size: 12px;
+  line-height: 24px;
+  margin: 30px auto;
+  text-align: center;
+  width: 100%;
 }
 
-#goUpButton:active {
-    background-color: #555;
+.tab th{
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+  border-left: 1px solid #555;
+  border-right: 1px solid #777;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #333;
+  box-shadow: inset 0 1px 0 #999;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  position: relative;
+  text-shadow: 0 1px 0 #000; 
 }
 
-#goUpButton.show {
-    opacity: 1;
-    visibility: visible;
+.tab td {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 15px;
+    position: relative;
+    transition: all 300ms;
+}
+
+.tab img,button{
+    transition: all 300ms;
+}
+
+.tab tr {
+    background: url(https://jackrugile.com/images/misc/noise-diagonal.png); 
+}
+
+.tab img{
+    max-width:150px;
+    max-height:150px;
+}
+
+.tab tbody:hover td {
+    color: transparent;
+    text-shadow: 0 0 3px #aaa;
+}
+
+.tab tbody:hover img {
+    filter:blur(3px);
+}
+
+.tab tbody:hover button {
+    filter:blur(3px);
+}
+
+.tab tbody:hover tr:hover td {
+    color: #444;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.tab tbody:hover tr:hover img {
+    filter:blur(0);
+}
+
+.tab tbody:hover tr:hover button {
+    filter:blur(0);
+}
+
+.invisible{
+    display:none;
+}
+
+.commande{
+    display: inline flex;
+}
+
+.commande button{
+    height:25px;
+    width:25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top:10px;
+}
+
+
+#stock-button{
+    margin-right: auto;
+    margin-left: auto;
 }
