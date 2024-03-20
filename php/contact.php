@@ -79,9 +79,9 @@
             <hr>
 
             <div class="menu-header">Nos produits</div>
-            <a href="urbancars.html"><i class="fas fa-car-side"></i> Citadines</a>
-            <a href="sedan.html"><i class="fas fa-car-alt"></i> Berlines</a>
-            <a href="sportscars.html"><i class="fas fa-flag-checkered"></i> Sportives</a>
+            <a href="products.php?cat=Urbancars"><i class="fas fa-car-side"></i> Citadines</a>
+            <a href="products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
+            <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
 
         <div class="content">
