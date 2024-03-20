@@ -12,3 +12,4 @@ Deuxième phrase.
 ## Prérequis
 
 1. [Installation de XAMPP](docs/config_xampp.md)
+2. [Configuration de la messagerie depuis XAMPP](docs/config_mail.md)
