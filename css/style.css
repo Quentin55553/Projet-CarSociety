@@ -246,7 +246,7 @@ footer h2::before{
     align-content: center;    
 }
 
-button {
+.red-button {
     font-size: 1.25rem;
     padding: 0.75rem 2rem;
     line-height: 2rem;
@@ -308,7 +308,6 @@ button {
 }
 
 .tab {
-    z-index: -1;
     background: #f5f5f5;
     border-collapse: separate;
     box-shadow: inset 0 1px 0 #fff;
@@ -392,10 +391,4 @@ button {
     margin-left: 10px;
     margin-right: 10px;
     margin-top:10px;
-}
-  
-  
-#stock-button {
-    margin-right: auto;
-    margin-left: auto;
 }
