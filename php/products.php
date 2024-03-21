@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="../js/products.js"></script>
     </head>
 
 
@@ -85,12 +86,29 @@
 
                             foreach ($produits[$_GET['cat']] as $voiture) {
                                 echo "<tr>";
-                                echo "<td><img src='../img/".$voiture[0]."'></td>";
+                                echo "<td>
+                                        <img src='../img/".$voiture[0]."'>
+                                    </td>";
                                 echo "<td>".$voiture[1]."</td>";
                                 echo "<td>".$voiture[2]."</td>";
                                 echo "<td>".$voiture[3]."€</td>";
                                 echo "<td class='invisible'>".$voiture[4]."</td>";
-                                echo '<td><div class="commande"><button onclick="retrait_compteur('.$voiture[1].')">-</button><p id="'.$voiture[1].'">0</p><button onclick="ajout_compteur('.$voiture[1].')">+</button></div></br><button onclick="ajout_panier('.$voiture[1].')">Ajouter au panier</button></td>';
+                                echo '<td>
+                                        <div class="commande">
+                                            <button onclick="retrait_compteur('.$voiture[1].')">
+                                                <i class="fas fa-minus-circle"></i>
+                                            </button>
+
+                                            <p id="'.$voiture[1].'">0</p>
+                                            
+                                            <button onclick="ajout_compteur('.$voiture[1].')">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </button>
+                                        </div>
+                                        </br>
+                                        
+                                        <button onclick="ajout_panier('.$voiture[1].')">Ajouter au panier</button>
+                                    </td>';
                                 echo "</tr>";
                             }
                         ?>
@@ -99,7 +117,9 @@
 
                 </br>
 
-                <button id="stock-button" onclick="affichage_stock()">Afficher stock</button>
+                <div class="center">
+                    <button onclick="affichage_stock()">Afficher stock</button>
+                </div>
 
                 </br></br></br>
 

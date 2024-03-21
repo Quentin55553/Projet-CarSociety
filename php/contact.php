@@ -138,7 +138,7 @@
                     </div>
 
                     <div class="center">
-                        <button type="submit">Envoyer</button>
+                        <button class="red-button" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>

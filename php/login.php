@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="center">
-                        <button type="submit">Se connecter</button>
+                        <button class="red-button" type="submit">Se connecter</button>
                     </div>
                 </form>
             </div>

@@ -44,8 +44,28 @@
             <div class="form-container">
                 <form id="register-form" action="register.php" method="post">
                     <div class="input-group">
+                        <label for="register-lastname">Nom</label>
+                        <input type="text" id="register-lastname" name="lastname" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="register-firstname">Prénom</label>
+                        <input type="text" id="register-firstname" name="firstname" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="register-birth">Date de naissance</label>
+                        <input type="date" id="register-birth" name="birth" max="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+
+                    <div class="input-group">
                         <label for="register-email">Email</label>
                         <input type="email" id="register-email" name="email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="register-tel">Numéro de téléphone</label>
+                        <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" required>
                     </div>
 
                     <div class="input-group">
@@ -59,8 +79,10 @@
                     </div>
 
                     <div class="center">
-                        <button type="submit">S'inscrire</button>
+                        <button class="red-button" type="submit">S'inscrire</button>
                     </div>
+
+                    <br><br>
                 </form>
             </div>
         </div>
