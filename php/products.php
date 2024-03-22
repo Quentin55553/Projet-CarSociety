@@ -118,7 +118,7 @@
                 </br>
 
                 <div class="center">
-                    <button onclick="affichage_stock()">Afficher stock</button>
+                    <button id="stock-button" onclick="affichage_stock()">Afficher stock</button>
                 </div>
 
                 </br></br></br>
