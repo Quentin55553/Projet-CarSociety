@@ -1,42 +1,55 @@
 <?php
     session_start();
 
+    // Vérifie si une session avec l'email est déjà active
+    if (isset($_SESSION['email'])) {
+        // Si une session est active, affiche le lien de déconnexion
+        $options = '<a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+
+    } else {
+        // Si aucune session n'est active, affiche les liens de connexion et de création de compte
+        $options = '<a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
+                    <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
+    }
+
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $date_contact = $_POST['date_contact'];
-        $nom = strtoupper($_POST['nom']);
-        $prenom = ucfirst(strtolower($_POST['prenom']));
+        $contact_date = $_POST['contact_date'];
+        $lastname = strtoupper($_POST['lastname']);
+        $firstname = ucfirst(strtolower($_POST['firstname']));
         $email = $_POST['email'];
-        $genre = $_POST['genre'];
-        $date_naissance = $_POST['date_naissance'];
-        $fonction = $_POST['fonction'];
-        $sujet = $_POST['sujet'];
-        $contenu = $_POST['contenu'];
+        $gender = $_POST['gender'];
+        $birthdate = $_POST['birthdate'];
+        $job = $_POST['job'];
+        $object = $_POST['object'];
+        $content = $_POST['content'];
 
 
         // Envoi de l'email de validation à l'adresse email indiquée
         $receiver = "serviceclientcarsociety@gmail.com";
-        $subject = "Nouvelle demande de contact de $prenom $nom";
+        $subject = "Nouvelle demande de contact de $firstname $lastname";
 
         $body = file_get_contents('../mail_text.txt');
 
-        $body = str_replace('{CONTACT_DATE}', $date_contact, $body);
-        $body = str_replace('{LASTNAME}', $nom, $body);
-        $body = str_replace('{FIRSTNAME}', $prenom, $body);
+        $body = str_replace('{CONTACT_DATE}', $contact_date, $body);
+        $body = str_replace('{LASTNAME}', $lastname, $body);
+        $body = str_replace('{FIRSTNAME}', $firstname, $body);
 
         $body = str_replace('{EMAIL}', $email, $body);
-        $body = str_replace('{GENDER}', $genre, $body);
-        $body = str_replace('{BIRTHDATE}', $date_naissance, $body);
-        $body = str_replace('{JOB}', $fonction, $body);
-        $body = str_replace('{OBJECT}', $sujet, $body);
-        $body = str_replace('{CONTENT}', $contenu, $body);
+        $body = str_replace('{GENDER}', $gender, $body);
+        $body = str_replace('{BIRTHDATE}', $birthdate, $body);
+        $body = str_replace('{JOB}', $job, $body);
+        $body = str_replace('{OBJECT}', $object, $body);
+        $body = str_replace('{CONTENT}', $content, $body);
     
         $sender = "From: CarSociety";
 
         // Envoi de l'email
         if (mail($receiver, $subject, $body, $sender)) {
-            echo "Email envoyé avec succès à : $receiver";
+            echo "<script>alert(\"Email envoyé avec succès à : $receiver\")</script>";
+
         } else {
-            echo "Echec lors de l'envoi du mail !";
+            echo "<script>alert(\"Echec lors de l'envoi du mail !\")</script>";
         }
 
         exit();
@@ -63,17 +76,16 @@
         <a id="goUpButton"></a>
 
         <div class="header">
-            <img src="../img/CarSocietyLogo.png">
+            <img src="../img/CarSocietyBanner.png">
 
             <div class="header-right">
-                <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
-                <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
+                <?php echo $options; ?>
             </div>
         </div>
 
         <div class="menu">
             <div class="menu-header">MENU</div>
-            <a href="../index.html"><i class="fas fa-home"></i> Accueil</a>
+            <a href="../index.php"><i class="fas fa-home"></i> Accueil</a>
             <a class="active" href="contact.php"><i class="fas fa-envelope"></i> Contact</a>
 
             <hr>
@@ -90,18 +102,18 @@
             <div class="form-container">
                 <form action="contact.php" method="post">
                     <div class="input-group">
-                        <label for="date_contact">Date de contact</label>
-                        <input type="date" id="date_contact" name="date_contact" min="<?php echo date('Y-m-d'); ?>" required>
+                        <label for="contact_date">Date de contact</label>
+                        <input type="date" id="contact_date" name="contact_date" min="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                 
                     <div class="input-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" id="nom" name="nom" required>
+                        <label for="lastname">Nom</label>
+                        <input type="text" id="lastname" name="lastname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="prenom">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" required>
+                        <label for="firstname">Prénom</label>
+                        <input type="text" id="firstname" name="firstname" required>
                     </div>
 
                     <div class="input-group">
@@ -110,31 +122,31 @@
                     </div>
                     
                     <label>Genre</label><br>
-                    <input type="radio" id="homme" name="genre" value="Homme" required>
-                    <label for="homme"><i class="fas fa-male" style="color: #3a8aceff;"></i> Homme</label>
-                    <input type="radio" id="femme" name="genre" value="Femme" class="gender-option" required>
-                    <label for="femme"><i class="fas fa-female" style="color: #e42d8cff;"></i> Femme</label><br>
+                    <input type="radio" id="man" name="gender" value="Homme" required>
+                    <label for="man"><i class="fas fa-male" style="color: #3a8aceff;"></i> Homme</label>
+                    <input type="radio" id="woman" name="gender" value="Femme" class="gender-option" required>
+                    <label for="woman"><i class="fas fa-female" style="color: #e42d8cff;"></i> Femme</label><br>
 
                     <div class="input-group">
-                        <label for="date_naissance">Date de naissance</label>
-                        <input type="date" id="date_naissance" name="date_naissance" max="<?php echo date('Y-m-d'); ?>" required>
+                        <label for="birthdate">Date de naissance</label>
+                        <input type="date" id="birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="fonction">Fonction</label>
-                        <select name="fonction" id="fonction" required>
+                        <label for="job">Fonction</label>
+                        <select name="job" id="job" required>
                             <option value="A déterminer">A déterminer</option>
                         </select>
                     </div>
 
                     <div class="input-group">
-                        <label for="sujet">Sujet</label>
-                        <input type="text" id="sujet" name="sujet" maxlength="35" required>
+                        <label for="object">Sujet</label>
+                        <input type="text" id="object" name="object" maxlength="35" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="contenu">Contenu</label>
-                        <textarea id="contenu" name="contenu" rows="4" cols="50" maxlength="500" placeholder="Contenu de votre demande" required></textarea>
+                        <label for="content">Contenu</label>
+                        <textarea id="content" name="content" rows="4" cols="50" maxlength="500" placeholder="Contenu de votre demande" required></textarea>
                     </div>
 
                     <div class="center">

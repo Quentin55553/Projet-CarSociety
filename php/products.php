@@ -1,11 +1,16 @@
 <?php
-session_start();
-require 'varSession.inc.php';
+    session_start();
 
-function ajout_panier($reference,$panier){
-    
-}
+    // Vérifie si une session avec l'email est déjà active
+    if (isset($_SESSION['email'])) {
+        // Si une session est active, affiche le lien de déconnexion
+        $options = '<a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
+    } else {
+        // Si aucune session n'est active, affiche les liens de connexion et de création de compte
+        $options = '<a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
+                    <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
+    }
 ?>
 
 
@@ -29,17 +34,16 @@ function ajout_panier($reference,$panier){
         <a id="goUpButton"></a>
 
         <div class="header">
-            <img src="../img/CarSocietyLogo.png">
+            <img src="../img/CarSocietyBanner.png">
 
             <div class="header-right">
-                <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
-                <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
+                <?php echo $options; ?>
             </div>
         </div>
 
         <div class="menu">
             <div class="menu-header">MENU</div>
-            <a href="../index.html"><i class="fas fa-home"></i> Accueil</a>
+            <a href="../index.php"><i class="fas fa-home"></i> Accueil</a>
             <a href="contact.php"><i class="fas fa-envelope"></i> Contact</a>
 
             <hr>
@@ -93,6 +97,7 @@ function ajout_panier($reference,$panier){
 
                     <tbody>
                         <?php
+                            require 'varSession.inc.php';
 
                             foreach ($produits[$_GET['cat']] as $voiture) {
                                 echo "<tr>";
@@ -125,9 +130,10 @@ function ajout_panier($reference,$panier){
                     </tbody>
                 </table>
 
+                </br>
 
                 <div class="center">
-                    <button class="red-button" id="stock-button" onclick="affichage_stock()">Afficher stock</button>
+                    <button id="stock-button" onclick="affichage_stock()">Afficher stock</button>
                 </div>
 
                 </br></br></br>
@@ -139,7 +145,7 @@ function ajout_panier($reference,$panier){
                     <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
                 <?php endif; ?>
         </div>
-        </br>
+
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>

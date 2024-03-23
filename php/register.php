@@ -1,3 +1,76 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION['email'])) {
+        // Si l'utilisateur est déjà connecté, on le redirige vers la page de profil
+        header("Location: ../index.php");
+        exit;
+    }
+
+
+    // On vérifie si le formulaire a été soumis
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // On récupère les données du formulaire
+        $lastname = strtoupper($_POST['lastname']);
+        $firstname = ucfirst(strtolower($_POST['firstname']));
+        $birth = $_POST['birth'];
+        $email = $_POST['email'];
+        $tel = $_POST['tel'];
+        $password = $_POST['password'];
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        if (!file_exists('../bdd')) {
+            // On crée le répertoire 'bdd' s'il n'existe pas
+            mkdir('../bdd', 0777, true);
+        }
+
+        $usersFile = '../bdd/users.json';
+
+        if (file_exists($usersFile)) {
+            // Si le fichier users.json existe, on charge son contenu
+            $usersData = file_get_contents($usersFile);
+            $users = json_decode($usersData, true);
+
+        } else {
+            // On crée un tableau vide si le fichier n'existe pas
+            $users = array();
+        }
+
+        // Si l'email est déjà utilisé, on affiche un message d'erreur
+        if (isset($users[$email])) {
+            echo "<script>alert(\"Cet email est déjà utilisé. Veuillez réessayer.\")</script>";
+        
+        } else {
+            // Nom du fichier JSON pour l'utilisateur
+            $userJsonFile = str_replace("@", "_", $email) . '.json';
+            // Chemin d'accès au fichier JSON pour l'utilisateur
+            $userJsonPath = '../bdd/' . $userJsonFile;
+
+            $userData = array(
+                'lastname' => $lastname,
+                'firstname' => $firstname,
+                'birth' => $birth,
+                'email' => $email,
+                'tel' => $tel,
+                'password' => $passwordHash
+            );
+
+             // Ajoute l'association email / chemin d'accès au fichier JSON dans le tableau des utilisateurs
+            $users[$email] = $userJsonPath;
+
+            // Enregistre le tableau des utilisateurs dans le fichier users.json
+            file_put_contents($usersFile, json_encode($users));
+            // Enregistre les données de l'utilisateur dans le fichier JSON correspondant
+            file_put_contents($userJsonPath, json_encode($userData));
+
+            $_SESSION['email'] = $email;
+
+            header("Location: ../index.php");
+        }
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -17,7 +90,7 @@
         <a id="goUpButton"></a>
 
         <div class="header">
-            <img src="../img/CarSocietyLogo.png">
+            <img src="../img/CarSocietyBanner.png">
 
             <div class="header-right">
                 <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
@@ -27,7 +100,7 @@
 
         <div class="menu">
             <div class="menu-header">MENU</div>
-            <a href="../index.html"><i class="fas fa-home"></i> Accueil</a>
+            <a href="../index.php"><i class="fas fa-home"></i> Accueil</a>
             <a href="contact.php"><i class="fas fa-envelope"></i> Contact</a>
 
             <hr>
@@ -71,11 +144,6 @@
                     <div class="input-group">
                         <label for="register-password">Mot de passe</label>
                         <input type="password" id="register-password" name="password" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="register-password">Confirmer mot de passe</label>
-                        <input type="password" id="register-password1" name="password_confirm" required>
                     </div>
 
                     <div class="center">
