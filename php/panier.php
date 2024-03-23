@@ -51,7 +51,7 @@ function afficher_panier($panier){
         echo "<tr>";
         echo "<td>".$reference."</td>";
         echo "<td>".get_nom($reference)."</td>";
-        echo "<td>".get_prix($reference)."</td>";
+        echo "<td>".get_prix($reference)."€</td>";
         echo "<td>x".$produit[1]."</td>";
         echo "</tr>";
     }
@@ -65,7 +65,7 @@ function afficher_panier($panier){
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CarSociety - Produits</title>
+        <title>CarSociety - Panier</title>
         <link rel="icon" href="../img/favicon.ico">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -111,7 +111,7 @@ function afficher_panier($panier){
                     afficher_panier($_SESSION['panier']);
                     echo "<p> Prix de la commande : ";
                     echo prix_total($_SESSION['panier']);
-                    echo "$</p>";
+                    echo "€</p>";
                     
                     echo "<div class='center'>
                     <button class='red-button'>Commander</button></div>";
