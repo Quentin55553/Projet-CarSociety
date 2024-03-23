@@ -136,6 +136,48 @@ h1.main-title {
     align-items: center; 
 }
 
+.text{
+    display:flex;
+    align-items: center;
+}
+
+.img-text-1{
+    border:#4b4b4b 3px solid;
+    border-radius: 30px;
+    max-width: 50%;
+    flex: 1;
+    margin: 20px;
+}
+
+.img-text-2{
+    border:#000 3px solid;
+    max-width: 300px;
+    max-height: 350px;
+    flex: 1;
+    margin: 20px;
+}
+
+.img-text-3{
+    max-width: 150px;
+    max-height: 150px;
+    flex: 1;
+    margin: 20px;
+}
+
+.img-text-4{
+    border:#000 3px solid;
+    border-radius: 300px;
+    max-width: 40%;
+    flex: 1;
+    margin: 20px;
+}
+
+.text-text{
+    width:50%;
+    flex: 1;
+    margin: 10px;
+}
+
 .footer {
     position: relative;
     margin-bottom: 0px;
