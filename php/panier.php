@@ -79,11 +79,10 @@ function afficher_panier($panier){
         <a id="goUpButton"></a>
 
         <div class="header">
-            <img src="../img/CarSocietyLogo.png">
+            <img src="../img/CarSocietyBanner.png">
 
             <div class="header-right">
-                <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
-                <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
+                <?php echo $options; ?>
             </div>
         </div>
 

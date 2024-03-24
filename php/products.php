@@ -133,7 +133,7 @@
                 </br>
 
                 <div class="center">
-                    <button id="stock-button" onclick="affichage_stock()">Afficher stock</button>
+                    <button class="red-button" id="stock-button" onclick="affichage_stock()">Afficher stock</button>
                 </div>
 
                 </br></br></br>
@@ -145,7 +145,7 @@
                     <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
                 <?php endif; ?>
         </div>
-
+        </br>
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
