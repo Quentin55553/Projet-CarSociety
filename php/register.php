@@ -41,27 +41,19 @@
             echo "<script>alert(\"Cet email est déjà utilisé. Veuillez réessayer.\")</script>";
         
         } else {
-            // Nom du fichier JSON pour l'utilisateur
-            $userJsonFile = str_replace("@", "_", $email) . '.json';
-            // Chemin d'accès au fichier JSON pour l'utilisateur
-            $userJsonPath = '../bdd/' . $userJsonFile;
-
             $userData = array(
                 'lastname' => $lastname,
                 'firstname' => $firstname,
                 'birth' => $birth,
-                'email' => $email,
                 'tel' => $tel,
                 'password' => $passwordHash
             );
 
-             // Ajoute l'association email / chemin d'accès au fichier JSON dans le tableau des utilisateurs
-            $users[$email] = $userJsonPath;
+            // Ajoute les données de l'utilisateur dans le tableau
+            $users[$email] = $userData;
 
-            // Enregistre le tableau des utilisateurs dans le fichier users.json
-            file_put_contents($usersFile, json_encode($users));
-            // Enregistre les données de l'utilisateur dans le fichier JSON correspondant
-            file_put_contents($userJsonPath, json_encode($userData));
+            // Enregistre les données de l'utilisateur dans le fichier users.json
+            file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
 
             $_SESSION['email'] = $email;
 

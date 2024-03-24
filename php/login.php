@@ -9,21 +9,22 @@
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $file = '../bdd/users.json';
+        $usersFile = '../bdd/users.json';
 
-        if (!file_exists($file)) {
+        if (!file_exists($usersFile)) {
             // Si le fichier des utilisateurs n'existe pas, on affiche un message d'erreur
             echo "<script>alert(\"L'email ou le mot de passe est incorrect.\")</script>";
 
         } else {
-            $data = file_get_contents($file);
-            $users = json_decode($data, true);
+            $usersData = file_get_contents($usersFile);
+            $users = json_decode($usersData, true);
+
             $email = $_POST['email'];
             $password = $_POST['password'];
             
             // Si l'email existe dans la liste des utilisateurs
-            if (array_key_exists($email, $users)) {
-                $userData = json_decode(file_get_contents($users[$email]), true);
+            if (isset($users[$email])) {
+                $userData = $users[$email];
                 $passwordHash = $userData['password'];
                 
                 // Si le mot de passe est correct, on connecte l'utilisateur
