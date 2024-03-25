@@ -627,3 +627,25 @@ a.link {
 a.link:hover {
     background-color: rgba(112, 113, 118, 0.2);
 }
+
+.required-field {
+    justify-content: flex-end;
+}
+
+.required-field p {
+    margin: 0;
+}
+
+.required-field-star {
+    color: rgb(228, 5, 5);
+    font-weight: bold;
+    padding-right: 5px;
+    font-size: 20px;
+}
+
+.required::after {
+    content: "*";
+    color: rgb(228, 5, 5);
+    font-weight: bold;
+    padding-left: 5px;
+}
