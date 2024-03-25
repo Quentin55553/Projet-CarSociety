@@ -1,10 +1,37 @@
 <?php
     session_start();
 
+    if (isset($_SESSION['just_connected'])) {
+        $message = "<div class='info-message'>
+                        <div class='wrapper-success'>
+                            <div class='card'>
+                                <div class='icon'><i class='fas fa-check-circle'></i></div>
+                                <div class='subject'>
+                                    <h3>Bonjour "; 
+                                    
+        $message .= $_SESSION['firstname']; 
+        $message .= "</h3>
+                        <p>Vous êtes désormais connecté à votre compte.</p>
+                    </div>
+
+                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                </div>
+            </div>
+            <br>
+        </div>";
+
+        unset($_SESSION['just_connected']);
+
+    } else {
+        $message = "";
+    }
+
     // Vérifie si une session avec l'email est déjà active
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
-        $options = '<a class="active" href="php/logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+        $options = '<a href="php/edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
+                    <a href="php/basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a class="active" href="php/logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
     } else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
@@ -24,8 +51,8 @@
         <link rel="icon" href="img/favicon.ico">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
 
 
@@ -55,6 +82,10 @@
 
         <div class="content">
             <h1 class="main-title">Accueil</h1>
+
+            <?php
+                echo $message;
+            ?>
 
             <div class="text">
                 <div class="text-text">
@@ -103,7 +134,7 @@
             </div>  
         </div>
 
-        </br>
+        <br><br>
 
         <footer class="footer">
             <div class="legal-informations">
@@ -131,5 +162,6 @@
         </footer>
 
         <script src="js/goUpButton.js"></script>
+        <script src="js/closeMessage.js"></script>
     </body>
 </html>
