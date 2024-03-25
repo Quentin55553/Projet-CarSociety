@@ -225,29 +225,34 @@
             ?>
             
             <div class="form-container">
+                <div class="text required-field">
+                    <p class="required-field-star">*</p> 
+                    <p>champs obligatoires</p>
+                </div>
+
                 <form action="edit_profile.php" method="post">
                     <div class="input-group">
-                        <label for="lastname">Nom</label>
+                        <label for="lastname" class="required">Nom</label>
                         <input type="text" id="lastname" name="lastname" value="<?php echo $userData['lastname']; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="firstname">Prénom</label>
+                        <label for="firstname" class="required">Prénom</label>
                         <input type="text" id="firstname" name="firstname" value="<?php echo $userData['firstname']; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="birthdate">Date de naissance</label>
+                        <label for="birthdate" class="required">Date de naissance</label>
                         <input type="date" id="birthdate" name="birthdate" value="<?php echo $userData['birthdate']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email">Email</label>
+                        <label for="email" class="required">Email</label>
                         <input type="email" id="email" name="email" placeholder="email@exemple.com" value="<?php echo $email_session; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-tel">Numéro de téléphone</label>
+                        <label for="register-tel" class="required">Numéro de téléphone</label>
                         <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" value="<?php echo $userData['tel']; ?>" required>
                     </div>
 

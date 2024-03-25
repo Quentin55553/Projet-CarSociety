@@ -156,34 +156,39 @@
             ?>
 
             <div class="form-container">
+                <div class="text required-field">
+                    <p class="required-field-star">*</p> 
+                    <p>champs obligatoires</p>
+                </div>
+
                 <form id="register-form" action="register.php" method="post">
                     <div class="input-group">
-                        <label for="register-lastname">Nom</label>
+                        <label for="register-lastname" class="required">Nom</label>
                         <input type="text" id="register-lastname" name="lastname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-firstname">Prénom</label>
+                        <label for="register-firstname" class="required">Prénom</label>
                         <input type="text" id="register-firstname" name="firstname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-birthdate">Date de naissance</label>
+                        <label for="register-birthdate" class="required">Date de naissance</label>
                         <input type="date" id="register-birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-email">Email</label>
+                        <label for="register-email" class="required">Email</label>
                         <input type="email" id="register-email" name="email" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-tel">Numéro de téléphone</label>
+                        <label for="register-tel" class="required">Numéro de téléphone</label>
                         <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-password">Mot de passe</label>
+                        <label for="register-password" class="required">Mot de passe</label>
                         <input type="password" id="register-password" name="password" required>
                     </div>
 

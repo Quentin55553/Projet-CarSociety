@@ -143,56 +143,63 @@
                         <div class="icon-times"><i class="fas fa-times"></i></div>
                     </div>
                 </div>
+                <br>
             </div>
             
             <div class="form-container">
+
+                <div class="text required-field">
+                    <p class="required-field-star">*</p> 
+                    <p>champs obligatoires</p>
+                </div>
+
                 <form action="contact.php" method="post">
                     <div class="input-group">
-                        <label for="contact_date">Date de contact</label>
+                        <label for="contact_date" class="required">Date de contact</label>
                         <input type="date" id="contact_date" name="contact_date" min="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                 
                     <div class="input-group">
-                        <label for="lastname">Nom</label>
+                        <label for="lastname" class="required">Nom</label>
                         <input type="text" id="lastname" name="lastname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="firstname">Prénom</label>
+                        <label for="firstname" class="required">Prénom</label>
                         <input type="text" id="firstname" name="firstname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email">Email</label>
+                        <label for="email" class="required">Email</label>
                         <input type="email" id="email" name="email" placeholder="email@exemple.com" required>
                     </div>
                     
-                    <label>Genre</label><br>
+                    <label class="required">Genre</label><br>
                     <input type="radio" id="man" name="gender" value="Homme" required>
                     <label for="man"><i class="fas fa-male" style="color: #3a8aceff;"></i> Homme</label>
                     <input type="radio" id="woman" name="gender" value="Femme" class="gender-option" required>
                     <label for="woman"><i class="fas fa-female" style="color: #e42d8cff;"></i> Femme</label><br>
 
                     <div class="input-group">
-                        <label for="birthdate">Date de naissance</label>
+                        <label for="birthdate" class="required">Date de naissance</label>
                         <input type="date" id="birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="job">Fonction</label>
+                        <label for="job" class="required">Fonction</label>
                         <select name="job" id="job" required>
                             <option value="A déterminer">A déterminer</option>
                         </select>
                     </div>
 
                     <div class="input-group">
-                        <label for="object">Sujet</label>
+                        <label for="object" class="required">Sujet</label>
                         <input type="text" id="object" name="object" maxlength="35" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="content">Contenu</label>
-                        <textarea id="content" name="content" rows="4" cols="50" maxlength="500" placeholder="Contenu de votre demande" required></textarea>
+                        <label for="content" class="required">Contenu</label>
+                        <textarea id="content" name="content" rows="4" cols="50" minlength="10" maxlength="500" placeholder="Contenu de votre demande" required></textarea>
                     </div>
 
                     <div class="center">
