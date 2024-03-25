@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  <Sportscars>
+    <car1>
+      <img>sportscar1.jpg</img>
+      <reference>SP1001</reference>
+      <stock>4</stock>
+      <nom>Inferno GT</nom>
+      <prix>750000</prix>
+    </car1>
+    <car2>
+      <img>sportscar2.jpg</img>
+      <reference>SP1002</reference>
+      <stock>10</stock>
+      <nom>Nova Fury</nom>
+      <prix>600000</prix>
+    </car2>
+    <car3>
+      <img>sportscar3.jpg</img>
+      <reference>SP1003</reference>
+      <stock>5</stock>
+      <nom>Mirage GT</nom>
+      <prix>978000</prix>
+    </car3>
+    <car4>
+      <img>sportscar4.jpg</img>
+      <reference>SP1004</reference>
+      <stock>2</stock>
+      <nom>Viper Turbo</nom>
+      <prix>340000</prix>
+    </car4>
+    <car5>
+      <img>sportscar5.jpg</img>
+      <reference>SP1005</reference>
+      <stock>17</stock>
+      <nom>Thunderbolt X</nom>
+      <prix>175000</prix>
+    </car5>
+  </Sportscars>
+  <Sedans>
+    <car1>
+      <img>sedan1.jpg</img>
+      <reference>SE1001</reference>
+      <stock>35</stock>
+      <nom>Serenity Sedan</nom>
+      <prix>70000</prix>
+    </car1>
+    <car2>
+      <img>sedan2.jpg</img>
+      <reference>SE1002</reference>
+      <stock>100</stock>
+      <nom>MotorX500</nom>
+      <prix>55000</prix>
+    </car2>
+    <car3>
+      <img>sedan3.jpg</img>
+      <reference>SE1003</reference>
+      <stock>53</stock>
+      <nom>Vanguard Z</nom>
+      <prix>66000</prix>
+    </car3>
+    <car4>
+      <img>sedan4.jpg</img>
+      <reference>SE1004</reference>
+      <stock>9</stock>
+      <nom>Aria 12</nom>
+      <prix>110000</prix>
+    </car4>
+    <car5>
+      <img>sedan5.jpg</img>
+      <reference>SE1005</reference>
+      <stock>28</stock>
+      <nom>Pearl 2V300</nom>
+      <prix>43000</prix>
+    </car5>
+  </Sedans>
+  <Urbancars>
+    <car1>
+      <img>urbancar1.jpg</img>
+      <reference>UR1001</reference>
+      <stock>11</stock>
+      <nom>Urbanite 2000</nom>
+      <prix>10000</prix>
+    </car1>
+    <car2>
+      <img>urbancar2.jpg</img>
+      <reference>UR1002</reference>
+      <stock>125</stock>
+      <nom>CityPulse 800</nom>
+      <prix>17000</prix>
+    </car2>
+    <car3>
+      <img>urbancar3.jpg</img>
+      <reference>UR1003</reference>
+      <stock>76</stock>
+      <nom>Street Surge</nom>
+      <prix>45000</prix>
+    </car3>
+    <car4>
+      <img>urbancar4.jpg</img>
+      <reference>UR1004</reference>
+      <stock>20</stock>
+      <nom>Urban Rover</nom>
+      <prix>23000</prix>
+    </car4>
+    <car5>
+      <img>urbancar5.jpg</img>
+      <reference>UR1005</reference>
+      <stock>22</stock>
+      <nom>Midnight Cruiser</nom>
+      <prix>30000</prix>
+    </car5>
+  </Urbancars>
+</products>
+

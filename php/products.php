@@ -101,7 +101,7 @@
                         <?php
                             require 'varSession.inc.php';
 
-                            foreach ($produits[$_GET['cat']] as $voiture) {
+                            foreach ($products[$_GET['cat']] as $voiture) {
                                 echo "<tr>";
                                 echo "<td>
                                         <img src='../img/".$voiture[0]."'>

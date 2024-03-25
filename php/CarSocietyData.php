@@ -62,11 +62,38 @@ function maj_db_users(){
 ////////////////////////////////
 ////// MISE A JOUR Products/////
 ////////////////////////////////
+
 /*
 Initialisation des valeurs de la base de données sql à partir du .xml
 */
-function init_db_products(){
-
+function xml_to_array_products(){
+    libxml_use_internal_errors(true);
+    $xml=simplexml_load_file("../bdd/products.xml");
+    if ($xml === false) {
+        echo "Failed loading XML: ";
+        /*
+        foreach(libxml_get_errors() as $error) {
+          echo "<br>", $error->message;
+        }
+        */
+    } 
+    else{
+        $products=[];
+        foreach ($xml->children() as $cat){
+            $products[$cat->getName()]=[];
+            $i=0;
+            foreach($cat->children() as $car){
+                $tab=["Image","Référence","Nom","Prix","Stock"];
+                $tab[0]=$car->img->__toString();
+                $tab[1]=$car->reference->__toString();
+                $tab[2]=$car->nom->__toString();
+                $tab[3]=(int) $car->prix;
+                $tab[4]=(int) $car->stock;
+                $products[$cat->getName()][] = $tab;
+            }
+        }
+        return $products;
+    }
 }
 
 /*
