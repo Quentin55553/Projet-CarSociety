@@ -4,7 +4,9 @@
     // Vérifie si une session avec l'email est déjà active
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
-        $options = '<a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+        $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
+                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
     } else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
@@ -24,8 +26,8 @@
         <link rel="icon" href="../img/favicon.ico">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../js/products.js"></script>
     </head>
 
@@ -130,13 +132,11 @@
                     </tbody>
                 </table>
 
-                </br>
-
                 <div class="center">
                     <button class="red-button" id="stock-button" onclick="affichage_stock()">Afficher stock</button>
                 </div>
 
-                </br></br></br>
+                </br></br>
 
                 <?php else: ?>
                     <!-- Style à améliorer (menu qui apparaît lorsqu'un utilisateur est sur la page products.php (sans valeur de $_GET['cat'])) -->

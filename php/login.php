@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $message = "";
+
     if (isset($_SESSION['email'])) {
         // Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
         header("Location: ../index.php");
@@ -13,7 +15,19 @@
 
         if (!file_exists($usersFile)) {
             // Si le fichier des utilisateurs n'existe pas, on affiche un message d'erreur
-            echo "<script>alert(\"L'email ou le mot de passe est incorrect.\")</script>";
+            $message = "<div class='info-message'>
+                            <div class='wrapper-warning'>
+                                <div class='card'>
+                                    <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                    <div class='subject'>
+                                        <h3>Attention</h3>
+                                        <p>L'email ou le mot de passe est incorrect.</p>
+                                    </div>
+
+                                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                                </div>
+                            </div>
+                        </div>";
 
         } else {
             $usersData = file_get_contents($usersFile);
@@ -29,17 +43,50 @@
                 
                 // Si le mot de passe est correct, on connecte l'utilisateur
                 if (password_verify($password, $passwordHash)) {
+                    // Mise à jour des informations de session
                     $_SESSION['email'] = $email;
+                    $_SESSION['client_number'] = $userData['client_number'];
+                    $_SESSION['lastname'] = $userData['lastname'];
+                    $_SESSION['firstname'] = $userData['firstname'];
+                    $_SESSION['birthdate'] = $userData['birthdate'];
+                    $_SESSION['tel'] = $userData['tel'];
+
+                    $_SESSION['just_connected'] = true;
+
                     header("Location: ../index.php");
 
                 } else {
                     // Si le mot de passe est incorrect, on affiche un message d'erreur
-                    echo "<script>alert(\"L'email ou le mot de passe est incorrect.\")</script>";
+                    $message = "<div class='info-message'>
+                                    <div class='wrapper-warning'>
+                                        <div class='card'>
+                                            <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                            <div class='subject'>
+                                                <h3>Attention</h3>
+                                                <p>L'email ou le mot de passe est incorrect.</p>
+                                            </div>
+
+                                            <div class='icon-times'><i class='fas fa-times'></i></div>
+                                        </div>
+                                    </div>
+                                </div>";
                 }
 
             } else {
                 // Si l'email n'existe pas dans la liste des utilisateurs, on affiche un message d'erreur
-                echo "<script>alert(\"L'email ou le mot de passe est incorrect.\")</script>";
+                $message = "<div class='info-message'>
+                                <div class='wrapper-warning'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Attention</h3>
+                                            <p>L'email ou le mot de passe est incorrect.</p>
+                                        </div>
+
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
+                                    </div>
+                                </div>
+                            </div>";
             }
         }
     }
@@ -56,8 +103,8 @@
         <link rel="icon" href="../img/favicon.ico">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
 
 
@@ -68,8 +115,8 @@
             <img src="../img/CarSocietyBanner.png">
 
             <div class="header-right">
-                <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
-                <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
+                <a class="in-menu" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
+                <a class="active" href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
             </div>
         </div>
 
@@ -89,22 +136,28 @@
         <div class="content">
             <h1 class="main-title">Se connecter</h1>
 
+            <?php
+                echo $message;
+            ?>
+
             <div class="form-container">
                 <form id="login-form" action="login.php" method="post">
                     <div class="input-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" name="email" required>
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-password">Mot de passe</label>
-                        <input type="password" id="register-password" name="password" required>
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" name="password" required>
                     </div>
 
                     <div class="center">
                         <button class="red-button" type="submit">Se connecter</button>
                     </div>
                 </form>
+
+                <p class="text">Pas encore inscrit ?<a href="register.php" class="link">S'inscrire</a></p>
             </div>
         </div>
 
@@ -134,5 +187,6 @@
         </footer>
 
         <script src="../js/goUpButton.js"></script>
+        <script src="../js/closeMessage.js"></script>
     </body>
 </html>

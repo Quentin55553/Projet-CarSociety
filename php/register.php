@@ -1,5 +1,27 @@
 <?php
+    // Fonction pour générer un numéro de client unique
+    function generateUniqueClientNumber($users) {
+        do {
+            // Génère un numéro de client à 10 chiffres aléatoirement
+            $num_client = mt_rand(1000000000, 9999999999);
+            // Vérifie si le numéro de client généré est déjà utilisé
+            $exists = false;
+            
+            foreach ($users as $user) {
+                if ($user['num_client'] == $num_client) {
+                    $exists = true;
+                    break;
+                }
+            }
+        } while ($exists);
+
+        return $num_client;
+    }
+
+
     session_start();
+
+    $message = "";
 
     if (isset($_SESSION['email'])) {
         // Si l'utilisateur est déjà connecté, on le redirige vers la page de profil
@@ -13,7 +35,7 @@
         // On récupère les données du formulaire
         $lastname = strtoupper($_POST['lastname']);
         $firstname = ucfirst(strtolower($_POST['firstname']));
-        $birth = $_POST['birth'];
+        $birthdate = $_POST['birthdate'];
         $email = $_POST['email'];
         $tel = $_POST['tel'];
         $password = $_POST['password'];
@@ -38,13 +60,28 @@
 
         // Si l'email est déjà utilisé, on affiche un message d'erreur
         if (isset($users[$email])) {
-            echo "<script>alert(\"Cet email est déjà utilisé. Veuillez réessayer.\")</script>";
+            $message = "<div class='info-message'>
+                            <div class='wrapper-warning'>
+                                <div class='card'>
+                                    <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                    <div class='subject'>
+                                        <h3>Attention</h3>
+                                        <p>Cet email est déjà utilisé. Veuillez réessayer.</p>
+                                    </div>
+
+                                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                                </div>
+                            </div>
+                        </div>";
         
         } else {
+            $client_num = generateUniqueClientNumber($users);
+
             $userData = array(
+                'client_number' => $client_num,
                 'lastname' => $lastname,
                 'firstname' => $firstname,
-                'birth' => $birth,
+                'birthdate' => $birthdate,
                 'tel' => $tel,
                 'password' => $passwordHash
             );
@@ -55,7 +92,15 @@
             // Enregistre les données de l'utilisateur dans le fichier users.json
             file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
 
+            // Mise à jour des informations de session
             $_SESSION['email'] = $email;
+            $_SESSION['client_number'] = $client_num;
+            $_SESSION['lastname'] = $lastname;
+            $_SESSION['firstname'] = $firstname;
+            $_SESSION['birthdate'] = $birthdate;
+            $_SESSION['tel'] = $tel;
+
+            $_SESSION['just_connected'] = true;
 
             header("Location: ../index.php");
         }
@@ -73,8 +118,8 @@
         <link rel="icon" href="../img/favicon.ico">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
 
 
@@ -86,7 +131,7 @@
 
             <div class="header-right">
                 <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
-                <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
+                <a class="in-menu" href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
             </div>
         </div>
 
@@ -106,6 +151,10 @@
         <div class="content">
             <h1 class="main-title">Créer un compte</h1>
 
+            <?php
+                echo $message;
+            ?>
+
             <div class="form-container">
                 <form id="register-form" action="register.php" method="post">
                     <div class="input-group">
@@ -119,8 +168,8 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="register-birth">Date de naissance</label>
-                        <input type="date" id="register-birth" name="birth" max="<?php echo date('Y-m-d'); ?>" required>
+                        <label for="register-birthdate">Date de naissance</label>
+                        <input type="date" id="register-birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
@@ -141,9 +190,10 @@
                     <div class="center">
                         <button class="red-button" type="submit">S'inscrire</button>
                     </div>
-
-                    <br><br>
                 </form>
+
+                <p class="text">Déjà inscrit ? <a href="login.php" class="link">Se connecter</a></p>
+                <br><br>
             </div>
         </div>
 
@@ -173,5 +223,6 @@
         </footer>
 
         <script src="../js/goUpButton.js"></script>
+        <script src="../js/closeMessage.js"></script>
     </body>
 </html>

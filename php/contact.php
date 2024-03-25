@@ -1,10 +1,14 @@
 <?php
     session_start();
 
+    $message = "";
+
     // Vérifie si une session avec l'email est déjà active
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
-        $options = '<a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+        $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
+                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
     } else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
@@ -46,13 +50,37 @@
 
         // Envoi de l'email
         if (mail($receiver, $subject, $body, $sender)) {
-            echo "<script>alert(\"Email envoyé avec succès à : $receiver\")</script>";
+            $message = "<div class='info-message'>
+                            <div class='wrapper-success'>
+                                <div class='card'>
+                                    <div class='icon'><i class='fas fa-check-circle'></i></div>
+                                    <div class='subject'>
+                                        <h3>Succès</h3>
+                                        <p>La demande de contact à été envoyée !</p>
+                                    </div>
+
+                                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>";
 
         } else {
-            echo "<script>alert(\"Echec lors de l'envoi du mail !\")</script>";
-        }
+            $message = "<div class='info-message'>
+                            <div class='wrapper-failure'>
+                                <div class='card'>
+                                    <div class='icon'><i class='fa fa-times-circle'></i></div>
+                                    <div class='subject'>
+                                        <h3>Échec</h3>
+                                        <p>La demande de contact n'a pas pu être envoyée.</p>
+                                    </div>
 
-        exit();
+                                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>";
+        }
     }
 ?>
 
@@ -67,8 +95,8 @@
         <link rel="icon" href="../img/favicon.ico">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
 
 
@@ -98,6 +126,24 @@
 
         <div class="content">
             <h1 class="main-title">Demande de contact</h1>
+
+            <?php
+                echo $message;
+            ?>
+
+            <div class="info-message">
+                <div class="wrapper-info">
+                    <div class="card">
+                        <div class="icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="subject">
+                            <h3>Information</h3>
+                            <p>La demande sera envoyée au service client.</p>
+                        </div>
+
+                        <div class="icon-times"><i class="fas fa-times"></i></div>
+                    </div>
+                </div>
+            </div>
             
             <div class="form-container">
                 <form action="contact.php" method="post">
@@ -153,6 +199,8 @@
                         <button class="red-button" type="submit">Envoyer</button>
                     </div>
                 </form>
+
+                <br><br>
             </div>
         </div>
 
@@ -185,4 +233,5 @@
     </body>
 
     <script src="../js/goUpButton.js"></script>
+    <script src="../js/closeMessage.js"></script>
 </html>
