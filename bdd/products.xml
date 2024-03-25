@@ -106,9 +106,9 @@
     <car5>
       <img>urbancar5.jpg</img>
       <reference>UR1005</reference>
-      <stock>22</stock>
+      <stock>1</stock>
       <nom>Midnight Cruiser</nom>
-      <prix>30000</prix>
+      <prix>350000</prix>
     </car5>
   </Urbancars>
 </products>
