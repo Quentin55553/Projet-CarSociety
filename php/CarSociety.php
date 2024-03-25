@@ -3,7 +3,6 @@
     // (COMPTE ROOT SANS MOT DE PASSE)
     session_start();
 
-
     function carsociety() {
         try {
             // Login utilisateur (compte root sans mot de passe)

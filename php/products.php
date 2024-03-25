@@ -83,7 +83,6 @@
             <h1 class="main-title">
                 <?php echo $title; ?>
             </h1>
-
             <?php if ($title !== "Nos produits"): ?>
                 <table class="tab">
                     <thead>
