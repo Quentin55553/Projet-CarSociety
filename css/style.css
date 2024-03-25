@@ -428,6 +428,8 @@ footer h2::before {
 }
   
 .tab td {
+    max-width: 100px;
+    max-height: 50px;
     border-right: 1px solid #fff;
     border-left: 1px solid #e8e8e8;
     border-top: 1px solid #fff;
@@ -442,8 +444,10 @@ footer h2::before {
 }
   
 .tab img {
-    max-width:150px;
-    max-height:150px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit:contain;
+    border:2px solid #909092;
 }
   
 .tab tbody:hover td {
