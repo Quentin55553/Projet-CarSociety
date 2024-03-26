@@ -1,8 +1,6 @@
 <?php
     // SCRIPT POUR (RE)INITIALISER LA BASE DE DONNEES DE CAR SOCIETY
-    // (COMPTE ROOT SANS MOT DE PASSE)
-    session_start();
-
+    // (COMPTE ROOT SANS MOT DE PASSE
     function carsociety() {
         try {
             // Login utilisateur (compte root sans mot de passe)
