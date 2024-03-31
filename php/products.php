@@ -1,17 +1,19 @@
 <?php
     session_start();
-
+    require 'varSession.inc.php';
     // Vérifie si une session avec l'email est déjà active
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
         $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
                     <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
-
-    } else {
+        $connected=1;
+    } 
+    else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
         $options = '<a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
                     <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
+        $connected=0;
     }
 ?>
 
@@ -83,6 +85,7 @@
             <h1 class="main-title">
                 <?php echo $title; ?>
             </h1>
+            <div id="annonceur"></div>
             <?php if ($title !== "Nos produits"): ?>
                 <table class="tab">
                     <thead>
@@ -98,8 +101,6 @@
 
                     <tbody>
                         <?php
-                            require 'varSession.inc.php';
-
                             foreach ($products[$_GET['cat']] as $voiture) {
                                 echo "<tr>";
                                 echo "<td>
@@ -108,7 +109,7 @@
                                 echo "<td>".$voiture[1]."</td>";
                                 echo "<td>".$voiture[2]."</td>";
                                 echo "<td>".$voiture[3]."€</td>";
-                                echo "<td class='invisible'>".$voiture[4]."</td>";
+                                echo "<td class='invisible' id='stock-".$voiture[1]."'>".$voiture[4]."</td>";
                                 echo '<td>
                                         <div class="commande">
                                             <button onclick="retrait_compteur('.$voiture[1].')">
@@ -123,7 +124,7 @@
                                         </div>
                                         </br>
                                         
-                                        <button onclick="ajout_panier('.$voiture[1].')">Ajouter au panier</button>
+                                        <button onclick="ajout_panier('.$voiture[1].','.$connected.')">Ajouter au panier</button>
                                     </td>';
                                 echo "</tr>";
                             }
@@ -171,5 +172,6 @@
         </footer>
 
         <script src="../js/goUpButton.js"></script>
+        <script src="../js/closeMessage.js"></script>
     </body>
 </html>

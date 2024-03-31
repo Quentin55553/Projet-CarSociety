@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     require 'varSession.inc.php';
 
     // Vérifie si une session avec l'email est déjà active
@@ -10,18 +9,16 @@
                     <a class="in-menu" href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
-    } else {
+    } 
+    else {
         // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion afin qu'il puisse se connecter pour accéder à son panier
         header("Location: login.php");
         exit;
     }
 
-    $_SESSION['panier'] = [["S1005", 4], ["S1001", 3]];
-
     function get_prix($reference){
-        global $produits;
-
-        foreach ($produits as $key => $value) {
+        global $products;
+        foreach ($products as $key => $value) {
             foreach ($value as $produit) {
                 if ($reference==$produit[1]) {
                     return $produit[3];
@@ -32,9 +29,9 @@
 
 
     function get_nom($reference) {
-        global $produits;
+        global $products;
 
-        foreach ($produits as $key => $value) {
+        foreach ($products as $key => $value) {
             foreach ($value as $produit) {
                 if ($reference == $produit[1]) {
                     return $produit[2];
@@ -57,7 +54,7 @@
 
 
     function afficher_panier($panier) {
-        global $produits;
+        global $products;
 
         echo "<table class='tab-panier'>
                 <thead>
