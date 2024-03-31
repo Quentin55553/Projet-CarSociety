@@ -6,10 +6,9 @@
 
 ## Objectif
 
-(EXEMPLE) Description de l'objectif du projet.<br/>
-Deuxième phrase.
+Description de l'objectif du projet.<br/>
+Exemple
 
 ## Prérequis
 
-1. [Installation de XAMPP](docs/config_xampp.md)
-2. [Configuration de la messagerie depuis XAMPP](docs/config_mail.md)
+Exemple
