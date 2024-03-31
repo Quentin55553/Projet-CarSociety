@@ -1,5 +1,6 @@
 <?php
     session_start();
+    // Permet notamment d'avoir le tableau associatif des produits
     require 'varSession.inc.php';
     // Vérifie si une session avec l'email est déjà active
     if (isset($_SESSION['email'])) {
@@ -7,12 +8,14 @@
         $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
                     <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+        // Variable de vérification de connexion
         $connected=1;
     } 
     else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
         $options = '<a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
                     <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
+        // Variable de vérification de connexion
         $connected=0;
     }
 ?>
@@ -59,6 +62,7 @@
         </div>
 
         <?php
+            // Préparation du titre en fonction de la catégorie (argument GET)
             $cat = $_GET['cat'];
             $title = "";
             
@@ -83,7 +87,9 @@
 
         <div class="content">
             <h1 class="main-title">
-                <?php echo $title; ?>
+                <?php 
+                    echo $title; // Affichage du titre
+                ?>
             </h1>
             <div id="annonceur"></div>
             <?php if ($title !== "Nos produits"): ?>
@@ -101,15 +107,29 @@
 
                     <tbody>
                         <?php
+                            // Zone d'affichage du tableau HTML des produits
+
+                            // Parcours des produits de la catégorie passée en GET dans le tableau associatif $products
                             foreach ($products[$_GET['cat']] as $voiture) {
+                                // Nouvelle ligne de la table
                                 echo "<tr>";
+                                // Colonne "Visuel"
                                 echo "<td>
                                         <img src='../img/".$voiture[0]."'>
                                     </td>";
+                                // Colonne "Référence"
                                 echo "<td>".$voiture[1]."</td>";
+                                // Colonne "Nom"
                                 echo "<td>".$voiture[2]."</td>";
-                                echo "<td>".$voiture[3]."€</td>";
+                                // Colonne "Prix"
+                                echo "<td>".$voiture[3]." €</td>";
+                                // Colonne "Stock" (avec l'identification nécessaire pour le javascript)
                                 echo "<td class='invisible' id='stock-".$voiture[1]."'>".$voiture[4]."</td>";
+                                // Colonne "Commande" :
+                                // 1) Bouton "-" pour retirer une unité au compteur
+                                // 2) Element <p> qui contient la quantité à ajouter au panier
+                                // 3) Bouton "+" pour ajouter une unité au compteur
+                                // 4) Bouton "Ajouter au panier
                                 echo '<td>
                                         <div class="commande">
                                             <button onclick="retrait_compteur('.$voiture[1].')">

@@ -1,85 +1,113 @@
 <?php
-    session_start();
-    require 'varSession.inc.php';
+session_start();
+// Permet notamment d'avoir le tableau associatif des produits
+require 'varSession.inc.php';
 
-    // Vérifie si une session avec l'email est déjà active
-    if (isset($_SESSION['email'])) {
-        // Si une session est active, affiche le lien de déconnexion
-        $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
-                    <a class="in-menu" href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
-                    <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+// Vérifie si une session avec l'email est déjà active
+if (isset($_SESSION['email'])) {
+    // Si une session est active, affiche le lien de déconnexion
+    $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
+                <a class="in-menu" href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
-    } 
-    else {
-        // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion afin qu'il puisse se connecter pour accéder à son panier
-        header("Location: login.php");
-        exit;
-    }
+} 
+else {
+    // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion afin qu'il puisse se connecter pour accéder à son panier
+    header("Location: login.php");
+    exit;
+}
 
-    function get_prix($reference){
-        global $products;
-        foreach ($products as $key => $value) {
-            foreach ($value as $produit) {
-                if ($reference==$produit[1]) {
-                    return $produit[3];
-                }
+/*
+Cette fonction recherche le prix d'un article dans le tableau associatif des produits, elle le renvoie
+Elle prend en paramètre la référence de l'objet recherché (string)
+*/
+function get_prix($reference){
+    // Utilisation du tableau des produits donné par varSession.inc.php
+    global $products;
+    // Parcours des produits en testant les références
+    foreach ($products as $key => $value) {
+        foreach ($value as $produit) {
+            // Si les références correspondent, renvoi du prix
+            if ($reference==$produit[1]) {
+                return $produit[3];
             }
         }
     }
+}
 
-
-    function get_nom($reference) {
-        global $products;
-
-        foreach ($products as $key => $value) {
-            foreach ($value as $produit) {
-                if ($reference == $produit[1]) {
-                    return $produit[2];
-                }
+/*
+Cette fonction recherche le nom d'un article dans le tableau associatif des produits, elle le renvoie
+Elle prend en paramètre la référence de l'objet recherché (string)
+*/
+function get_nom($reference) {
+    // Utilisation du tableau des produits donné par varSession.inc.php
+    global $products;
+    // Parcours des produits en testant les références
+    foreach ($products as $key => $value) {
+        foreach ($value as $produit) {
+            // Si les références correspondent, renvoi du nom
+            if ($reference == $produit[1]) {
+                return $produit[2];
             }
         }
     }
+}
 
-
-    // $panier : tableau de la forme [[voiture1, qté], [voiture2,qté]....]
-    function prix_total($panier) {
-        $prix = 0;
-
-        foreach ($panier as $produit) {
-            $prix = $prix + (get_prix($produit[0]) * $produit[1]);
-        }
-
-        return $prix;
+/*
+Cette fonction prend en paramètre un panier et renvoi le prix total des articles présents
+$panier : tableau de la forme [[voiture1, qté], [voiture2,qté]....]
+*/
+function prix_total($panier) {
+    // Prix total
+    $prix = 0;
+    // Parcours des produits du panier
+    foreach ($panier as $produit) {
+        // Ajout du prix * quantité pour chaque article
+        $prix = $prix + (get_prix($produit[0]) * $produit[1]);
     }
+    // Renvoi du prix total
+    return $prix;
+}
 
+/*
+Cette fonction prend en paramètre un panier et créé un tableau HTML correspondant
+$panier : tableau de la forme [[voiture1, qté], [voiture2,qté]....]
+Elle ne renvoie rien
+*/
+function afficher_panier($panier) {
+    // Utilisation du tableau des produits donné par varSession.inc.php
+    global $products;
 
-    function afficher_panier($panier) {
-        global $products;
-
-        echo "<table class='tab-panier'>
-                <thead>
-                    <tr>
-                        <th>Référence</th>
-                        <th>Nom</th>
-                        <th>Prix</th>
-                        <th>Quantité</th>
-                    </tr>
-                </thead>
-                <tbody>";
-
-        foreach ($panier as $produit) {
-            $reference = $produit[0];
-            echo "<tr>";
-            echo "<td>".$reference."</td>";
-            echo "<td>".get_nom($reference)."</td>";
-            echo "<td>".get_prix($reference)."€</td>";
-            echo "<td>x".$produit[1]."</td>";
-            echo "</tr>";
-        }
-
-        echo "  </tbody>
-            </table>";
+    // Headers de la table
+    echo "<table class='tab-panier'>
+            <thead>
+                <tr>
+                    <th>Référence</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+        <tbody>";
+    // Pour chaque élément du panier, ajout d'une ligne à la table
+    foreach ($panier as $produit) {
+        // Référence du produit
+        $reference = $produit[0];
+        echo "<tr>";
+        // Colonne "Référence"
+        echo "<td>".$reference."</td>";
+        // Colonne "Nom"
+        echo "<td>".get_nom($reference)."</td>";
+        // Colonne "Prix"
+        echo "<td>".get_prix($reference)." €</td>";
+        // Colonne "Quantité"
+        echo "<td>x".$produit[1]."</td>";
+        echo "</tr>";
     }
+    // Fin de la table
+    echo "</tbody>
+          </table>";
+}
 ?>
 
 
@@ -127,16 +155,23 @@
             <h1 class="main-title">Votre panier</h1>
 
             <?php
+                // Zone d'affichage du panier
+
+                // Panier vide
                 if($_SESSION['panier']==[]){
                     echo "<p> Votre panier est vide ! </p>";
                 
-                } else {
+                }
+                // Panier non-vide 
+                else {
                     echo "<p> Voici les véhicules ajoutés à votre panier : </p>";
+                    // Table
                     afficher_panier($_SESSION['panier']);
+                    // Affichage du prix total
                     echo "<p> Prix de la commande : ";
                     echo prix_total($_SESSION['panier']);
-                    echo "€</p>";
-                    
+                    echo " €</p>";
+                    // Bouton "Commander"
                     echo "<div class='center'>
                     <button class='red-button'>Commander</button></div>";
                 }
