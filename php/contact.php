@@ -1,6 +1,10 @@
 <?php
     session_start();
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
     $message = "";
 
     // Vérifie si une session avec l'email est déjà active
@@ -28,37 +32,57 @@
         $object = $_POST['object'];
         $content = $_POST['content'];
 
+        // Utilisation de PHPMailer pour envoyer l'email
+        require "../PHPMailer/src/Exception.php";
+        require "../PHPMailer/src/PHPMailer.php";
+        require "../PHPMailer/src/SMTP.php";
 
-        // Envoi de l'email de validation à l'adresse email indiquée
-        $receiver = "serviceclientcarsociety@gmail.com";
-        $subject = "Nouvelle demande de contact de $firstname $lastname";
+        $mail = new PHPMailer(true);
 
-        $body = file_get_contents('../mail_text.txt');
+        // Configuration du serveur SMTP
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'carsociety758@gmail.com';
+        $mail->Password = 'nwxidkhvtxiwbnkq';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
 
+        // Configuration de l'expéditeur et du destinataire
+        $mail->setFrom('carsociety758@gmail.com', 'CarSociety');
+        $mail->addAddress('serviceclientcarsociety@gmail.com', 'Service client CarSociety');
+
+        // Ajout du sujet et du corps de l'email
+        $mail->Subject = "Nouvelle demande de contact de $firstname $lastname";
+        // On définit le format de l'email comme HTML
+        $mail->isHTML(true);
+
+        // Ajout de l'image du logo dans le mail
+        $mail->AddEmbeddedImage('../img/CarSocietyLogo.png', 'carsocietylogo', 'CarSocietyLogo.png');
+
+        $body = file_get_contents('../mail_text.html');
         $body = str_replace('{CONTACT_DATE}', $contact_date, $body);
         $body = str_replace('{LASTNAME}', $lastname, $body);
         $body = str_replace('{FIRSTNAME}', $firstname, $body);
-
         $body = str_replace('{EMAIL}', $email, $body);
         $body = str_replace('{GENDER}', $gender, $body);
         $body = str_replace('{BIRTHDATE}', $birthdate, $body);
         $body = str_replace('{JOB}', $job, $body);
         $body = str_replace('{OBJECT}', $object, $body);
         $body = str_replace('{CONTENT}', $content, $body);
-    
-        $sender = "From: CarSociety";
+
+        $mail->Body = $body;
 
         // Envoi de l'email
-        if (mail($receiver, $subject, $body, $sender)) {
+        if ($mail->send()) {
             $message = "<div class='info-message'>
                             <div class='wrapper-success'>
                                 <div class='card'>
                                     <div class='icon'><i class='fas fa-check-circle'></i></div>
                                     <div class='subject'>
                                         <h3>Succès</h3>
-                                        <p>La demande de contact à été envoyée !</p>
+                                        <p>La demande de contact a été envoyée !</p>
                                     </div>
-
                                     <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
                             </div>
@@ -74,7 +98,6 @@
                                         <h3>Échec</h3>
                                         <p>La demande de contact n'a pas pu être envoyée.</p>
                                     </div>
-
                                     <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
                             </div>
@@ -188,7 +211,26 @@
                     <div class="input-group">
                         <label for="job" class="required">Fonction</label>
                         <select name="job" id="job" required>
-                            <option value="A déterminer">A déterminer</option>
+                            <option value="Ingénieur en informatique">Ingénieur en informatique</option>
+                            <option value="Développeur de logiciels">Développeur de logiciels</option>
+                            <option value="Analyste financier">Analyste financier</option>
+                            <option value="Avocat">Avocat</option>
+                            <option value="Comptable">Comptable</option>
+                            <option value="Enseignant">Enseignant</option>
+                            <option value="Médecin">Médecin</option>
+                            <option value="Infirmier/infirmière">Infirmier/infirmière</option>
+                            <option value="Architecte">Architecte</option>
+                            <option value="Designer graphique">Designer graphique</option>
+                            <option value="Marketing Manager">Marketing Manager</option>
+                            <option value="Chef de projet">Chef de projet</option>
+                            <option value="Analyste de données">Analyste de données</option>
+                            <option value="Spécialiste des ressources humaines">Spécialiste des ressources humaines</option>
+                            <option value="Consultant en gestion">Consultant en gestion</option>
+                            <option value="Analyste en cybersécurité">Analyste en cybersécurité</option>
+                            <option value="Écrivain/rédacteur">Écrivain/rédacteur</option>
+                            <option value="Analyste de marché">Analyste de marché</option>
+                            <option value="Technicien en maintenance">Technicien en maintenance</option>
+                            <option value="Agent immobilier">Agent immobilier</option>
                         </select>
                     </div>
 
