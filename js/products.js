@@ -130,8 +130,6 @@ function ajout_panier(reference,connected) {
             else{
                 // Le stock affiché change en fonction du renvoi du script php appelé
                 document.getElementById("stock-"+ref).innerHTML=this.responseText;
-                // Compteur remis à zéro
-                reference.innerHTML=0;
                 // Notification de succès
                 document.getElementById("annonceur").innerHTML = `<div class='info-message'>
                                                                     <div class='wrapper-success'>
@@ -146,13 +144,15 @@ function ajout_panier(reference,connected) {
                                                                     </div>
                                                                     <br>
                                                                 </div>`;
+                // Compteur remis à zéro
+                reference.innerHTML = 0;
             }
        }
     };
+
     // Ouverture d'un script php qui gère la mise à jour de la base de données
     // Paramètres passés en GET : ref (string, référence produit), qte (int, quantité produit), connected (1 ou 0)
-    xhttp.open("GET","../php/add-to-basket.php?ref="+ref+"&qte="+reference.innerHTML+"&connected="+connected,true);
+    xhttp.open("GET", "../php/add-to-basket.php?ref=" + ref + "&qte=" + reference.innerHTML + "&connected=" + connected, true);
     // Envoi de la requête
     xhttp.send();
 }
-
