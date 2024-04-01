@@ -1,7 +1,27 @@
 <?php
     session_start();
 
-    $message = "";
+    if ($_SESSION['need_connect']) {
+        $message = "<div class='info-message'>
+                        <div class='wrapper-failure'>
+                            <div class='card'>
+                                <div class='icon'><i class='fa fa-times-circle'></i></div>
+                                <div class='subject'>
+                                    <h3>Échec</h3>
+                                    <p>Vous devez être connecté pour ajouter un élément à votre panier.</p>
+                                </div>
+
+                                <div class='icon-times'><i class='fas fa-times'></i></div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>";
+        
+        unset($_SESSION['need_connect']);
+
+    } else {
+        $message = "";
+    }
 
     if (isset($_SESSION['email'])) {
         // Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
