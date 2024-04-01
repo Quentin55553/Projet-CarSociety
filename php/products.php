@@ -91,7 +91,7 @@
                     echo $title; // Affichage du titre
                 ?>
             </h1>
-            <div id="annonceur"></div>
+            <div id="annonceur" style="width: 100%; display: flex; justify-content: center; align-items: center;"></div>
             <?php if ($title !== "Nos produits"): ?>
                 <table class="tab">
                     <thead>
