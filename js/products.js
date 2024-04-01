@@ -1,18 +1,3 @@
-let failureMessage1 =`<div class='info-message'>
-                        <div class='wrapper-failure'>
-                            <div class='card'>
-                                <div class='icon'><i class='fa fa-times-circle'></i></div>
-                                <div class='subject'>
-                                    <h3>Échec</h3>
-                                    <p>Vous devez être connecté pour ajouter un élément à votre panier.</p>
-                                </div>
-
-                                <div class='icon-times'><i class='fas fa-times'></i></div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>`;
-
 let failureMessage2 = `<div class='info-message'>
                         <div class='wrapper-failure'>
                             <div class='card'>
@@ -105,7 +90,7 @@ function ajout_panier(reference, connected) {
             console.log(this.responseText);
             
             if(this.responseText == -1) {
-                document.getElementById("annonceur").innerHTML = failureMessage1;
+                window.location.href = "../php/set-need-connect.php";
             
             } else if(this.responseText == -2) {
                 document.getElementById("annonceur").innerHTML = failureMessage2;
