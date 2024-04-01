@@ -1,37 +1,6 @@
 
 // Différents messages pour l'utilisateur en fonction des évènements
 
-let successMessage = 
-`<div class='info-message'>
-    <div class='wrapper-success'>
-        <div class='card'>
-            <div class='icon'><i class='fas fa-check-circle'></i></div>
-            <div class='subject'>
-                <h3>Succès</h3>
-                <p>L'élément a été ajouté au panier !</p>
-            </div>
-            <div class='icon-times'><i class='fas fa-times'></i></div>
-        </div>
-    </div>
-    <br>
-</div>`;
-
-let failureMessage1=
-`<div class='info-message'>
-    <div class='wrapper-failure'>
-        <div class='card'>
-            <div class='icon'><i class='fa fa-times-circle'></i></div>
-            <div class='subject'>
-                <h3>Échec</h3>
-                <p>Vous devez être connecté pour ajouter un élément au panier.</p>
-            </div>
-
-            <div class='icon-times'><i class='fas fa-times'></i></div>
-        </div>
-    </div>
-    <br>
-</div>`;
-
 let failureMessage2=
 `<div class='info-message'>
     <div class='wrapper-failure'>
@@ -164,7 +133,19 @@ function ajout_panier(reference,connected) {
                 // Compteur remis à zéro
                 reference.innerHTML=0;
                 // Notification de succès
-                document.getElementById("annonceur").innerHTML=successMessage;
+                document.getElementById("annonceur").innerHTML = `<div class='info-message'>
+                                                                    <div class='wrapper-success'>
+                                                                        <div class='card'>
+                                                                            <div class='icon'><i class='fas fa-check-circle'></i></div>
+                                                                            <div class='subject'>
+                                                                                <h3>Succès</h3>
+                                                                                <p>L'élément <strong>${ref} (x${reference.innerHTML})</strong> a été ajouté au panier !</p>
+                                                                            </div>
+                                                                            <div class='icon-times'><i class='fas fa-times'></i></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                </div>`;
             }
        }
     };
