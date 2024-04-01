@@ -147,7 +147,7 @@ function ajout_panier(reference,connected) {
         if (this.readyState == 4 && this.status == 200) {
             // Erreur : l'utilisateur n'est pas connecté
             if(this.responseText==-1){
-                document.getElementById("annonceur").innerHTML=failureMessage1;
+                window.location.href = "../php/set-need-connect.php";
             }
             // Erreur : l'utilisateur essaye d'ajouter 0 produits au panier
             else if(this.responseText==-2){
