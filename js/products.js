@@ -45,9 +45,9 @@ function affichage_stock() {
         // Texte du bouton
         document.getElementById("stock-button").innerHTML = "Cacher stock";
 		// Chaque élément apparaît en enlevant le display : none
-        invisible.forEach(function(element){
-            element.style.display = 'block';
-            element.style.borderCollapse = 'collapse';
+        invisible.forEach(function(element) {
+            // Les cellules de la colonne du stock s'affichent comme les autres
+            element.style.display = 'table-cell';
         });
 		
     } 
