@@ -8,7 +8,7 @@ let failureMessage2=
             <div class='icon'><i class='fa fa-times-circle'></i></div>
             <div class='subject'>
                 <h3>Échec</h3>
-                <p>Ajoutez au moins une unité !</p>
+                <p>Vous devez ajouter au moins une unité à votre panier !</p>
             </div>
             <div class='icon-times'><i class='fas fa-times'></i></div>
         </div>
@@ -23,7 +23,7 @@ let failureMessage3=
             <div class='icon'><i class='fa fa-times-circle'></i></div>
             <div class='subject'>
                 <h3>Échec</h3>
-                <p>Une erreur est survenue.</p>
+                <p>Une erreur est survenue lors de l'ajout au panier.</p>
             </div>
 
             <div class='icon-times'><i class='fas fa-times'></i></div>
