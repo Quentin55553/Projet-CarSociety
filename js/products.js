@@ -1,36 +1,35 @@
-
 // Différents messages pour l'utilisateur en fonction des évènements
 
-let failureMessage2=
-`<div class='info-message'>
-    <div class='wrapper-failure'>
-        <div class='card'>
-            <div class='icon'><i class='fa fa-times-circle'></i></div>
-            <div class='subject'>
-                <h3>Échec</h3>
-                <p>Vous devez ajouter au moins une unité à votre panier !</p>
-            </div>
-            <div class='icon-times'><i class='fas fa-times'></i></div>
-        </div>
-    </div>
-    <br>
-</div>`;
+let failureMessage2 = `<div class='info-message'>
+                            <div class='wrapper-failure'>
+                                <div class='card'>
+                                    <div class='icon'><i class='fa fa-times-circle'></i></div>
+                                    <div class='subject'>
+                                        <h3>Échec</h3>
+                                        <p>Vous devez ajouter au moins une unité à votre panier !</p>
+                                    </div>
+                                    
+                                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>`;
 
-let failureMessage3=
-`<div class='info-message'>
-    <div class='wrapper-failure'>
-        <div class='card'>
-            <div class='icon'><i class='fa fa-times-circle'></i></div>
-            <div class='subject'>
-                <h3>Échec</h3>
-                <p>Une erreur est survenue lors de l'ajout au panier.</p>
-            </div>
+let failureMessage3 = `<div class='info-message'>
+                            <div class='wrapper-failure'>
+                                <div class='card'>
+                                    <div class='icon'><i class='fa fa-times-circle'></i></div>
+                                    <div class='subject'>
+                                        <h3>Échec</h3>
+                                        <p>Une erreur est survenue lors de l'ajout au panier.</p>
+                                    </div>
 
-            <div class='icon-times'><i class='fas fa-times'></i></div>
-        </div>
-    </div>
-    <br>
-</div>`;
+                                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>`;
+
 
 /*
 Cette fonction permet de cacher ou de faire apparaître la colonne "stock" des produits du tableau
@@ -55,7 +54,7 @@ function affichage_stock() {
     // Cacher le stock
     else {
         // Texte du bouton
-        document.getElementById("stock-button").innerHTML="Afficher stock";
+        document.getElementById("stock-button").innerHTML = "Afficher stock";
         // Chaque élément disparaît en appliquant display : none
         invisible.forEach(function(element){
             element.style.display = 'none';
@@ -76,16 +75,19 @@ function ajout_compteur(reference) {
     // Cet objet est le <p> qui correspond à la quantité à ajouter au panier
     let ref = reference.id;
     // Stock courant de l'élément visé
-    let stock=document.getElementById("stock-"+ref).innerHTML;
+    let stock = document.getElementById("stock-"+ref).innerHTML;
+
     // Si la quantité à ajouter au panier est égale au stock, impossible de l'augmenter
-    if (reference.innerHTML==stock){
+    if (reference.innerHTML == stock){
         return null;
-	} 
+	
+    } 
     // Sinon on peut ajouter un 
     else {
         reference.innerHTML = parseInt(reference.innerHTML) + 1;
     }
 }
+
 
 /*
 Cette fonction retire une unité au compteur du produit dont la référence est passée en paramètre
@@ -101,35 +103,40 @@ function retrait_compteur(reference) {
     }
 }
 
+
 /*
 Cette fonction gère l'ajout au panier d'un produit
 Elle prend en paramètre la référence (string) du produit à ajouter ainsi que connected (1 si l'utilisateur est connecté, 0 sinon) 
 Elle ne renvoie rien
 */
-function ajout_panier(reference,connected) {
+function ajout_panier(reference, connected) {
     // Même manipulation que dans ajout_compteur()
     let ref = reference.id;
     // Procédure AJAX pour mettre à jour le stock (et remettre le compteur à zéro par sécurité)
     var xhttp = new XMLHttpRequest();
+
     xhttp.onreadystatechange = function() {
         // Quand l'objet XMLHttpRequest passe à l'état prêt
         if (this.readyState == 4 && this.status == 200) {
             // Erreur : l'utilisateur n'est pas connecté
-            if(this.responseText==-1){
+            if (this.responseText == -1) {
                 window.location.href = "../php/set-need-connect.php";
+            
             }
             // Erreur : l'utilisateur essaye d'ajouter 0 produits au panier
-            else if(this.responseText==-2){
-                document.getElementById("annonceur").innerHTML=failureMessage2;
+            else if (this.responseText == -2) {
+                document.getElementById("annonceur").innerHTML = failureMessage2;
+            
             }
             // Erreur : erreurs non identifiée
-            else if(this.responseText==-3){
-                document.getElementById("annonceur").innerHTML=failureMessage3;
+            else if (this.responseText == -3) {
+                document.getElementById("annonceur").innerHTML = failureMessage3;
+            
             }
             // Succès
-            else{
+            else {
                 // Le stock affiché change en fonction du renvoi du script php appelé
-                document.getElementById("stock-"+ref).innerHTML=this.responseText;
+                document.getElementById("stock-"+ref).innerHTML = this.responseText;
                 // Notification de succès
                 document.getElementById("annonceur").innerHTML = `<div class='info-message'>
                                                                     <div class='wrapper-success'>
