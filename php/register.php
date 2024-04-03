@@ -72,6 +72,7 @@
                                     <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
                             </div>
+                            <br>
                         </div>";
         
         } else {
@@ -126,6 +127,7 @@
     <body>
         <a id="goUpButton"></a>
 
+
         <div class="header">
             <img src="../img/CarSocietyBanner.png">
 
@@ -134,6 +136,7 @@
                 <a class="in-menu" href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
             </div>
         </div>
+        
 
         <div class="menu">
             <div class="menu-header">MENU</div>
@@ -147,6 +150,7 @@
             <a href="products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
             <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
+
 
         <div class="content">
             <h1 class="main-title">Créer un compte</h1>
@@ -163,32 +167,32 @@
 
                 <form id="register-form" action="register.php" method="post">
                     <div class="input-group">
-                        <label for="register-lastname" class="required">Nom</label>
+                        <label for="register-lastname" class="required"><i class="fas fa-user"></i> Nom</label>
                         <input type="text" id="register-lastname" name="lastname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-firstname" class="required">Prénom</label>
+                        <label for="register-firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
                         <input type="text" id="register-firstname" name="firstname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-birthdate" class="required">Date de naissance</label>
+                        <label for="register-birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
                         <input type="date" id="register-birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-email" class="required">Email</label>
-                        <input type="email" id="register-email" name="email" required>
+                        <label for="register-email" class="required"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="register-email" name="email" placeholder="email@exemple.com" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-tel" class="required">Numéro de téléphone</label>
+                        <label for="register-tel" class="required"><i class="fas fa-phone"></i> Numéro de téléphone</label>
                         <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-password" class="required">Mot de passe</label>
+                        <label for="register-password" class="required"><i class="fas fa-lock"></i> Mot de passe</label>
                         <input type="password" id="register-password" name="password" required>
                     </div>
 
@@ -201,6 +205,7 @@
                 <br><br>
             </div>
         </div>
+
 
         <footer class="footer">
             <div class="legal-informations">
@@ -226,6 +231,7 @@
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
+
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>

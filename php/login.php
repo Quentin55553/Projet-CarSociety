@@ -1,14 +1,16 @@
 <?php
     session_start();
 
-    if ($_SESSION['need_connect']) {
+    if (isset($_GET['cat'])) {
+        $catValue = $_GET['cat'];
+
         $message = "<div class='info-message'>
                         <div class='wrapper-failure'>
                             <div class='card'>
                                 <div class='icon'><i class='fa fa-times-circle'></i></div>
                                 <div class='subject'>
                                     <h3>Échec</h3>
-                                    <p>Vous devez être connecté pour ajouter un élément à votre panier.</p>
+                                    <p>Vous devez être connecté pour pouvoir effectuer cette action.</p>
                                 </div>
 
                                 <div class='icon-times'><i class='fas fa-times'></i></div>
@@ -16,10 +18,9 @@
                         </div>
                         <br>
                     </div>";
-        
-        unset($_SESSION['need_connect']);
 
     } else {
+        $catValue = null;
         $message = "";
     }
 
@@ -72,8 +73,14 @@
                     $_SESSION['tel'] = $userData['tel'];
 
                     $_SESSION['just_connected'] = true;
+                    
+                    if (isset($catValue)) {
+                        header("Location: .." . urldecode($catValue));
+                        exit();
+                    }
 
                     header("Location: ../index.php");
+                    exit();
 
                 } else {
                     // Si le mot de passe est incorrect, on affiche un message d'erreur
@@ -131,6 +138,7 @@
     <body>
         <a id="goUpButton"></a>
 
+
         <div class="header">
             <img src="../img/CarSocietyBanner.png">
 
@@ -139,6 +147,7 @@
                 <a class="active" href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>
             </div>
         </div>
+
 
         <div class="menu">
             <div class="menu-header">MENU</div>
@@ -153,6 +162,7 @@
             <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
 
+
         <div class="content">
             <h1 class="main-title">Se connecter</h1>
 
@@ -161,14 +171,14 @@
             ?>
 
             <div class="form-container">
-                <form id="login-form" action="login.php" method="post">
+                <form id="login-form" action="login.php<?php if(isset($_GET['cat'])) echo '?cat=' . urlencode($_GET['cat']); ?>" method="post">
                     <div class="input-group">
-                        <label for="login-email">Email</label>
+                        <label for="login-email"><i class="fas fa-at"></i> Email</label>
                         <input type="email" id="login-email" name="email" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="login-password">Mot de passe</label>
+                        <label for="login-password"><i class="fas fa-lock"></i> Mot de passe</label>
                         <input type="password" id="login-password" name="password" required>
                     </div>
 
@@ -180,6 +190,7 @@
                 <p class="text">Pas encore inscrit ?<a href="register.php" class="link">S'inscrire</a></p>
             </div>
         </div>
+
 
         <footer class="footer">
             <div class="legal-informations">
@@ -205,6 +216,7 @@
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
+
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>

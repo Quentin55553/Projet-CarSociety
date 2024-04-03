@@ -14,6 +14,7 @@
                                 <div class='icon-times'><i class='fas fa-times'></i></div>
                             </div>
                         </div>
+                        <br>
                     </div>";
 
         unset($_SESSION['changes_confirmed']);
@@ -31,8 +32,8 @@
 
     } else {
         // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion pour qu'il puisse accéder à son profil
-        header("Location: login.php");
-        exit;
+        header("Location: set-need-connect.php?cat=" . urlencode("/php/edit_profile.php"));
+        exit();
     }
 
     // On récupére les informations de l'utilisateur courant
@@ -66,6 +67,7 @@
                                     <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
                             </div>
+                            <br>
                         </div>";
 
         } else if ((empty($current_password) && !empty($new_password)) || (!empty($current_password) && empty($new_password))) {
@@ -81,6 +83,7 @@
                                     <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
                             </div>
+                            <br>
                         </div>";
 
         } else if (!empty($current_password) && !empty($new_password)) {
@@ -113,6 +116,7 @@
                     $_SESSION['changes_confirmed'] = true;
 
                     header("Location: edit_profile.php");
+                    exit();
 
                 } else {
                     $message = "<div class='info-message'>
@@ -127,6 +131,7 @@
                                             <div class='icon-times'><i class='fas fa-times'></i></div>
                                         </div>
                                     </div>
+                                    <br>
                                 </div>";
                 }
 
@@ -143,6 +148,7 @@
                                         <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
                                 </div>
+                                <br>
                             </div>";
             }
 
@@ -173,6 +179,7 @@
             $_SESSION['changes_confirmed'] = true;
 
             header("Location: edit_profile.php");
+            exit();
         }
     }
 ?>
@@ -196,6 +203,7 @@
     <body>
         <a id="goUpButton"></a>
 
+
         <div class="header">
             <img src="../img/CarSocietyBanner.png">
 
@@ -203,6 +211,7 @@
                 <?php echo $options; ?>
             </div>
         </div>
+        
 
         <div class="menu">
             <div class="menu-header">MENU</div>
@@ -216,6 +225,7 @@
             <a href="products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
             <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
+
 
         <div class="content">
             <h1 class="main-title">Votre profil</h1>
@@ -305,6 +315,7 @@
             </div>
         </footer>
     </body>
+
 
     <script src="../js/goUpButton.js"></script>
     <script src="../js/closeMessage.js"></script>

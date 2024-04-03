@@ -1,8 +1,13 @@
 <?php
     session_start();
 
-    $_SESSION['need_connect'] = true;
-    
+    if (isset($_GET['cat'])) {
+        $catValue = $_GET['cat'];
+
+        header("Location: login.php?cat=" . urlencode($catValue));
+        exit();
+    }
+
     header("Location: login.php");
     exit();
 ?>

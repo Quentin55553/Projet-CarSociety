@@ -13,7 +13,7 @@ if (isset($_SESSION['email'])) {
 } 
 else {
     // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion afin qu'il puisse se connecter pour accéder à son panier
-    header("Location: login.php");
+    header("Location: set-need-connect.php?cat=" . urlencode("/php/basket.php"));
     exit;
 }
 
@@ -130,6 +130,7 @@ function afficher_panier($panier) {
     <body>
         <a id="goUpButton"></a>
 
+
         <div class="header">
             <img src="../img/CarSocietyBanner.png">
 
@@ -137,6 +138,7 @@ function afficher_panier($panier) {
                 <?php echo $options; ?>
             </div>
         </div>
+        
 
         <div class="menu">
             <div class="menu-header">MENU</div>
@@ -150,6 +152,7 @@ function afficher_panier($panier) {
             <a class="<?php echo (isset($_GET['cat']) && $_GET['cat'] == 'Sedans') ? 'active' : "" ; ?>" href="products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
             <a class="<?php echo (isset($_GET['cat']) && $_GET['cat'] == 'Sportscars') ? 'active' : "" ; ?>" href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
+
 
         <div class="content">
             <h1 class="main-title">Votre panier</h1>
@@ -204,6 +207,7 @@ function afficher_panier($panier) {
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
+
 
         <script src="../js/goUpButton.js"></script>
     </body>

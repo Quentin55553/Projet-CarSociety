@@ -1,22 +1,26 @@
 <?php
     session_start();
+
     // Permet notamment d'avoir le tableau associatif des produits
     require 'varSession.inc.php';
+
     // Vérifie si une session avec l'email est déjà active
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
         $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
                     <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
+
         // Variable de vérification de connexion
-        $connected=1;
+        $connected = 1;
     } 
     else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
         $options = '<a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
                     <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
+
         // Variable de vérification de connexion
-        $connected=0;
+        $connected = 0;
     }
 ?>
 
@@ -40,6 +44,7 @@
     <body>
         <a id="goUpButton"></a>
 
+
         <div class="header">
             <img src="../img/CarSocietyBanner.png">
 
@@ -47,6 +52,7 @@
                 <?php echo $options; ?>
             </div>
         </div>
+
 
         <div class="menu">
             <div class="menu-header">MENU</div>
@@ -61,10 +67,11 @@
             <a class="<?php echo (isset($_GET['cat']) && $_GET['cat'] == 'Sportscars') ? 'active' : "" ; ?>" href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
 
+
         <?php
             // Préparation du titre en fonction de la catégorie (argument GET)
             $cat = $_GET['cat'];
-            $title = "";
+            $title = "Nos produits";
             
             switch ($cat) {
                 case "Sportscars":
@@ -78,20 +85,20 @@
                 case "Urbancars":
                     $title = "Citadines";
                     break;
-
-                default:
-                    $title = "Nos produits";
-                    break;
             }
         ?>
 
+
         <div class="content">
             <h1 class="main-title">
-                <?php 
-                    echo $title; // Affichage du titre
+                <?php
+                    // Affichage du titre
+                    echo $title;
                 ?>
             </h1>
+
             <div id="annonceur" style="width: 100%; display: flex; justify-content: center; align-items: center;"></div>
+
             <?php if ($title !== "Nos produits"): ?>
                 <table class="tab">
                     <thead>
@@ -158,14 +165,16 @@
 
                 </br></br>
 
-                <?php else: ?>
-                    <!-- Style à améliorer (menu qui apparaît lorsqu'un utilisateur est sur la page products.php (sans valeur de $_GET['cat'])) -->
-                    <a href="products.php?cat=Urbancars"><i class="fas fa-car-side"></i> Citadines</a>
-                    <a href="products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
-                    <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
-                <?php endif; ?>
+            <?php else: ?>
+                <!-- Style à améliorer (menu qui apparaît lorsqu'un utilisateur est sur la page products.php (sans valeur de $_GET['cat'])) -->
+                <a href="products.php?cat=Urbancars"><i class="fas fa-car-side"></i> Citadines</a>
+                <a href="products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
+                <a href="products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
+            <?php endif; ?>
         </div>
+
         </br>
+
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
@@ -190,6 +199,7 @@
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
+
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
