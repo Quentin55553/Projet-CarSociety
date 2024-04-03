@@ -59,6 +59,7 @@
     <body>
         <a id="goUpButton"></a>
 
+
         <div class="header">
             <img src="img/CarSocietyBanner.png">
 
@@ -66,6 +67,7 @@
                 <?php echo $options; ?>
             </div>
         </div>
+        
 
         <div class="menu">
             <div class="menu-header">MENU</div>
@@ -79,6 +81,7 @@
             <a href="php/products.php?cat=Sedans"><i class="fas fa-car-alt"></i> Berlines</a>
             <a href="php/products.php?cat=Sportscars"><i class="fas fa-flag-checkered"></i> Sportives</a>
         </div>
+
 
         <div class="content">
             <h1 class="main-title">Accueil</h1>
@@ -160,6 +163,7 @@
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
+
 
         <script src="js/goUpButton.js"></script>
         <script src="js/closeMessage.js"></script>
