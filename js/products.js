@@ -120,7 +120,7 @@ function ajout_panier(reference, connected) {
         if (this.readyState == 4 && this.status == 200) {
             // Erreur : l'utilisateur n'est pas connecté
             if (this.responseText == -1) {
-                window.location.href = "../php/set-need-connect.php";
+                window.location.href = "../php/set-need-connect.php?cat=" + encodeURIComponent(window.location.pathname + window.location.search);
             
             }
             // Erreur : l'utilisateur essaye d'ajouter 0 produits au panier
