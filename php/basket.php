@@ -99,7 +99,7 @@ function afficher_panier($panier) {
         // Colonne "Nom"
         echo "<td>".get_nom($reference)."</td>";
         // Colonne "Prix"
-        echo "<td>".get_prix($reference)." €</td>";
+        echo "<td>".number_format(get_prix($reference),0,'.',' ')." €</td>";
         // Colonne "Quantité"
         echo "<td>x".$produit[1]."</td>";
         echo "</tr>";
@@ -172,7 +172,7 @@ function afficher_panier($panier) {
                     afficher_panier($_SESSION['panier']);
                     // Affichage du prix total
                     echo "<p> Prix de la commande : ";
-                    echo prix_total($_SESSION['panier']);
+                    echo number_format(prix_total($_SESSION['panier']),0,'.',' ');
                     echo " €</p>";
                     // Bouton "Commander"
                     echo "<div class='center'>

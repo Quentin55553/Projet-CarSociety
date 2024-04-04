@@ -98,7 +98,6 @@
             </h1>
 
             <div id="annonceur" style="width: 100%; display: flex; justify-content: center; align-items: center;"></div>
-
             <?php if ($title !== "Nos produits"): ?>
                 <table class="tab">
                     <thead>
@@ -129,7 +128,8 @@
                                 // Colonne "Nom"
                                 echo "<td>".$voiture[2]."</td>";
                                 // Colonne "Prix"
-                                echo "<td>".$voiture[3]." €</td>";
+                                $prix=number_format($voiture[3],0,'.',' ');
+                                echo "<td>".$prix." €</td>";
                                 // Colonne "Stock" (avec l'identification nécessaire pour le javascript)
                                 echo "<td class='invisible' id='stock-".$voiture[1]."'>".$voiture[4]."</td>";
                                 // Colonne "Commande" :
