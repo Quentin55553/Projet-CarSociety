@@ -151,6 +151,13 @@ function ajout_panier(reference, connected) {
                                                                     </div>
                                                                     <br>
                                                                 </div>`;
+
+                // On additionne la quantité de produits ajoutée au panier à la quantité totale pour obtenir la quantité finale de produits dans le panier
+                let totalBasket = parseInt(document.getElementById("total-basket").innerText);
+                let quantity = parseInt(reference.innerHTML);
+
+                document.getElementById("total-basket").innerText = totalBasket + quantity;
+
                 // Compteur remis à zéro
                 reference.innerHTML = 0;
             }
@@ -164,10 +171,13 @@ function ajout_panier(reference, connected) {
     xhttp.send();
 }
 
+
 function retrait_panier(reference) {
     // Même manipulation que dans ajout_compteur()
     let ref = reference.id;
-    qte=document.getElementById('qte-'+ref).innerHTML.substring(1);
+
+    qte = document.getElementById('qte-'+ref).innerHTML.substring(1);
+ 
     // Procédure AJAX pour mettre à jour le stock
     var xhttp = new XMLHttpRequest();
 
@@ -177,12 +187,18 @@ function retrait_panier(reference) {
             // Erreur : erreurs non identifiée
             if (this.responseText == -3) {
                 document.getElementById("annonceur").innerHTML = failureMessage3;
+            
             }
             // Succès
             else {
                 // Le stock affiché change en fonction du renvoi du script php appelé
                 document.getElementById(ref).style.display = 'none';
-                document.getElementById('prix-total').innerHTML = 'Prix de la commande : '+this.responseText+' €';
+                document.getElementById('prix-total').innerHTML = 'Prix de la commande : ' + this.responseText + ' €';
+
+                // On soustrait la quantité de produits retirée du panier à la quantité totale pour obtenir la quantité finale de produits dans le panier
+                let totalBasket = parseInt(document.getElementById("total-basket").innerText);
+
+                document.getElementById("total-basket").innerText = totalBasket - qte;
             }
        }
     };

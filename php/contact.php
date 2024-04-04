@@ -11,7 +11,7 @@
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
         $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
-                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier <strong>(<span id="total-basket">' . (isset($_SESSION['panier']) ? array_sum(array_column($_SESSION['panier'], 1)) : '0') . '</span>)</strong></a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
     } else {
@@ -181,38 +181,38 @@
 
                 <form action="contact.php" method="post">
                     <div class="input-group">
-                        <label for="contact_date" class="required">Date de contact</label>
+                        <label for="contact_date" class="required"><i class="far fa-calendar-alt"></i> Date de contact</label>
                         <input type="date" id="contact_date" name="contact_date" min="<?php echo date('Y-m-d'); ?>" required>
                     </div>
-                
+                    
                     <div class="input-group">
-                        <label for="lastname" class="required">Nom</label>
+                        <label for="lastname" class="required"><i class="fas fa-user"></i> Nom</label>
                         <input type="text" id="lastname" name="lastname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="firstname" class="required">Prénom</label>
+                        <label for="firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
                         <input type="text" id="firstname" name="firstname" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email" class="required">Email</label>
+                        <label for="email" class="required"><i class="fas fa-envelope"></i> Email</label>
                         <input type="email" id="email" name="email" placeholder="email@exemple.com" required>
                     </div>
                     
-                    <label class="required">Genre</label><br>
+                    <label class="required"><i class="fas fa-venus-mars"></i> Genre</label><br>
                     <input type="radio" id="man" name="gender" value="Homme" required>
                     <label for="man"><i class="fas fa-male" style="color: #3a8aceff;"></i> Homme</label>
                     <input type="radio" id="woman" name="gender" value="Femme" class="gender-option" required>
                     <label for="woman"><i class="fas fa-female" style="color: #e42d8cff;"></i> Femme</label><br>
 
                     <div class="input-group">
-                        <label for="birthdate" class="required">Date de naissance</label>
+                        <label for="birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
                         <input type="date" id="birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="job" class="required">Fonction</label>
+                        <label for="job" class="required"><i class="fas fa-briefcase"></i> Fonction</label>
                         <select name="job" id="job" required>
                             <option value="Ingénieur en informatique">Ingénieur en informatique</option>
                             <option value="Développeur de logiciels">Développeur de logiciels</option>
@@ -238,12 +238,12 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="object" class="required">Sujet</label>
-                        <input type="text" id="object" name="object" maxlength="35" required>
+                        <label for="object" class="required"><i class="fas fa-pencil-alt"></i> Sujet (5-35 caractères)</label>
+                        <input type="text" id="object" name="object" minlength="5" maxlength="35" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="content" class="required">Contenu</label>
+                        <label for="content" class="required"><i class="fas fa-align-left"></i> Contenu (10-500 caractères)</label>
                         <textarea id="content" name="content" rows="4" cols="50" minlength="10" maxlength="500" placeholder="Contenu de votre demande" required></textarea>
                     </div>
 
@@ -261,6 +261,7 @@
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
+                <img src="../img/CarSocietyLogo.png">
                 <p>Copyright (c) 2024, CarSociety</p>
                 <p>Tous droits réservés</p>
             </div>
@@ -282,9 +283,9 @@
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
-    </body>
-    
 
-    <script src="../js/goUpButton.js"></script>
-    <script src="../js/closeMessage.js"></script>
+
+        <script src="../js/goUpButton.js"></script>
+        <script src="../js/closeMessage.js"></script>
+    </body>
 </html>

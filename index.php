@@ -30,7 +30,7 @@
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
         $options = '<a href="php/edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
-                    <a href="php/basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a href="php/basket.php"><i class="fas fa-shopping-cart"></i> Panier <strong>(<span id="total-basket">' . (isset($_SESSION['panier']) ? array_sum(array_column($_SESSION['panier'], 1)) : '0') . '</span>)</strong></a>
                     <a class="active" href="php/logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
     } else {
@@ -142,6 +142,7 @@
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
+                <img src="img/CarSocietyLogo.png">
                 <p>Copyright (c) 2024, CarSociety</p>
                 <p>Tous droits réservés</p>
             </div>

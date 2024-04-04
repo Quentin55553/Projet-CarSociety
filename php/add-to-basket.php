@@ -7,7 +7,7 @@
     
     }
     // Si l'utilisateur essaye d'ajouter 0 produit, renvoi de -2 pour un affichage d'erreur
-    else if ($_GET['qte']==0) {
+    else if ($_GET['qte'] == 0) {
         echo -2;
     
     }
@@ -61,8 +61,10 @@
 
         // Sauvegarde des modifications dans le fichier XML
         $xml->asXML("../bdd/products.xml");
+
         // Cet appel sert à appeler les fonctions de mise à jour du tableau associatif des produits et du SQL (qui se font à partir du XML désormais à jour)
         include "varSession.inc.php";
+    
     } 
     // Autres cas : renvoi de -3 pour un affichage d'erreur
     else {  

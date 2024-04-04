@@ -194,6 +194,7 @@
                     <div class="input-group">
                         <label for="register-password" class="required"><i class="fas fa-lock"></i> Mot de passe</label>
                         <input type="password" id="register-password" name="password" required>
+                        <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 
                     <div class="center">
@@ -210,6 +211,7 @@
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
+                <img src="../img/CarSocietyLogo.png">
                 <p>Copyright (c) 2024, CarSociety</p>
                 <p>Tous droits réservés</p>
             </div>
@@ -235,5 +237,6 @@
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
+        <script src="../js/toggleButtonPassword.js"></script>
     </body>
 </html>

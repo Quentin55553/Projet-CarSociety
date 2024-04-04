@@ -126,7 +126,7 @@ body {
 
 .menu {
     position: fixed;
-    margin-top: 180px;
+    margin-top: 220px;
     padding-bottom: 35px;
     width: 230px;
     background-color: #333;
@@ -231,6 +231,10 @@ h1.main-title {
     margin: 10px;
 }
 
+form i {
+    color:#555;
+}
+
 .footer {
     position: relative;
     margin-bottom: 0px;
@@ -242,12 +246,37 @@ h1.main-title {
     justify-content: space-between;
 }
 
+footer h2 {
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+
+footer h2::before {
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #e91e63;
+	height: 2px;
+	box-sizing: border-box;
+	width: 120px;
+}
+
 .legal-informations {
     margin-left: 10%;
 }
 
 .legal-informations p {
     line-height: 5px;
+}
+
+.legal-informations img {
+    margin-left: 60px;
+    width: 70px;
 }
 
 .contact {
@@ -277,27 +306,8 @@ h1.main-title {
 	background-color: var(--main-color);
 }
 
-footer h2 {
-	font-size: 18px;
-	color: #ffffff;
-	text-transform: capitalize;
-	margin-bottom: 35px;
-	font-weight: 500;
-	position: relative;
-}
-
-footer h2::before {
-	content: '';
-	position: absolute;
-	left:0;
-	bottom: -10px;
-	background-color: #e91e63;
-	height: 2px;
-	box-sizing: border-box;
-	width: 120px;
-}
-
 .input-group {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin: 1.5rem 0;
@@ -333,6 +343,18 @@ footer h2::before {
     border-bottom: 2px solid var(--main-color);
     resize: none;
     border-radius: 5px 5px 0 0;
+}
+
+.input-group input:hover, .input-group textarea:hover, .input-group select:hover {
+    background-color: #e7e6e6;
+    transition: background-color 0.6s ease;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 12px;
+    top: 57%;
+    cursor: pointer;
 }
 
 .center {

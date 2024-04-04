@@ -8,13 +8,13 @@
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
         $options = '<a href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
-                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier <strong>(<span id="total-basket">' . (isset($_SESSION['panier']) ? array_sum(array_column($_SESSION['panier'], 1)) : '0') . '</span>)</strong></a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
         // Variable de vérification de connexion
         $connected = 1;
-    } 
-    else {
+    
+    } else {
         // Si aucune session n'est active, affiche les liens de connexion et de création de compte
         $options = '<a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
                     <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
@@ -178,6 +178,7 @@
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
+                <img src="../img/CarSocietyLogo.png">
                 <p>Copyright (c) 2024, CarSociety</p>
                 <p>Tous droits réservés</p>
             </div>

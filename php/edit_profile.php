@@ -27,7 +27,7 @@
     if (isset($_SESSION['email'])) {
         // Si une session est active, affiche le lien de déconnexion
         $options = '<a class="in-menu" href="edit_profile.php"><i class="fas fa-user-cog"></i> Profil</a>
-                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a href="basket.php"><i class="fas fa-shopping-cart"></i> Panier <strong>(<span id="total-basket">' . (isset($_SESSION['panier']) ? array_sum(array_column($_SESSION['panier'], 1)) : '0') . '</span>)</strong></a>
                     <a class="active" href="logout.php"><i class="fas fa-sign-in-alt"></i> Se déconnecter</a>';
 
     } else {
@@ -242,43 +242,45 @@
 
                 <form action="edit_profile.php" method="post">
                     <div class="input-group">
-                        <label for="lastname" class="required">Nom</label>
+                        <label for="lastname" class="required"><i class="fas fa-user"></i> Nom</label>
                         <input type="text" id="lastname" name="lastname" value="<?php echo $userData['lastname']; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="firstname" class="required">Prénom</label>
+                        <label for="firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
                         <input type="text" id="firstname" name="firstname" value="<?php echo $userData['firstname']; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="birthdate" class="required">Date de naissance</label>
+                        <label for="birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
                         <input type="date" id="birthdate" name="birthdate" value="<?php echo $userData['birthdate']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email" class="required">Email</label>
+                        <label for="email" class="required"><i class="fas fa-envelope"></i> Email</label>
                         <input type="email" id="email" name="email" placeholder="email@exemple.com" value="<?php echo $email_session; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-tel" class="required">Numéro de téléphone</label>
+                        <label for="register-tel" class="required"><i class="fas fa-phone"></i> Numéro de téléphone</label>
                         <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" value="<?php echo $userData['tel']; ?>" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="client-number">Numéro de client</label>
+                        <label for="client-number"><i class="fas fa-id-card"></i> Numéro de client</label>
                         <input type="text" id="client-number" name="client-number" pattern="\d{10}" value="<?php echo $userData['client_number']; ?>" required readonly>
                     </div>
 
                     <div class="input-group">
-                        <label for="current-password">Mot de passe actuel</label>
+                        <label for="current-password"><i class="fas fa-lock"></i> Mot de passe actuel</label>
                         <input type="password" id="current-password" name="current-password">
+                        <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 
                     <div class="input-group">
-                        <label for="new-password">Nouveau mot de passe</label>
+                        <label for="new-password"><i class="fas fa-lock"></i> Nouveau mot de passe</label>
                         <input type="password" id="new-password" name="new-password">
+                        <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 
                     <div class="center">
@@ -293,6 +295,7 @@
         <footer class="footer">
             <div class="legal-informations">
                 <h2>CarSociety</h2>
+                <img src="../img/CarSocietyLogo.png">
                 <p>Copyright (c) 2024, CarSociety</p>
                 <p>Tous droits réservés</p>
             </div>
@@ -314,9 +317,10 @@
                 <p><i class="fas fa-envelope"></i> <a href="mailto:serviceclientcarsociety@gmail.com">serviceclientcarsociety@gmail.com</a></p>
             </div>
         </footer>
+
+
+        <script src="../js/goUpButton.js"></script>
+        <script src="../js/closeMessage.js"></script>
+        <script src="../js/toggleButtonPassword.js"></script>
     </body>
-
-
-    <script src="../js/goUpButton.js"></script>
-    <script src="../js/closeMessage.js"></script>
 </html>
