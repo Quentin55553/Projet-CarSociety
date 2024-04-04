@@ -163,3 +163,33 @@ function ajout_panier(reference, connected) {
     // Envoi de la requête
     xhttp.send();
 }
+
+function retrait_panier(reference) {
+    // Même manipulation que dans ajout_compteur()
+    let ref = reference.id;
+    qte=document.getElementById('qte-'+ref).innerHTML.substring(1);
+    // Procédure AJAX pour mettre à jour le stock
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        // Quand l'objet XMLHttpRequest passe à l'état prêt
+        if (this.readyState == 4 && this.status == 200) {
+            // Erreur : erreurs non identifiée
+            if (this.responseText == -3) {
+                document.getElementById("annonceur").innerHTML = failureMessage3;
+            }
+            // Succès
+            else {
+                // Le stock affiché change en fonction du renvoi du script php appelé
+                document.getElementById(ref).style.display = 'none';
+                document.getElementById('prix-total').innerHTML = 'Prix de la commande : '+this.responseText+' €';
+            }
+       }
+    };
+
+    // Ouverture d'un script php qui gère la mise à jour de la base de données
+    // Paramètres passés en GET : ref (string, référence produit), qte (int, quantité produit), connected (1 ou 0)
+    xhttp.open("GET", "../php/remove-from-basket.php?ref=" + ref + "&qte=" + qte, true);
+    // Envoi de la requête
+    xhttp.send();
+}
