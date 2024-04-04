@@ -2,7 +2,7 @@
     // Script PHP permettant de gérer diverses création et mises à jour de données
 
     // Inclusion des fonction à utiliser
-    require 'CarSocietyData.php';
+    require_once 'CarSocietyData.php';
 
     // Insertion des produits dans un tableau associatif
     // Format du tableau : [catégorie ==> [[photo1,référence1,nom1,prix1,stock1],[photo2,référence2,nom2,prix2,stock2],...] ]

@@ -62,7 +62,7 @@
         // Sauvegarde des modifications dans le fichier XML
         $xml->asXML("../bdd/products.xml");
         // Cet appel sert à appeler les fonctions de mise à jour du tableau associatif des produits et du SQL (qui se font à partir du XML désormais à jour)
-        include "CarSocietyData.php";
+        include "varSession.inc.php";
     } 
     // Autres cas : renvoi de -3 pour un affichage d'erreur
     else {  

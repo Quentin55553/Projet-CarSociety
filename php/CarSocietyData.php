@@ -9,7 +9,9 @@
     // Utilisateur SQL
     $username = "root";
     $password = "";
-        
+    
+    // Cette condition a été rajoutée à cause de problèmes d'inclusions multiples
+    if(!function_exists("connect_db")){
 
     /*
     Cette fonction renvoie true si se connecter à la base de données est possible, false sinon
@@ -207,13 +209,5 @@
             }
         }
     }
-
-    ////////////////////////////////
-    ////// MISE A JOUR Users ///////
-    ////////////////////////////////
-
-
-    ////////////////////////////////
-    ////// MISE A JOUR Products/////
-    ////////////////////////////////
+    }
 ?>

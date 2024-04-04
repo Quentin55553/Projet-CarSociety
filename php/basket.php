@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Permet notamment d'avoir le tableau associatif des produits
-require 'varSession.inc.php';
+require_once 'varSession.inc.php';
 
 // Vérifie si une session avec l'email est déjà active
 if (isset($_SESSION['email'])) {
@@ -86,6 +86,7 @@ function afficher_panier($panier) {
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Quantité</th>
+                    <th> </th>
                 </tr>
             </thead>
         <tbody>";
@@ -93,7 +94,7 @@ function afficher_panier($panier) {
     foreach ($panier as $produit) {
         // Référence du produit
         $reference = $produit[0];
-        echo "<tr>";
+        echo "<tr id='$reference'>";
         // Colonne "Référence"
         echo "<td>".$reference."</td>";
         // Colonne "Nom"
@@ -101,7 +102,9 @@ function afficher_panier($panier) {
         // Colonne "Prix"
         echo "<td>".number_format(get_prix($reference),0,'.',' ')." €</td>";
         // Colonne "Quantité"
-        echo "<td>x".$produit[1]."</td>";
+        echo "<td id='qte-$reference'>x".$produit[1]."</td>";
+        // Colonne "Retirer du panier"
+        echo '<td><button onclick="retrait_panier('.$reference.')">Retirer</button></td>';
         echo "</tr>";
     }
     // Fin de la table
@@ -156,7 +159,7 @@ function afficher_panier($panier) {
 
         <div class="content">
             <h1 class="main-title">Votre panier</h1>
-
+            <div id="annonceur" style="width: 100%; display: flex; justify-content: center; align-items: center;"></div>
             <?php
                 // Zone d'affichage du panier
 
@@ -171,7 +174,7 @@ function afficher_panier($panier) {
                     // Table
                     afficher_panier($_SESSION['panier']);
                     // Affichage du prix total
-                    echo "<p> Prix de la commande : ";
+                    echo "<p id='prix-total'> Prix de la commande : ";
                     echo number_format(prix_total($_SESSION['panier']),0,'.',' ');
                     echo " €</p>";
                     // Bouton "Commander"
