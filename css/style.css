@@ -675,3 +675,12 @@ a.link:hover {
     font-weight: bold;
     padding-left: 5px;
 }
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+.error-message.with-content {
+    margin-top: 5px;
+}

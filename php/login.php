@@ -30,60 +30,85 @@
         exit();
     }
 
+    $password = isset($_POST['password']) ? $_POST['password'] : null;
+
+    // On inclue le script de vérification
+    include 'checkData.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $usersFile = '../bdd/users.json';
+        if ($verificationsPassed) {
+            $verificationsPassed = false;
+            $errors = [];
 
-        if (!file_exists($usersFile)) {
-            // Si le fichier des utilisateurs n'existe pas, on affiche un message d'erreur
-            $message = "<div class='info-message'>
-                            <div class='wrapper-warning'>
-                                <div class='card'>
-                                    <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
-                                    <div class='subject'>
-                                        <h3>Attention</h3>
-                                        <p>L'email ou le mot de passe est incorrect.</p>
+            $usersFile = '../bdd/users.json';
+
+            if (!file_exists($usersFile)) {
+                // Si le fichier des utilisateurs n'existe pas, on affiche un message d'erreur
+                $message = "<div class='info-message'>
+                                <div class='wrapper-warning'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Attention</h3>
+                                            <p>L'email ou le mot de passe est incorrect.</p>
+                                        </div>
+
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
-
-                                    <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
-                            </div>
-                        </div>";
+                            </div>";
 
-        } else {
-            $usersData = file_get_contents($usersFile);
-            $users = json_decode($usersData, true);
+            } else {
+                $usersData = file_get_contents($usersFile);
+                $users = json_decode($usersData, true);
 
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            
-            // Si l'email existe dans la liste des utilisateurs
-            if (isset($users[$email])) {
-                $userData = $users[$email];
-                $passwordHash = $userData['password'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
                 
-                // Si le mot de passe est correct, on connecte l'utilisateur
-                if (password_verify($password, $passwordHash)) {
-                    // Mise à jour des informations de session
-                    $_SESSION['email'] = $email;
-                    $_SESSION['client_number'] = $userData['client_number'];
-                    $_SESSION['lastname'] = $userData['lastname'];
-                    $_SESSION['firstname'] = $userData['firstname'];
-                    $_SESSION['birthdate'] = $userData['birthdate'];
-                    $_SESSION['tel'] = $userData['tel'];
-
-                    $_SESSION['just_connected'] = true;
+                // Si l'email existe dans la liste des utilisateurs
+                if (isset($users[$email])) {
+                    $userData = $users[$email];
+                    $passwordHash = $userData['password'];
                     
-                    if (isset($catValue)) {
-                        header("Location: .." . urldecode($catValue));
+                    // Si le mot de passe est correct, on connecte l'utilisateur
+                    if (password_verify($password, $passwordHash)) {
+                        // Mise à jour des informations de session
+                        $_SESSION['email'] = $email;
+                        $_SESSION['client_number'] = $userData['client_number'];
+                        $_SESSION['lastname'] = $userData['lastname'];
+                        $_SESSION['firstname'] = $userData['firstname'];
+                        $_SESSION['birthdate'] = $userData['birthdate'];
+                        $_SESSION['tel'] = $userData['tel'];
+
+                        $_SESSION['just_connected'] = true;
+                        
+                        if (isset($catValue)) {
+                            header("Location: .." . urldecode($catValue));
+                            exit();
+                        }
+
+                        header("Location: ../index.php");
                         exit();
+
+                    } else {
+                        // Si le mot de passe est incorrect, on affiche un message d'erreur
+                        $message = "<div class='info-message'>
+                                        <div class='wrapper-warning'>
+                                            <div class='card'>
+                                                <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                                <div class='subject'>
+                                                    <h3>Attention</h3>
+                                                    <p>L'email ou le mot de passe est incorrect.</p>
+                                                </div>
+
+                                                <div class='icon-times'><i class='fas fa-times'></i></div>
+                                            </div>
+                                        </div>
+                                    </div>";
                     }
 
-                    header("Location: ../index.php");
-                    exit();
-
                 } else {
-                    // Si le mot de passe est incorrect, on affiche un message d'erreur
+                    // Si l'email n'existe pas dans la liste des utilisateurs, on affiche un message d'erreur
                     $message = "<div class='info-message'>
                                     <div class='wrapper-warning'>
                                         <div class='card'>
@@ -98,22 +123,6 @@
                                     </div>
                                 </div>";
                 }
-
-            } else {
-                // Si l'email n'existe pas dans la liste des utilisateurs, on affiche un message d'erreur
-                $message = "<div class='info-message'>
-                                <div class='wrapper-warning'>
-                                    <div class='card'>
-                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
-                                        <div class='subject'>
-                                            <h3>Attention</h3>
-                                            <p>L'email ou le mot de passe est incorrect.</p>
-                                        </div>
-
-                                        <div class='icon-times'><i class='fas fa-times'></i></div>
-                                    </div>
-                                </div>
-                            </div>";
             }
         }
     }
@@ -171,22 +180,28 @@
             ?>
 
             <div class="form-container">
-                <form id="login-form" action="login.php<?php if(isset($_GET['cat'])) echo '?cat=' . urlencode($_GET['cat']); ?>" method="post">
-                    <div class="input-group">
-                        <label for="login-email"><i class="fas fa-at"></i> Email</label>
-                        <input type="email" id="login-email" name="email" required>
-                    </div>
+            <form id="login-form" action="login.php<?php if(isset($_GET['cat'])) echo '?cat=' . urlencode($_GET['cat']); ?>" method="post" novalidate>
+                <div class="input-group">
+                    <label for="email"><i class="fas fa-at"></i> Email</label>
+                    <span id="email-error" class="error-message <?php echo isset($errors["email"]) ? "with-content" : ""; ?>">
+                        <?php displayErrors("email", $errors); ?>
+                    </span>
+                    <input type="email" id="email" name="email" value="<?php echo isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : ""; ?>" <?php echo isset($errors["email"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
+                </div>
 
-                    <div class="input-group">
-                        <label for="login-password"><i class="fas fa-lock"></i> Mot de passe</label>
-                        <input type="password" id="login-password" name="password" required>
-                        <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
-                    </div>
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+                    <span id="password-error" class="error-message <?php echo isset($errors["password"]) ? "with-content" : ""; ?>">
+                        <?php displayErrors("password", $errors); ?>
+                    </span>
+                    <input type="password" id="password" name="password" <?php echo isset($errors["password"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
+                    <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
+                </div>
 
-                    <div class="center">
-                        <button class="red-button" type="submit">Se connecter</button>
-                    </div>
-                </form>
+                <div class="center">
+                    <button class="red-button" type="submit">Se connecter</button>
+                </div>
+            </form>
 
                 <p class="text">Pas encore inscrit ?<a href="register.php" class="link">S'inscrire</a></p>
             </div>
@@ -222,6 +237,7 @@
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
-        <script src="../js/toggleButtonPassword.js"></script>
+        <script src="../js/passwordButton.js"></script>
+        <script src="../js/checkForm.js"></script>
     </body>
 </html>

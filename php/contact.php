@@ -20,89 +20,97 @@
                     <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
     }
 
+    $gender = isset($_POST['gender']) ? $_POST['gender'] : "";
+    $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
+    $job = isset($_POST['job']) ? $_POST['job'] : "";
+
+    // On inclue le script de vérification
+    include 'checkData.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $contact_date = $_POST['contact_date'];
-        $lastname = strtoupper($_POST['lastname']);
-        $firstname = ucfirst(strtolower($_POST['firstname']));
-        $email = $_POST['email'];
-        $gender = $_POST['gender'];
-        $birthdate = $_POST['birthdate'];
-        $job = $_POST['job'];
-        $object = $_POST['object'];
-        $content = $_POST['content'];
+        if ($verificationsPassed) {
+            $verificationsPassed = false;
+            $errors = [];
 
-        // Utilisation de PHPMailer pour envoyer l'email
-        require "../PHPMailer/src/Exception.php";
-        require "../PHPMailer/src/PHPMailer.php";
-        require "../PHPMailer/src/SMTP.php";
+            $contact_date = $_POST['contact_date'];
+            $lastname = strtoupper($_POST['lastname']);
+            $firstname = ucfirst(strtolower($_POST['firstname']));
+            $email = $_POST['email'];
+            $object = $_POST['object'];
+            $content = $_POST['content'];
 
-        $mail = new PHPMailer(true);
+            // Utilisation de PHPMailer pour envoyer l'email
+            require "../PHPMailer/src/Exception.php";
+            require "../PHPMailer/src/PHPMailer.php";
+            require "../PHPMailer/src/SMTP.php";
 
-        // Configuration du serveur SMTP
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'carsociety758@gmail.com';
-        $mail->Password = 'nwxidkhvtxiwbnkq';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+            $mail = new PHPMailer(true);
 
-        // Configuration de l'expéditeur et du destinataire
-        $mail->setFrom('carsociety758@gmail.com', 'CarSociety');
-        $mail->addAddress('serviceclientcarsociety@gmail.com', 'Service client CarSociety');
+            // Configuration du serveur SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'carsociety758@gmail.com';
+            $mail->Password = 'nwxidkhvtxiwbnkq';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
 
-        // Ajout du sujet et du corps de l'email
-        $mail->Subject = "Nouvelle demande de contact de $firstname $lastname";
-        // On définit le format de l'email comme HTML
-        $mail->isHTML(true);
+            // Configuration de l'expéditeur et du destinataire
+            $mail->setFrom('carsociety758@gmail.com', 'CarSociety');
+            $mail->addAddress('serviceclientcarsociety@gmail.com', 'Service client CarSociety');
 
-        // Ajout de l'image du logo dans le mail
-        $mail->AddEmbeddedImage('../img/CarSocietyLogo.png', 'carsocietylogo', 'CarSocietyLogo.png');
+            // Ajout du sujet et du corps de l'email
+            $mail->Subject = "Nouvelle demande de contact de $firstname $lastname";
+            // On définit le format de l'email comme HTML
+            $mail->isHTML(true);
 
-        $body = file_get_contents('../mail_text.html');
-        $body = str_replace('{CONTACT_DATE}', $contact_date, $body);
-        $body = str_replace('{LASTNAME}', $lastname, $body);
-        $body = str_replace('{FIRSTNAME}', $firstname, $body);
-        $body = str_replace('{EMAIL}', $email, $body);
-        $body = str_replace('{GENDER}', $gender, $body);
-        $body = str_replace('{BIRTHDATE}', $birthdate, $body);
-        $body = str_replace('{JOB}', $job, $body);
-        $body = str_replace('{OBJECT}', $object, $body);
-        $body = str_replace('{CONTENT}', $content, $body);
+            // Ajout de l'image du logo dans le mail
+            $mail->AddEmbeddedImage('../img/CarSocietyLogo.png', 'carsocietylogo', 'CarSocietyLogo.png');
 
-        $mail->Body = $body;
+            $body = file_get_contents('../mail_text.html');
+            $body = str_replace('{CONTACT_DATE}', $contact_date, $body);
+            $body = str_replace('{LASTNAME}', $lastname, $body);
+            $body = str_replace('{FIRSTNAME}', $firstname, $body);
+            $body = str_replace('{EMAIL}', $email, $body);
+            $body = str_replace('{GENDER}', $gender, $body);
+            $body = str_replace('{BIRTHDATE}', $birthdate, $body);
+            $body = str_replace('{JOB}', $job, $body);
+            $body = str_replace('{OBJECT}', $object, $body);
+            $body = str_replace('{CONTENT}', $content, $body);
 
-        // Envoi de l'email
-        if ($mail->send()) {
-            $message = "<div class='info-message'>
-                            <div class='wrapper-success'>
-                                <div class='card'>
-                                    <div class='icon'><i class='fas fa-check-circle'></i></div>
-                                    <div class='subject'>
-                                        <h3>Succès</h3>
-                                        <p>La demande de contact a été envoyée !</p>
+            $mail->Body = $body;
+
+            // Envoi de l'email
+            if ($mail->send()) {
+                $message = "<div class='info-message'>
+                                <div class='wrapper-success'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fas fa-check-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Succès</h3>
+                                            <p>La demande de contact a été envoyée !</p>
+                                        </div>
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
-                                    <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
-                            </div>
-                            <br>
-                        </div>";
+                                <br>
+                            </div>";
 
-        } else {
-            $message = "<div class='info-message'>
-                            <div class='wrapper-failure'>
-                                <div class='card'>
-                                    <div class='icon'><i class='fa fa-times-circle'></i></div>
-                                    <div class='subject'>
-                                        <h3>Échec</h3>
-                                        <p>La demande de contact n'a pas pu être envoyée.</p>
+            } else {
+                $message = "<div class='info-message'>
+                                <div class='wrapper-failure'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fa fa-times-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Échec</h3>
+                                            <p>La demande de contact n'a pas pu être envoyée.</p>
+                                        </div>
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
-                                    <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
-                            </div>
-                            <br>
-                        </div>";
+                                <br>
+                            </div>";
+            }
         }
     }
 ?>
@@ -179,72 +187,100 @@
                     <p>champs obligatoires</p>
                 </div>
 
-                <form action="contact.php" method="post">
+                <form id="contactForm" action="contact.php" method="post" novalidate>
                     <div class="input-group">
                         <label for="contact_date" class="required"><i class="far fa-calendar-alt"></i> Date de contact</label>
-                        <input type="date" id="contact_date" name="contact_date" min="<?php echo date('Y-m-d'); ?>" required>
+                        <span id="contact_date-error" class="error-message <?php echo isset($errors["contact_date"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("contact_date", $errors); ?>
+                        </span>
+                        <input type="date" id="contact_date" name="contact_date" min="<?php echo date('Y-m-d'); ?>" value="<?php echo isset($_POST["contact_date"]) ? htmlspecialchars($_POST["contact_date"]) : ""; ?>" <?php echo isset($errors["contact_date"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
-                    
+
                     <div class="input-group">
                         <label for="lastname" class="required"><i class="fas fa-user"></i> Nom</label>
-                        <input type="text" id="lastname" name="lastname" required>
+                        <span id="lastname-error" class="error-message <?php echo isset($errors["lastname"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("lastname", $errors); ?>
+                        </span>
+                        <input type="text" id="lastname" name="lastname" minlength="3" maxlength="20" value="<?php echo isset($_POST["lastname"]) ? htmlspecialchars($_POST["lastname"]) : ""; ?>" <?php echo isset($errors["lastname"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
-                        <input type="text" id="firstname" name="firstname" required>
+                        <span id="firstname-error" class="error-message <?php echo isset($errors["firstname"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("firstname", $errors); ?>
+                        </span>
+                        <input type="text" id="firstname" name="firstname" minlength="3" maxlength="20" value="<?php echo isset($_POST["firstname"]) ? htmlspecialchars($_POST["firstname"]) : ""; ?>" <?php echo isset($errors["firstname"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="email" class="required"><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="email" name="email" placeholder="email@exemple.com" required>
+                        <span id="email-error" class="error-message <?php echo isset($errors["email"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("email", $errors); ?>
+                        </span>
+                        <input type="email" id="email" name="email" placeholder="email@exemple.com" value="<?php echo isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : ""; ?>" <?php echo isset($errors["email"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
                     
                     <label class="required"><i class="fas fa-venus-mars"></i> Genre</label><br>
-                    <input type="radio" id="man" name="gender" value="Homme" required>
+                    <span id="gender-error" class="error-message <?php echo isset($errors["gender"]) ? "with-content" : ""; ?>">
+                        <?php displayErrors("gender", $errors); ?>
+                    </span>
+                    <input type="radio" id="man" name="gender" value="Homme" <?php echo (isset($_POST["gender"]) && $_POST["gender"] === "Homme") ? "checked" : ""; ?> <?php echo isset($errors["gender"]) ? "style='outline: 2px solid red;'" : ""; ?> required>
                     <label for="man"><i class="fas fa-male" style="color: #3a8aceff;"></i> Homme</label>
-                    <input type="radio" id="woman" name="gender" value="Femme" class="gender-option" required>
+                    <input type="radio" id="woman" name="gender" value="Femme" class="gender-option" <?php echo (isset($_POST["gender"]) && $_POST["gender"] === "Femme") ? "checked" : ""; ?> <?php echo isset($errors["gender"]) ? "style='outline: 2px solid red;'" : ""; ?> required>
                     <label for="woman"><i class="fas fa-female" style="color: #e42d8cff;"></i> Femme</label><br>
 
                     <div class="input-group">
                         <label for="birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
-                        <input type="date" id="birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
+                        <span id="birthdate-error" class="error-message <?php echo isset($errors["birthdate"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("birthdate", $errors); ?>
+                        </span>
+                        <input type="date" id="birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" value="<?php echo isset($_POST["birthdate"]) ? htmlspecialchars($_POST["birthdate"]) : ""; ?>" <?php echo isset($errors["birthdate"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="job" class="required"><i class="fas fa-briefcase"></i> Fonction</label>
-                        <select name="job" id="job" required>
-                            <option value="Ingénieur en informatique">Ingénieur en informatique</option>
-                            <option value="Développeur de logiciels">Développeur de logiciels</option>
-                            <option value="Analyste financier">Analyste financier</option>
-                            <option value="Avocat">Avocat</option>
-                            <option value="Comptable">Comptable</option>
-                            <option value="Enseignant">Enseignant</option>
-                            <option value="Médecin">Médecin</option>
-                            <option value="Infirmier/infirmière">Infirmier/infirmière</option>
-                            <option value="Architecte">Architecte</option>
-                            <option value="Designer graphique">Designer graphique</option>
-                            <option value="Marketing Manager">Marketing Manager</option>
-                            <option value="Chef de projet">Chef de projet</option>
-                            <option value="Analyste de données">Analyste de données</option>
-                            <option value="Spécialiste des ressources humaines">Spécialiste des ressources humaines</option>
-                            <option value="Consultant en gestion">Consultant en gestion</option>
-                            <option value="Analyste en cybersécurité">Analyste en cybersécurité</option>
-                            <option value="Écrivain/rédacteur">Écrivain/rédacteur</option>
-                            <option value="Analyste de marché">Analyste de marché</option>
-                            <option value="Technicien en maintenance">Technicien en maintenance</option>
-                            <option value="Agent immobilier">Agent immobilier</option>
+                        <span id="job-error" class="error-message <?php echo isset($errors["job"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("job", $errors); ?>
+                        </span>
+                        <select name="job" id="job" <?php echo isset($errors["job"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
+                            <option value="" disabled selected>--Sélectionner une fonction--</option>
+                            <option value="Ingénieur en informatique" <?php echo ($_POST["job"] == "Ingénieur en informatique") ? "selected" : ""; ?>>Ingénieur en informatique</option>
+                            <option value="Développeur de logiciels" <?php echo ($_POST["job"] == "Développeur de logiciels") ? "selected" : ""; ?>>Développeur de logiciels</option>
+                            <option value="Analyste financier" <?php echo ($_POST["job"] == "Analyste financier") ? "selected" : ""; ?>>Analyste financier</option>
+                            <option value="Avocat" <?php echo ($_POST["job"] == "Avocat") ? "selected" : ""; ?>>Avocat</option>
+                            <option value="Comptable" <?php echo ($_POST["job"] == "Comptable") ? "selected" : ""; ?>>Comptable</option>
+                            <option value="Enseignant" <?php echo ($_POST["job"] == "Enseignant") ? "selected" : ""; ?>>Enseignant</option>
+                            <option value="Médecin" <?php echo ($_POST["job"] == "Médecin") ? "selected" : ""; ?>>Médecin</option>
+                            <option value="Infirmier/infirmière" <?php echo ($_POST["job"] == "Infirmier/infirmière") ? "selected" : ""; ?>>Infirmier/infirmière</option>
+                            <option value="Architecte" <?php echo ($_POST["job"] == "Architecte") ? "selected" : ""; ?>>Architecte</option>
+                            <option value="Designer graphique" <?php echo ($_POST["job"] == "Designer graphique") ? "selected" : ""; ?>>Designer graphique</option>
+                            <option value="Marketing Manager" <?php echo ($_POST["job"] == "Marketing Manager") ? "selected" : ""; ?>>Marketing Manager</option>
+                            <option value="Chef de projet" <?php echo ($_POST["job"] == "Chef de projet") ? "selected" : ""; ?>>Chef de projet</option>
+                            <option value="Analyste de données" <?php echo ($_POST["job"] == "Analyste de données") ? "selected" : ""; ?>>Analyste de données</option>
+                            <option value="Spécialiste des ressources humaines" <?php echo ($_POST["job"] == "Spécialiste des ressources humaines") ? "selected" : ""; ?>>Spécialiste des ressources humaines</option>
+                            <option value="Consultant en gestion" <?php echo ($_POST["job"] == "Consultant en gestion") ? "selected" : ""; ?>>Consultant en gestion</option>
+                            <option value="Analyste en cybersécurité" <?php echo ($_POST["job"] == "Analyste en cybersécurité") ? "selected" : ""; ?>>Analyste en cybersécurité</option>
+                            <option value="Écrivain/rédacteur" <?php echo ($_POST["job"] == "Écrivain/rédacteur") ? "selected" : ""; ?>>Écrivain/rédacteur</option>
+                            <option value="Analyste de marché" <?php echo ($_POST["job"] == "Analyste de marché") ? "selected" : ""; ?>>Analyste de marché</option>
+                            <option value="Technicien en maintenance" <?php echo ($_POST["job"] == "Technicien en maintenance") ? "selected" : ""; ?>>Technicien en maintenance</option>
+                            <option value="Agent immobilier" <?php echo ($_POST["job"] == "Agent immobilier") ? "selected" : ""; ?>>Agent immobilier</option>
                         </select>
                     </div>
 
                     <div class="input-group">
                         <label for="object" class="required"><i class="fas fa-pencil-alt"></i> Sujet (5-35 caractères)</label>
-                        <input type="text" id="object" name="object" minlength="5" maxlength="35" required>
+                        <span id="object-error" class="error-message <?php echo isset($errors["object"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("object", $errors); ?>
+                        </span>
+                        <input type="text" id="object" name="object" minlength="5" maxlength="35" value="<?php echo isset($_POST["object"]) ? htmlspecialchars($_POST["object"]) : ""; ?>" <?php echo isset($errors["object"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="content" class="required"><i class="fas fa-align-left"></i> Contenu (10-500 caractères)</label>
-                        <textarea id="content" name="content" rows="4" cols="50" minlength="10" maxlength="500" placeholder="Contenu de votre demande" required></textarea>
+                        <span id="content-error" class="error-message <?php echo isset($errors["content"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("content", $errors); ?>
+                        </span>
+                        <textarea id="content" name="content" rows="4" cols="50" minlength="10" maxlength="500" placeholder="Contenu de votre demande" required><?php echo isset($_POST["content"]) ? htmlspecialchars($_POST["content"]) : ""; ?></textarea>
                     </div>
 
                     <div class="center">
@@ -287,5 +323,6 @@
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
+        <script src="../js/checkForm.js"></script>
     </body>
 </html>

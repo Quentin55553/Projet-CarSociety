@@ -43,80 +43,105 @@
     $users = json_decode($data, true);
     $userData = $users[$email_session];
 
+    $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
+    $password = ($_POST['password'] !== "") ? $_POST['password'] : null;
+    $newPassword = ($_POST['new-password'] !== "") ? $_POST['new-password'] : null;
+
+    // On inclue le script de vérification
+    include 'checkData.php';
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // On récupère les données du formulaire
-        $email = $_POST['email'];
-        $lastname = strtoupper($_POST['lastname']);
-        $firstname = ucfirst(strtolower($_POST['firstname']));
-        $birthdate = $_POST['birthdate'];
-        $tel = $_POST['tel'];
-        $current_password = $_POST['current-password'];
-        $new_password = $_POST['new-password'];
+        if ($verificationsPassed) {
+            $verificationsPassed = false;
+            $errors = [];
 
-        // Vérifie si le nouveau mail n'est pas déjà associé à un compte
-        if (($email != $email_session) && (isset($users[$email]))) {
-            $message = "<div class='info-message'>
-                            <div class='wrapper-warning'>
-                                <div class='card'>
-                                    <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
-                                    <div class='subject'>
-                                        <h3>Attention</h3>
-                                        <p>Cet e-mail est déjà associé à un compte.</p>
+            // On récupère les données du formulaire
+            $email = $_POST['email'];
+            $lastname = strtoupper($_POST['lastname']);
+            $firstname = ucfirst(strtolower($_POST['firstname']));
+            $tel = $_POST['tel'];
+
+            // Vérifie si le nouveau mail n'est pas déjà associé à un compte
+            if (($email != $email_session) && (isset($users[$email]))) {
+                $message = "<div class='info-message'>
+                                <div class='wrapper-warning'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Attention</h3>
+                                            <p>Cet e-mail est déjà associé à un compte.</p>
+                                        </div>
+
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
-
-                                    <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
-                            </div>
-                            <br>
-                        </div>";
+                                <br>
+                            </div>";
 
-        } else if ((empty($current_password) && !empty($new_password)) || (!empty($current_password) && empty($new_password))) {
-            $message = "<div class='info-message'>
-                            <div class='wrapper-warning'>
-                                <div class='card'>
-                                    <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
-                                    <div class='subject'>
-                                        <h3>Attention</h3>
-                                        <p>Le changement de mot de passe requiert le mot de passe actuel ainsi que le nouveau.</p>
+            } else if ((empty($password) && !empty($newPassword)) || (!empty($password) && empty($newPassword))) {
+                $message = "<div class='info-message'>
+                                <div class='wrapper-warning'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Attention</h3>
+                                            <p>Le changement de mot de passe requiert le mot de passe actuel ainsi que le nouveau.</p>
+                                        </div>
+
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
-
-                                    <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
-                            </div>
-                            <br>
-                        </div>";
+                                <br>
+                            </div>";
 
-        } else if (!empty($current_password) && !empty($new_password)) {
-            // Vérification du mot de passe actuel
-            if ($current_password != $new_password) {
-                if (password_verify($current_password, $userData["password"])) {
-                    // Mise à jour des autres informations de l'utilisateur
-                    $userData["lastname"] = $lastname;
-                    $userData["firstname"] = $firstname;
-                    $userData["birthdate"] = $birthdate;
-                    $userData["tel"] = $tel;
-                    $userData["password"] = password_hash($new_password, PASSWORD_DEFAULT);
+            } else if (!empty($password) && !empty($newPassword)) {
+                // Vérification du mot de passe actuel
+                if ($password != $newPassword) {
+                    if (password_verify($password, $userData["password"])) {
+                        // Mise à jour des autres informations de l'utilisateur
+                        $userData["lastname"] = $lastname;
+                        $userData["firstname"] = $firstname;
+                        $userData["birthdate"] = $birthdate;
+                        $userData["tel"] = $tel;
+                        $userData["password"] = password_hash($newPassword, PASSWORD_DEFAULT);
 
-                    $users[$email] = $userData;
+                        $users[$email] = $userData;
 
-                    if ($email != $email_session) {
-                        unset($users[$email_session]);
+                        if ($email != $email_session) {
+                            unset($users[$email_session]);
+                        }
+
+                        // Enregistre les données de l'utilisateur dans le fichier JSON 
+                        file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
+
+                        // Mise à jour des informations de session
+                        $_SESSION["email"] = $email;
+                        $_SESSION["lastname"] = $lastname;
+                        $_SESSION["firstname"] = $firstname;
+                        $_SESSION["birthdate"] = $birthdate;
+                        $_SESSION["tel"] = $tel;
+
+                        $_SESSION['changes_confirmed'] = true;
+
+                        header("Location: edit_profile.php");
+                        exit();
+
+                    } else {
+                        $message = "<div class='info-message'>
+                                        <div class='wrapper-warning'>
+                                            <div class='card'>
+                                                <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                                <div class='subject'>
+                                                    <h3>Attention</h3>
+                                                    <p>Le mot de passe actuel rentré est incorrect.</p>
+                                                </div>
+
+                                                <div class='icon-times'><i class='fas fa-times'></i></div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>";
                     }
-
-                    // Enregistre les données de l'utilisateur dans le fichier JSON 
-                    file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
-
-                    // Mise à jour des informations de session
-                    $_SESSION["email"] = $email;
-                    $_SESSION["lastname"] = $lastname;
-                    $_SESSION["firstname"] = $firstname;
-                    $_SESSION["birthdate"] = $birthdate;
-                    $_SESSION["tel"] = $tel;
-
-                    $_SESSION['changes_confirmed'] = true;
-
-                    header("Location: edit_profile.php");
-                    exit();
 
                 } else {
                     $message = "<div class='info-message'>
@@ -125,7 +150,7 @@
                                             <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
                                             <div class='subject'>
                                                 <h3>Attention</h3>
-                                                <p>Le mot de passe actuel rentré est incorrect.</p>
+                                                <p>Le nouveau mot de passe doit être différent de l'ancien.</p>
                                             </div>
 
                                             <div class='icon-times'><i class='fas fa-times'></i></div>
@@ -135,51 +160,35 @@
                                 </div>";
                 }
 
+            // Si l'utilisateur souhaite modifier ses informations personnelles mais pas le mot de passe
             } else {
-                $message = "<div class='info-message'>
-                                <div class='wrapper-warning'>
-                                    <div class='card'>
-                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
-                                        <div class='subject'>
-                                            <h3>Attention</h3>
-                                            <p>Le nouveau mot de passe doit être différent de l'ancien.</p>
-                                        </div>
+                // Mise à jour des autres informations de l'utilisateur
+                $userData["lastname"] = $lastname;
+                $userData["firstname"] = $firstname;
+                $userData["birthdate"] = $birthdate;
+                $userData["tel"] = $tel;
 
-                                        <div class='icon-times'><i class='fas fa-times'></i></div>
-                                    </div>
-                                </div>
-                                <br>
-                            </div>";
+                $users[$email] = $userData;
+
+                if ($email != $email_session) {
+                    unset($users[$email_session]);
+                }
+
+                // Enregistre les données de l'utilisateur dans le fichier JSON 
+                file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
+
+                // Mise à jour des informations de session
+                $_SESSION["email"] = $email;
+                $_SESSION["lastname"] = $lastname;
+                $_SESSION["firstname"] = $firstname;
+                $_SESSION["birthdate"] = $birthdate;
+                $_SESSION["tel"] = $tel;
+
+                $_SESSION['changes_confirmed'] = true;
+
+                header("Location: edit_profile.php");
+                exit();
             }
-
-        // Si l'utilisateur souhaite modifier ses informations personnelles mais pas le mot de passe
-        } else {
-            // Mise à jour des autres informations de l'utilisateur
-            $userData["lastname"] = $lastname;
-            $userData["firstname"] = $firstname;
-            $userData["birthdate"] = $birthdate;
-            $userData["tel"] = $tel;
-
-            $users[$email] = $userData;
-
-            if ($email != $email_session) {
-                unset($users[$email_session]);
-            }
-
-            // Enregistre les données de l'utilisateur dans le fichier JSON 
-            file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
-
-            // Mise à jour des informations de session
-            $_SESSION["email"] = $email;
-            $_SESSION["lastname"] = $lastname;
-            $_SESSION["firstname"] = $firstname;
-            $_SESSION["birthdate"] = $birthdate;
-            $_SESSION["tel"] = $tel;
-
-            $_SESSION['changes_confirmed'] = true;
-
-            header("Location: edit_profile.php");
-            exit();
         }
     }
 ?>
@@ -240,30 +249,45 @@
                     <p>champs obligatoires</p>
                 </div>
 
-                <form action="edit_profile.php" method="post">
+                <form action="edit_profile.php" method="post" novalidate>
                     <div class="input-group">
                         <label for="lastname" class="required"><i class="fas fa-user"></i> Nom</label>
-                        <input type="text" id="lastname" name="lastname" value="<?php echo $userData['lastname']; ?>" required>
+                        <span id="lastname-error" class="error-message <?php echo isset($errors["lastname"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("lastname", $errors); ?>
+                        </span>
+                        <input type="text" id="lastname" name="lastname" value="<?php echo $userData['lastname']; ?>" minlength="3" maxlength="20" <?php echo isset($errors["lastname"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
-                        <input type="text" id="firstname" name="firstname" value="<?php echo $userData['firstname']; ?>" required>
+                        <span id="firstname-error" class="error-message <?php echo isset($errors["firstname"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("firstname", $errors); ?>
+                        </span>
+                        <input type="text" id="firstname" name="firstname" value="<?php echo $userData['firstname']; ?>" minlength="3" maxlength="20" <?php echo isset($errors["firstname"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
-                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $userData['birthdate']; ?>" max="<?php echo date('Y-m-d'); ?>" required>
+                        <span id="birthdate-error" class="error-message <?php echo isset($errors["birthdate"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("birthdate", $errors); ?>
+                        </span>
+                        <input type="date" id="birthdate" name="birthdate" value="<?php echo $userData['birthdate']; ?>" max="<?php echo date('Y-m-d'); ?>" <?php echo isset($errors["birthdate"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
                         <label for="email" class="required"><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="email" name="email" placeholder="email@exemple.com" value="<?php echo $email_session; ?>" required>
+                        <span id="email-error" class="error-message <?php echo isset($errors["email"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("email", $errors); ?>
+                        </span>
+                        <input type="email" id="email" name="email" placeholder="email@exemple.com" value="<?php echo $email_session; ?>" <?php echo isset($errors["email"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-tel" class="required"><i class="fas fa-phone"></i> Numéro de téléphone</label>
-                        <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" value="<?php echo $userData['tel']; ?>" required>
+                        <label for="tel" class="required"><i class="fas fa-phone"></i> Numéro de téléphone</label>
+                        <span id="tel-error" class="error-message <?php echo isset($errors["tel"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("tel", $errors); ?>
+                        </span>
+                        <input type="tel" id="tel" name="tel" pattern="0[1-9](\d{2}){4}" value="<?php echo $userData['tel']; ?>" <?php echo isset($errors["tel"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
@@ -272,14 +296,20 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="current-password"><i class="fas fa-lock"></i> Mot de passe actuel</label>
-                        <input type="password" id="current-password" name="current-password">
+                        <label for="password"><i class="fas fa-lock"></i> Mot de passe actuel</label>
+                        <span id="password-error" class="error-message <?php echo isset($errors["password"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("password", $errors); ?>
+                        </span>
+                        <input type="password" id="password" name="password" <?php echo isset($errors["password"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?>>
                         <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 
                     <div class="input-group">
                         <label for="new-password"><i class="fas fa-lock"></i> Nouveau mot de passe</label>
-                        <input type="password" id="new-password" name="new-password">
+                        <span id="new-password-error" class="error-message <?php echo isset($errors["new-password"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("new-password", $errors); ?>
+                        </span>
+                        <input type="password" id="new-password" name="new-password" <?php echo isset($errors["new-password"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?>>
                         <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 
@@ -321,6 +351,7 @@
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
-        <script src="../js/toggleButtonPassword.js"></script>
+        <script src="../js/passwordButton.js"></script>
+        <script src="../js/checkForm.js"></script>
     </body>
 </html>

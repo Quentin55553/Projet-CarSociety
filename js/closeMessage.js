@@ -35,10 +35,7 @@ var observer = new MutationObserver(function(mutations) {
 
 
 // Configuration de l'observateur pour surveiller les ajouts d'enfants au nœud racine ainsi que les attributs des nœuds
-var observerConfig = {
-    childList: true,
-    subtree: true
-};
+var observerConfig = { childList: true, subtree: true };
 
 
 // Appel initial pour lancer le gestionnaire d'événements aux icônes de fermeture déjà existantes de base

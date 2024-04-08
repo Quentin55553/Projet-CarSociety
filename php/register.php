@@ -29,81 +29,91 @@
         exit;
     }
 
+    $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
+    $password = isset($_POST['password']) ? $_POST['password'] : null;
+
+    // On inclue le script de vérification
+    include 'checkData.php';
 
     // On vérifie si le formulaire a été soumis
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // On récupère les données du formulaire
-        $lastname = strtoupper($_POST['lastname']);
-        $firstname = ucfirst(strtolower($_POST['firstname']));
-        $birthdate = $_POST['birthdate'];
-        $email = $_POST['email'];
-        $tel = $_POST['tel'];
-        $password = $_POST['password'];
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        if ($verificationsPassed) {
+            $verificationsPassed = false;
+            $errors = [];
 
-        if (!file_exists('../bdd')) {
-            // On crée le répertoire 'bdd' s'il n'existe pas
-            mkdir('../bdd', 0777, true);
-        }
+            // On récupère les données du formulaire
+            $lastname = strtoupper($_POST['lastname']);
+            $firstname = ucfirst(strtolower($_POST['firstname']));
+            $birthdate = $_POST['birthdate'];
+            $email = $_POST['email'];
+            $tel = $_POST['tel'];
+            $password = $_POST['password'];
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        $usersFile = '../bdd/users.json';
+            if (!file_exists('../bdd')) {
+                // On crée le répertoire 'bdd' s'il n'existe pas
+                mkdir('../bdd', 0777, true);
+            }
 
-        if (file_exists($usersFile)) {
-            // Si le fichier users.json existe, on charge son contenu
-            $usersData = file_get_contents($usersFile);
-            $users = json_decode($usersData, true);
+            $usersFile = '../bdd/users.json';
 
-        } else {
-            // On crée un tableau vide si le fichier n'existe pas
-            $users = array();
-        }
+            if (file_exists($usersFile)) {
+                // Si le fichier users.json existe, on charge son contenu
+                $usersData = file_get_contents($usersFile);
+                $users = json_decode($usersData, true);
 
-        // Si l'email est déjà utilisé, on affiche un message d'erreur
-        if (isset($users[$email])) {
-            $message = "<div class='info-message'>
-                            <div class='wrapper-warning'>
-                                <div class='card'>
-                                    <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
-                                    <div class='subject'>
-                                        <h3>Attention</h3>
-                                        <p>Cet email est déjà utilisé. Veuillez réessayer.</p>
+            } else {
+                // On crée un tableau vide si le fichier n'existe pas
+                $users = array();
+            }
+
+            // Si l'email est déjà utilisé, on affiche un message d'erreur
+            if (isset($users[$email])) {
+                $message = "<div class='info-message'>
+                                <div class='wrapper-warning'>
+                                    <div class='card'>
+                                        <div class='icon'><i class='fas fa-exclamation-circle'></i></div>
+                                        <div class='subject'>
+                                            <h3>Attention</h3>
+                                            <p>Cet email est déjà utilisé. Veuillez réessayer.</p>
+                                        </div>
+
+                                        <div class='icon-times'><i class='fas fa-times'></i></div>
                                     </div>
-
-                                    <div class='icon-times'><i class='fas fa-times'></i></div>
                                 </div>
-                            </div>
-                            <br>
-                        </div>";
-        
-        } else {
-            $client_num = generateUniqueClientNumber($users);
+                                <br>
+                            </div>";
+            
+            } else {
+                $client_num = generateUniqueClientNumber($users);
 
-            $userData = array(
-                'client_number' => $client_num,
-                'lastname' => $lastname,
-                'firstname' => $firstname,
-                'birthdate' => $birthdate,
-                'tel' => $tel,
-                'password' => $passwordHash
-            );
+                $userData = array(
+                    'client_number' => $client_num,
+                    'lastname' => $lastname,
+                    'firstname' => $firstname,
+                    'birthdate' => $birthdate,
+                    'tel' => $tel,
+                    'password' => $passwordHash
+                );
 
-            // Ajoute les données de l'utilisateur dans le tableau
-            $users[$email] = $userData;
+                // Ajoute les données de l'utilisateur dans le tableau
+                $users[$email] = $userData;
 
-            // Enregistre les données de l'utilisateur dans le fichier users.json
-            file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
+                // Enregistre les données de l'utilisateur dans le fichier users.json
+                file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
 
-            // Mise à jour des informations de session
-            $_SESSION['email'] = $email;
-            $_SESSION['client_number'] = $client_num;
-            $_SESSION['lastname'] = $lastname;
-            $_SESSION['firstname'] = $firstname;
-            $_SESSION['birthdate'] = $birthdate;
-            $_SESSION['tel'] = $tel;
+                // Mise à jour des informations de session
+                $_SESSION['email'] = $email;
+                $_SESSION['client_number'] = $client_num;
+                $_SESSION['lastname'] = $lastname;
+                $_SESSION['firstname'] = $firstname;
+                $_SESSION['birthdate'] = $birthdate;
+                $_SESSION['tel'] = $tel;
 
-            $_SESSION['just_connected'] = true;
+                $_SESSION['just_connected'] = true;
 
-            header("Location: ../index.php");
+                header("Location: ../index.php");
+            }
         }
     }
 ?>
@@ -165,35 +175,53 @@
                     <p>champs obligatoires</p>
                 </div>
 
-                <form id="register-form" action="register.php" method="post">
+                <form id="register-form" action="register.php" method="post" novalidate>
                     <div class="input-group">
-                        <label for="register-lastname" class="required"><i class="fas fa-user"></i> Nom</label>
-                        <input type="text" id="register-lastname" name="lastname" required>
+                        <label for="lastname" class="required"><i class="fas fa-user"></i> Nom</label>
+                        <span id="lastname-error" class="error-message <?php echo isset($errors["lastname"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("lastname", $errors); ?>
+                        </span>
+                        <input type="text" id="lastname" name="lastname" minlength="3" maxlength="20" value="<?php echo isset($_POST["lastname"]) ? htmlspecialchars($_POST["lastname"]) : ""; ?>" <?php echo isset($errors["lastname"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
-                        <input type="text" id="register-firstname" name="firstname" required>
+                        <label for="firstname" class="required"><i class="fas fa-user"></i> Prénom</label>
+                        <span id="firstname-error" class="error-message <?php echo isset($errors["firstname"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("firstname", $errors); ?>
+                        </span>
+                        <input type="text" id="firstname" name="firstname" minlength="3" maxlength="20" value="<?php echo isset($_POST["firstname"]) ? htmlspecialchars($_POST["firstname"]) : ""; ?>" <?php echo isset($errors["firstname"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
-                        <input type="date" id="register-birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" required>
+                        <label for="birthdate" class="required"><i class="fas fa-calendar-alt"></i> Date de naissance</label>
+                        <span id="birthdate-error" class="error-message <?php echo isset($errors["birthdate"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("birthdate", $errors); ?>
+                        </span>
+                        <input type="date" id="birthdate" name="birthdate" max="<?php echo date('Y-m-d'); ?>" value="<?php echo isset($_POST["birthdate"]) ? htmlspecialchars($_POST["birthdate"]) : ""; ?>" <?php echo isset($errors["birthdate"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-email" class="required"><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="register-email" name="email" placeholder="email@exemple.com" required>
+                        <label for="email" class="required"><i class="fas fa-envelope"></i> Email</label>
+                        <span id="email-error" class="error-message <?php echo isset($errors["email"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("email", $errors); ?>
+                        </span>
+                        <input type="email" id="email" name="email" placeholder="email@exemple.com" value="<?php echo isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : ""; ?>" <?php echo isset($errors["email"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-tel" class="required"><i class="fas fa-phone"></i> Numéro de téléphone</label>
-                        <input type="tel" id="register-tel" name="tel" pattern="0[1-9](\d{2}){4}" required>
+                        <label for="tel" class="required"><i class="fas fa-phone"></i> Numéro de téléphone</label>
+                        <span id="tel-error" class="error-message <?php echo isset($errors["tel"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("tel", $errors); ?>
+                        </span>
+                        <input type="tel" id="tel" name="tel" pattern="0[1-9](\d{2}){4}" value="<?php echo isset($_POST["tel"]) ? htmlspecialchars($_POST["tel"]) : ""; ?>" <?php echo isset($errors["tel"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                     </div>
 
                     <div class="input-group">
-                        <label for="register-password" class="required"><i class="fas fa-lock"></i> Mot de passe</label>
-                        <input type="password" id="register-password" name="password" required>
+                        <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+                        <span id="password-error" class="error-message <?php echo isset($errors["password"]) ? "with-content" : ""; ?>">
+                            <?php displayErrors("password", $errors); ?>
+                        </span>
+                        <input type="password" id="password" name="password" <?php echo isset($errors["password"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?>>
                         <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 
@@ -237,6 +265,7 @@
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
-        <script src="../js/toggleButtonPassword.js"></script>
+        <script src="../js/passwordButton.js"></script>
+        <script src="../js/checkForm.js"></script>
     </body>
 </html>
