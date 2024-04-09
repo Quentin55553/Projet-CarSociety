@@ -30,16 +30,13 @@
         exit();
     }
 
-    $password = isset($_POST['password']) ? $_POST['password'] : null;
+    $password = $_POST['password'] ?? null;
 
     // On inclue le script de vérification
     include 'checkData.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($verificationsPassed) {
-            $verificationsPassed = false;
-            $errors = [];
-
             $usersFile = '../bdd/users.json';
 
             if (!file_exists($usersFile)) {

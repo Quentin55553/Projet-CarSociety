@@ -20,18 +20,15 @@
                     <a href="register.php"><i class="fas fa-user-plus"></i> Créer un compte</a>';
     }
 
-    $gender = isset($_POST['gender']) ? $_POST['gender'] : "";
+    $gender = $_POST['gender'] ?? "";
     $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
-    $job = isset($_POST['job']) ? $_POST['job'] : "";
+    $job = $_POST['job'] ?? "";
 
     // On inclue le script de vérification
     include 'checkData.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($verificationsPassed) {
-            $verificationsPassed = false;
-            $errors = [];
-
             $contact_date = $_POST['contact_date'];
             $lastname = strtoupper($_POST['lastname']);
             $firstname = ucfirst(strtolower($_POST['firstname']));
@@ -280,7 +277,7 @@
                         <span id="content-error" class="error-message <?php echo isset($errors["content"]) ? "with-content" : ""; ?>">
                             <?php displayErrors("content", $errors); ?>
                         </span>
-                        <textarea id="content" name="content" rows="4" cols="50" minlength="10" maxlength="500" placeholder="Contenu de votre demande" required><?php echo isset($_POST["content"]) ? htmlspecialchars($_POST["content"]) : ""; ?></textarea>
+                        <textarea id="content" name="content" rows="4" cols="50" minlength="10" maxlength="500" placeholder="Contenu de votre demande" <?php echo isset($errors["object"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required><?php echo isset($_POST["content"]) ? htmlspecialchars($_POST["content"]) : ""; ?></textarea>
                     </div>
 
                     <div class="center">

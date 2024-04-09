@@ -14,14 +14,14 @@
 
     // Vérification de la soumission du formulaire
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $contactDate = isset($_POST["contact_date"]) ? $_POST["contact_date"] : null;
-        $lastName = isset($_POST["lastname"]) ? $_POST["lastname"] : null;
-        $firstName = isset($_POST["firstname"]) ? $_POST["firstname"] : null;
-        $email = isset($_POST["email"]) ? $_POST["email"] : null;
-        $object = isset($_POST['object']) ? $_POST['object'] : null;
-        $content = isset($_POST['content']) ? $_POST['content'] : null;
-        $tel = isset($_POST["tel"]) ? $_POST["tel"] : null;
-        
+        $contactDate = $_POST["contact_date"] ?? null;
+        $lastName = $_POST["lastname"] ?? null;
+        $firstName = $_POST["firstname"] ?? null;
+        $email = $_POST["email"] ?? null;
+        $object = $_POST['object'] ?? null;
+        $content = $_POST['content'] ?? null;
+        $tel = $_POST["tel"] ?? null;
+
         
         // Vérification de la date de contact
         if (isset($contactDate) && strtotime($contactDate) < strtotime(date('Y-m-d'))) {

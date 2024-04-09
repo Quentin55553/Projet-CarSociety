@@ -1,19 +1,34 @@
-// Fonction permettant d'ajuster la valeur de la marge supérieure du bouton pour afficher le mot de passe
+// Fonction permettant d'ajuster la valeur de la marge supérieure du bouton pour afficher le mot de passe et le nouveau mot de passe
 function moveToggleIcon() {
-    // Sélection de l'élément du message d'erreur
-    var errorMessage = document.getElementById('password-error');
+    // Sélection de l'élément du message d'erreur pour le mot de passe et le nouveau mot de passe
+    var passwordErrorMessage = document.getElementById('password-error');
+    var newPasswordErrorMessage = document.getElementById('new-password-error');
 
-    // On vérifie si le contenu de l'élément est vide
-    if (errorMessage.innerHTML.trim() !== '') {
+    // On vérifie si le contenu de la balise pour le message d'erreur relatif au mot de passe est vide
+    if (passwordErrorMessage.innerHTML.trim() !== '') {
 
-        // Calcul de la hauteur totale du message d'erreur
-        var errorHeight = errorMessage.offsetHeight - 8;
+        // Calcul de la hauteur totale du message d'erreur pour le mot de passe
+        var passwordErrorHeight = passwordErrorMessage.offsetHeight - 8;
 
         var passwordInput = document.getElementById('password');
-        var toggleIcon = passwordInput.parentElement.querySelector('.password-toggle-icon');
+        var passwordToggleIcon = passwordInput.parentElement.querySelector('.password-toggle-icon');
 
-        // Décalage de l'icône en fonction de la hauteur du message d'erreur
-        toggleIcon.style.top = 'calc(57% + ' + errorHeight + 'px)';
+        // Décalage de l'icône en fonction de la hauteur du message d'erreur pour le mot de passe
+        passwordToggleIcon.style.top = 'calc(57% + ' + passwordErrorHeight + 'px)';
+    }
+
+
+    // On vérifie si le contenu de la balise pour le message d'erreur relatif au nouveau mot de passe est vide (si il existe)
+    if (newPasswordErrorMessage && (newPasswordErrorMessage.innerHTML.trim() !== '')) {
+
+        // Calcul de la hauteur totale du message d'erreur pour le nouveau mot de passe
+        var newPasswordErrorHeight = newPasswordErrorMessage.offsetHeight - 8;
+
+        var newPasswordInput = document.getElementById('new-password');
+        var newPasswordToggleIcon = newPasswordInput.parentElement.querySelector('.password-toggle-icon');
+
+        // Décalage de l'icône en fonction de la hauteur du message d'erreur pour le nouveau mot de passe
+        newPasswordToggleIcon.style.top = 'calc(57% + ' + newPasswordErrorHeight + 'px)';
     }
 }
 
@@ -42,8 +57,12 @@ var observer = new MutationObserver(moveToggleIcon);
 // Configuration de l'observer pour surveiller les modifications du contenu de l'élément contenant le message d'erreur
 var config = { childList: true, subtree: true };
 
-// Démarrage de l'observation sur l'élément contenant le message d'erreur
+// Démarrage de l'observation sur les éléments contenant les messages d'erreur pour le mot de passe et le nouveau mot de passe (si il existe)
 observer.observe(document.getElementById('password-error'), config);
+
+if (document.getElementById('new-password-error')) {
+    observer.observe(document.getElementById('new-password-error'), config);
+}
 
 // On appelle la fonction une fois pour prendre en compte le contenu existant au chargement de la page
 moveToggleIcon();

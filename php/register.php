@@ -30,7 +30,7 @@
     }
 
     $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
-    $password = isset($_POST['password']) ? $_POST['password'] : null;
+    $password = $_POST['password'] ?? null;
 
     // On inclue le script de vérification
     include 'checkData.php';
@@ -221,7 +221,7 @@
                         <span id="password-error" class="error-message <?php echo isset($errors["password"]) ? "with-content" : ""; ?>">
                             <?php displayErrors("password", $errors); ?>
                         </span>
-                        <input type="password" id="password" name="password" <?php echo isset($errors["password"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?>>
+                        <input type="password" id="password" name="password" <?php echo isset($errors["password"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                         <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
                     </div>
 

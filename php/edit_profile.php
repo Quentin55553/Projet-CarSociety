@@ -52,9 +52,6 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($verificationsPassed) {
-            $verificationsPassed = false;
-            $errors = [];
-
             // On récupère les données du formulaire
             $email = $_POST['email'];
             $lastname = strtoupper($_POST['lastname']);
