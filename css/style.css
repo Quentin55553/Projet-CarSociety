@@ -684,3 +684,43 @@ a.link:hover {
 .error-message.with-content {
     margin-top: 5px;
 }
+
+.content img:hover {
+    cursor: pointer;
+}
+
+.image-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 80px 80px 80px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: white;
+    background-color: black;
+    font-size: 20px;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color:gray;
+    }
+}

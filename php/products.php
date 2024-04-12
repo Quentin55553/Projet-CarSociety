@@ -204,5 +204,6 @@
 
         <script src="../js/goUpButton.js"></script>
         <script src="../js/closeMessage.js"></script>
+        <script src="../js/zoomImage.js"></script>
     </body>
 </html>
