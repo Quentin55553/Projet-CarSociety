@@ -73,6 +73,78 @@
     ////////////////////////////////
 
 
+        /*
+        La fonction lit le fichier users.json et ajoute chaque utilisateur à la table SQL Users
+        Renvoie un entier négatif si échec, 0 si succès
+        */
+        function json_to_sql_users() {
+
+            // Login utilisateur (compte root sans mot de passe)
+            global $username;
+            global $password;
+            
+            // Différentes erreurs de connexion
+            if (connect_db() === false) {
+                if (db_exists() === false) {
+                    // Si la BDD n'existe pas, on essaye de l'initialiser avec le script spécial
+                    include 'CarSociety.php';
+
+                    // Si ça ne marche toujours pas, il y a vraiment un problème, renvoi d'un code d'erreur
+                    if (connect_db() === false) {
+                        return -3;
+                    }
+                
+                }
+                // Si la BDD existe, il y a un problème
+                else {
+                    return -2;
+                }
+            }
+
+            $json="../bdd/users.json";
+            $yehe=file_get_contents($json);
+            // Insertion des données dans la table SQL Products
+            // Génération des INSERT
+            
+            try {
+                // Connexion à la BDD
+                $db = new PDO('mysql:host=localhost;dbname=CarSociety', $username, $password);
+
+                //récupération des données utilisateurs
+                $donnees = json_decode($yehe, true);
+
+                // Parcours des utilisateurs
+                foreach ($donnees as $u => $infos) {
+                    // Parcours des infos de l'utilisateur
+                    $email= $u;
+                    $client_number = strval($infos['client_number']);
+                    $nom = $infos['lastname'];
+                    $prenom = $infos['firstname'];
+                    $ddn = $infos['birthdate'];
+                    $tel = $infos['tel'];
+                    $mdp = $infos['password'];
+
+                    // On utilise "replace into" pour ne pas avoir d'erreur si l'utilisateur est déjà inséré
+                    // Cela permet la mise à jour facile des données par simple appel de cette fonction si le json est à jour
+                    $sql = "REPLACE INTO Users VALUES('$client_number', '$nom', '$prenom', '$ddn', '$email', '$tel', '$mdp');";
+                    $db->exec($sql);
+                }
+
+                // Fermeture de la connexion
+                $db = null;
+
+                // Renvoi de la valeur de succès
+                return 0;
+            }
+            // Erreur inattendue
+            catch (Exception $e) {
+                echo "Erreur : ".$e->getMessage()."<br/>";
+                return -4;
+            }
+                
+            
+        }
+
     ////////////////////////////////
     //////// LECTURE Products //////
     ////////////////////////////////
