@@ -108,7 +108,7 @@
             
             try {
                 // Connexion à la BDD
-                $db = new PDO('mysql:host=localhost;dbname=CarSociety', $username, $password);
+                $db = new PDO('mysql:host=localhost;port=8080;dbname=CarSociety', $username, $password);
 
                 //récupération des données utilisateurs
                 $donnees = json_decode($yehe, true);
