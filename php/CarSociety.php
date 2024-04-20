@@ -35,7 +35,7 @@
                     ddn date,
                     email VARCHAR(50),
                     tel VARCHAR(50),
-                    mdp VARCHAR(50))";
+                    mdp VARCHAR(100))";
                     
             $db->exec($sql);
 
