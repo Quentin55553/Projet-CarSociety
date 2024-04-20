@@ -29,7 +29,7 @@
 
             // Création de la table Users
             $sql = "CREATE TABLE Users(
-                    id int PRIMARY KEY,
+                    id VARCHAR(50) PRIMARY KEY,
                     nom VARCHAR(50),
                     prenom VARCHAR(50),
                     ddn date,
