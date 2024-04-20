@@ -35,7 +35,8 @@
                     ddn date,
                     email VARCHAR(50),
                     tel VARCHAR(50),
-                    mdp TEXT
+                    mdp TEXT,
+                    CONSTRAINT check_longueur_texte CHECK (CHAR_LENGTH(texte) > 1
                     )
                     
             $db->exec($sql);
