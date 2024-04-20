@@ -117,7 +117,7 @@
                 foreach ($donnees as $u => $infos) {
                     // Parcours des infos de l'utilisateur
                     $email= $u;
-                    $client_number = strval($infos['client_number']);
+                    $id = strval($infos['client_number']);
                     $nom = $infos['lastname'];
                     $prenom = $infos['firstname'];
                     $ddn = $infos['birthdate'];
@@ -126,7 +126,7 @@
 
                     // On utilise "replace into" pour ne pas avoir d'erreur si l'utilisateur est déjà inséré
                     // Cela permet la mise à jour facile des données par simple appel de cette fonction si le json est à jour
-                    $sql = "REPLACE INTO Users VALUES('$client_number', '$nom', '$prenom', '$ddn', '$email', '$tel', '$mdp');";
+                    $sql = "REPLACE INTO Users VALUES('$id', '$nom', '$prenom', '$ddn', '$email', '$tel', '$mdp');";
                     $db->exec($sql);
                 }
 
