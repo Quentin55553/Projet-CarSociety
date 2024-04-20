@@ -36,8 +36,7 @@
                     email VARCHAR(50),
                     tel VARCHAR(50),
                     mdp TEXT,
-                    CONSTRAINT check_longueur_texte CHECK (CHAR_LENGTH(mdp) > 0,
-                    );";
+                    CONSTRAINT check_longueur_texte CHECK (CHAR_LENGTH(mdp) > 0));";
                     
             $db->exec($sql);
 
