@@ -99,6 +99,10 @@
                 // Ajoute les données de l'utilisateur dans le tableau
                 $users[$email] = $userData;
 
+                // Met à jour le mot de passe dans la bdd sql
+                require_once 'CarSocietyData.php';
+                json_to_sql_users();
+
                 // Enregistre les données de l'utilisateur dans le fichier users.json
                 file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
 
