@@ -43,9 +43,9 @@
     $users = json_decode($data, true);
     $userData = $users[$email_session];
 
-    $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
-    $password = ($_POST['password'] !== "") ? $_POST['password'] : null;
-    $newPassword = ($_POST['new-password'] !== "") ? $_POST['new-password'] : null;
+    $birthdate = (isset($_POST['birthdate']) && $_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
+    $password = (isset($_POST['password']) && $_POST['password'] !== "") ? $_POST['password'] : null;
+    $newPassword = (isset($_POST['new-password']) && $_POST['new-password'] !== "") ? $_POST['new-password'] : null;
 
     // On inclue le script de vérification
     include 'checkData.php';

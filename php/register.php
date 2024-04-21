@@ -29,7 +29,7 @@
         exit;
     }
 
-    $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
+    $birthdate = (isset($_POST['birthdate']) && $_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
     $password = $_POST['password'] ?? null;
 
     // On inclue le script de vérification
@@ -105,7 +105,6 @@
                 // Met à jour le mot de passe dans la bdd sql
                 require_once 'CarSocietyData.php';
                 json_to_sql_users();
-
 
                 // Mise à jour des informations de session
                 $_SESSION['email'] = $email;

@@ -21,7 +21,7 @@
     }
 
     $gender = $_POST['gender'] ?? "";
-    $birthdate = ($_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
+    $birthdate = (isset($_POST['birthdate']) && $_POST['birthdate'] !== "") ? $_POST['birthdate'] : date('Y-m-d', strtotime('+1 year'));
     $job = $_POST['job'] ?? "";
 
     // On inclue le script de vérification
@@ -241,26 +241,35 @@
                         </span>
                         <select name="job" id="job" <?php echo isset($errors["job"]) ? "style='color: white; background-color: #D3212CFF;'" : ""; ?> required>
                             <option value="" disabled selected>--Sélectionner une fonction--</option>
-                            <option value="Ingénieur en informatique" <?php echo ($_POST["job"] == "Ingénieur en informatique") ? "selected" : ""; ?>>Ingénieur en informatique</option>
-                            <option value="Développeur de logiciels" <?php echo ($_POST["job"] == "Développeur de logiciels") ? "selected" : ""; ?>>Développeur de logiciels</option>
-                            <option value="Analyste financier" <?php echo ($_POST["job"] == "Analyste financier") ? "selected" : ""; ?>>Analyste financier</option>
-                            <option value="Avocat" <?php echo ($_POST["job"] == "Avocat") ? "selected" : ""; ?>>Avocat</option>
-                            <option value="Comptable" <?php echo ($_POST["job"] == "Comptable") ? "selected" : ""; ?>>Comptable</option>
-                            <option value="Enseignant" <?php echo ($_POST["job"] == "Enseignant") ? "selected" : ""; ?>>Enseignant</option>
-                            <option value="Médecin" <?php echo ($_POST["job"] == "Médecin") ? "selected" : ""; ?>>Médecin</option>
-                            <option value="Infirmier/infirmière" <?php echo ($_POST["job"] == "Infirmier/infirmière") ? "selected" : ""; ?>>Infirmier/infirmière</option>
-                            <option value="Architecte" <?php echo ($_POST["job"] == "Architecte") ? "selected" : ""; ?>>Architecte</option>
-                            <option value="Designer graphique" <?php echo ($_POST["job"] == "Designer graphique") ? "selected" : ""; ?>>Designer graphique</option>
-                            <option value="Marketing Manager" <?php echo ($_POST["job"] == "Marketing Manager") ? "selected" : ""; ?>>Marketing Manager</option>
-                            <option value="Chef de projet" <?php echo ($_POST["job"] == "Chef de projet") ? "selected" : ""; ?>>Chef de projet</option>
-                            <option value="Analyste de données" <?php echo ($_POST["job"] == "Analyste de données") ? "selected" : ""; ?>>Analyste de données</option>
-                            <option value="Spécialiste des ressources humaines" <?php echo ($_POST["job"] == "Spécialiste des ressources humaines") ? "selected" : ""; ?>>Spécialiste des ressources humaines</option>
-                            <option value="Consultant en gestion" <?php echo ($_POST["job"] == "Consultant en gestion") ? "selected" : ""; ?>>Consultant en gestion</option>
-                            <option value="Analyste en cybersécurité" <?php echo ($_POST["job"] == "Analyste en cybersécurité") ? "selected" : ""; ?>>Analyste en cybersécurité</option>
-                            <option value="Écrivain/rédacteur" <?php echo ($_POST["job"] == "Écrivain/rédacteur") ? "selected" : ""; ?>>Écrivain/rédacteur</option>
-                            <option value="Analyste de marché" <?php echo ($_POST["job"] == "Analyste de marché") ? "selected" : ""; ?>>Analyste de marché</option>
-                            <option value="Technicien en maintenance" <?php echo ($_POST["job"] == "Technicien en maintenance") ? "selected" : ""; ?>>Technicien en maintenance</option>
-                            <option value="Agent immobilier" <?php echo ($_POST["job"] == "Agent immobilier") ? "selected" : ""; ?>>Agent immobilier</option>
+                            <?php
+                                $options = array(
+                                    "Ingénieur en informatique",
+                                    "Développeur de logiciels",
+                                    "Analyste financier",
+                                    "Avocat",
+                                    "Comptable",
+                                    "Enseignant",
+                                    "Médecin",
+                                    "Infirmier/infirmière",
+                                    "Architecte",
+                                    "Designer graphique",
+                                    "Marketing Manager",
+                                    "Chef de projet",
+                                    "Analyste de données",
+                                    "Spécialiste des ressources humaines",
+                                    "Consultant en gestion",
+                                    "Analyste en cybersécurité",
+                                    "Écrivain/rédacteur",
+                                    "Analyste de marché",
+                                    "Technicien en maintenance",
+                                    "Agent immobilier"
+                                );
+
+                                foreach ($options as $option) {
+                                    $selected = isset($_POST["job"]) && $_POST["job"] == $option ? "selected" : "";
+                                    echo "<option value=\"$option\" $selected>$option</option>";
+                                }
+                            ?>
                         </select>
                     </div>
 
