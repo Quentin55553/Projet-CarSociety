@@ -10,4 +10,7 @@
 
     // Insertion des produits dans la base de données SQL
     xml_to_sql_products();
+
+    // Insertion des utilisateurs dans la base de données SQL
+    json_to_sql_users();
 ?>
