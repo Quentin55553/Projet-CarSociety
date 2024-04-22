@@ -174,7 +174,7 @@
                 // Zone d'affichage du panier
 
                 // Panier vide
-                if($_SESSION['panier']==[]){
+                if(!isset($_SESSION['panier']) || $_SESSION['panier']==[]){
                     echo "<p> Votre panier est vide ! </p>";
                 
                 }

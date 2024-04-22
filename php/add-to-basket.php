@@ -20,13 +20,14 @@
         // Ajout au panier de session
         $ajout = false;
         // On regarde d'abord s'il y a déjà un produit du même type dans le panier, si oui il faut juste mettre à jour la quantité
-        foreach ($_SESSION['panier'] as &$produit) {
-            if ($produit[0] == $ref) {
-                $produit[1] = $produit[1] + $qte;
-                $ajout = true;
+        if(isset($_SESSION['panier'])){
+            foreach ($_SESSION['panier'] as &$produit) {
+                if ($produit[0] == $ref) {
+                    $produit[1] = $produit[1] + $qte;
+                    $ajout = true;
+                }
             }
         }
-
         // Si le produit n'est pas déjà présent, ajout d'un item au panier
         if ($ajout == false) {
             $_SESSION['panier'][] = [$ref, $qte];
