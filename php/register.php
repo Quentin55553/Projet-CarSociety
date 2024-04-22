@@ -8,7 +8,7 @@
             $exists = false;
             
             foreach ($users as $user) {
-                if ($user['num_client'] == $num_client) {
+                if ($user['client_number'] == $num_client) {
                     $exists = true;
                     break;
                 }
@@ -87,7 +87,7 @@
             } else {
                 $client_num = generateUniqueClientNumber($users);
 
-                $userData = array(
+                $userData = array (
                     'client_number' => $client_num,
                     'lastname' => $lastname,
                     'firstname' => $firstname,
