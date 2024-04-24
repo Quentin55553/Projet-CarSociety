@@ -1,4 +1,4 @@
-## CarSociety
+# CarSociety
 
 <div>
   <img src="img/CarSocietyBanner.png" style="width: 65%; border-radius: 50%">

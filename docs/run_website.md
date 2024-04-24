@@ -1,4 +1,4 @@
-## Comment lancer le site internet sous Linux ?
+# Comment lancer le site internet sous Linux ?
 
 > [!NOTE]
 > ## Prérequis
