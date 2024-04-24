@@ -14,7 +14,7 @@ Ouvrez l'explorateur de fichier et placez-vous à la racine du répertoire du si
 Faites un **CLIQUE DROIT** avec la souris et cliquez sur `Ouvrir dans un terminal`.
 
 ## Étape 2 : Démarrer un serveur PHP localement
-# Arrêter l'activité sur le port 8080
+### Arrêter l'activité sur le port 8080
 Le site internet est prévu pour fonctionner sur le port 8080.
 Pour s'assurer que ce port est libre assurez-vous de fermer les processus susceptibles d'utiliser ce port et entrez la commande suivante dans le terminal :
 
@@ -22,7 +22,7 @@ Pour s'assurer que ce port est libre assurez-vous de fermer les processus suscep
 sudo fuser -k 8080/tcp
 ```
 
-# Démarrer un serveur local PHP sur le port 8080
+### Démarrer un serveur local PHP sur le port 8080
 Ensuite démarrez un serveur PHP localement sur le port 8080 à l'aide de la commande suivante :
 
 ```bash
