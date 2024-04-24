@@ -1,6 +1,6 @@
 ## CarSociety
 
-<div style="text-align:center">
+<div>
   <img src="img/CarSocietyBanner.png" width="70%">
 </div>
 
