@@ -6,7 +6,7 @@
 
 ## 📋 Projet
 
-Le projet CarSociety 
+Le projet CarSociety représente le site internet de ...
 
 ## 🚀 Lancer le site internet
 > [Accéder au tutoriel](docs/run_website.md)
