@@ -1,6 +1,6 @@
 # CarSociety
 
-<div>
+<div style="color:black;">
   <img src="img/CarSocietyBanner.png" style="width: 65%; border-radius: 50%">
 </div>
 
