@@ -1,7 +1,7 @@
 ## CarSociety
 
 <div>
-  <a href="url"><img src="img/CarSocietyBanner.png" width="65%" style="border-radius:50%"></a>
+  <img src="img/CarSocietyBanner.png" style="width: 65%; border-radius: 50%">
 </div>
 
 ## Objectif
