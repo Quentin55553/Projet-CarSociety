@@ -53,7 +53,7 @@ exit;
 ## Etape 4 : Redémarrer MySQL
 Pour s'assurer que tous les changements soient bien pris en compte, redémarrez MySQL en utilisant la commande associée à votre distribution Linux :
 
-### | <img height="50" src="https://user-images.githubusercontent.com/25181517/186884153-99edc188-e4aa-4c84-91b0-e2df260ebc33.png"> | Ubuntu / Debian |
+### | <img height="30" src="https://user-images.githubusercontent.com/25181517/186884153-99edc188-e4aa-4c84-91b0-e2df260ebc33.png"> Ubuntu / Debian
 ```bash
 sudo service mysql restart
 ```
