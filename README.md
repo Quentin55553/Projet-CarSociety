@@ -1,7 +1,7 @@
 # CarSociety
 
 <div>
-  <img src="img/CarSocietyBanner.png" style="width: 100%;">
+  <img src="img/CarSocietyBanner.png" style="width: 65%;">
 </div>
 
 ## 📋 Projet
