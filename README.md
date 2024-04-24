@@ -4,7 +4,7 @@
   <img src="img/CarSocietyBanner.png" style="width: 65%;">
 </div>
 
-## 📝 Projet
+## 📋 Projet
 
 Le projet CarSociety 
 
