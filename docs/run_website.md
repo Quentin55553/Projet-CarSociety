@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > ## Prérequis
-> - Avoir Linux comme système d'exploitation (recommandé) [Installer une distribution Linux](https://www.linux.org/pages/download/)
+> - [ ] Avoir Linux comme système d'exploitation (recommandé) [Installer une distribution Linux](https://www.linux.org/pages/download/)
 > - Avoir les privilèges administrateur
 > 1. [Installer PHP sur Linux](install_php.md)
 > 2. [Installer MySQL](install_mysql.md)
