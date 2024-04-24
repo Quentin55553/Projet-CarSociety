@@ -1,5 +1,6 @@
 # Comment installer MySQL sous Linux ?
 
+> [!NOTE]
 > ## Prérequis
 > - Avoir les privilèges administrateur
 

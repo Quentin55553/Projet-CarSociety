@@ -10,12 +10,12 @@
 
 
 ## Étape 1 : Ouvrir le terminal Linux
-Ouvrez l'explorateur de fichier et placez-vous à la racine du répertoire du site internet.
+Ouvrez l'explorateur de fichier et placez-vous à la racine du répertoire du site internet.<br>
 Faites un **CLIQUE DROIT** avec la souris et cliquez sur `Ouvrir dans un terminal`.
 
 ## Étape 2 : Démarrer un serveur PHP localement
 ### Arrêter l'activité sur le port 8080
-Le site internet est prévu pour fonctionner sur le port 8080.
+Le site internet est prévu pour fonctionner sur le port 8080.<br>
 Pour s'assurer que ce port est libre assurez-vous de fermer les processus susceptibles d'utiliser ce port et entrez la commande suivante dans le terminal :
 
 ```bash
@@ -30,5 +30,5 @@ php -S localhost:8080
 ```
 
 ## Étape 3 : Se connecter au site internet sur le serveur local
-Ouvrez votre navigateur internet, et entrez dans la barre d'adresse : `http://localhost:8080/`.
+Ouvrez votre navigateur internet, et entrez dans la barre d'adresse : `http://localhost:8080/`.<br><br>
 Vous voilà sur le site internet !

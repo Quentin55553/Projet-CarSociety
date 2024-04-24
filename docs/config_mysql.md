@@ -6,7 +6,7 @@
 > - Avoir les privilèges administrateur
 
 ## Étape 1 : Se connecter au serveur local MySQL en tant que root
-Sur votre ordinateur Linux, ouvrez le terminal (**Ctrl+Alt+T**).
+Sur votre ordinateur Linux, ouvrez le terminal (**Ctrl+Alt+T**).<br>
 Connectez-vous au serveur local MySQL en tant que root à l'aide la commande suivante :
 
 ```bash
@@ -15,7 +15,7 @@ sudo mysql -u root
 
 ## Étape 2 : Créer un compte 'root' sans mot de passe
 ### Supprimer le compte 'root' existant
-Si un compte 'root' existe déjà, nous allons le supprimer pour s'assurer que le nouveau soit correctement créé.
+Si un compte 'root' existe déjà, nous allons le supprimer pour s'assurer que le nouveau soit correctement créé.<br>
 Pour ce faire, entrez la commande suivante :
 
 ```sql
