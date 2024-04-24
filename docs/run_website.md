@@ -31,4 +31,4 @@ php -S localhost:8080
 
 ## Étape 3 : Se connecter au site internet sur le serveur local
 Ouvrez votre navigateur internet, et entrez dans la barre d'adresse : `http://localhost:8080/`.<br><br>
-### $${\color{green}Vous voilà sur le site internet ! 🎉}$$
+### <p style="color:green;">Vous voilà sur le site internet ! 🎉</p>
