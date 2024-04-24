@@ -18,7 +18,7 @@ La base de données utilisateurs
 
 [Intégration de la vidéo YouTube, ou création d'un .gif de la vidéo à mettre ici]
 Exemple :
-<iframe width="914" height="514" src="https://www.youtube.com/embed/vQXvyV0zIP4" title="The first-ever BMW M5 CS." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/vQXvyV0zIP4/0.jpg)](https://www.youtube.com/watch?v=vQXvyV0zIP4)
 
 ## 🚀 Lancer le site internet
 > [Accéder au tutoriel](docs/run_website.md)
