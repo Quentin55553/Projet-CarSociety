@@ -1,7 +1,7 @@
 ## CarSociety
 
 <div>
-  <img src="img/CarSocietyBanner.png" width="70%">
+  <img src="img/CarSocietyBanner.png" style="width: 65%; border-radius: 10px">
 </div>
 
 ## Objectif
