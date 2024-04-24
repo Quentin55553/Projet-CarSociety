@@ -39,7 +39,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 ### Recharger les privilèges
 Afin de recharger la table des informations relatives aux privilèges, utilisez la commande suivante :
 
-```MySQL
+```sql
 FLUSH PRIVILEGES;
 ```
 
