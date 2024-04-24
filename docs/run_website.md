@@ -8,7 +8,6 @@
 > 2. [Installer MySQL](install_mysql.md)
 > 3. [Configurer MySQL](config_mysql.md)
 
-[ ]
 ## Étape 1 : Ouvrir le terminal Linux
 Ouvrez l'explorateur de fichier et placez-vous à la racine du répertoire du site internet.<br>
 Faites un **CLIQUE DROIT** avec la souris et cliquez sur `Ouvrir dans un terminal`.
@@ -16,7 +15,8 @@ Faites un **CLIQUE DROIT** avec la souris et cliquez sur `Ouvrir dans un termina
 ## Étape 2 : Démarrer un serveur PHP localement
 ### Arrêter l'activité sur le port 8080
 Le site internet est prévu pour fonctionner sur le port 8080.<br>
-Pour s'assurer que ce port est libre assurez-vous de fermer les processus susceptibles d'utiliser ce port et entrez la commande suivante dans le terminal :
+> [!CAUTION]
+> Pour s'assurer que ce port est libre assurez-vous de fermer les processus susceptibles d'utiliser ce port et entrez la commande suivante dans le terminal :
 
 ```bash
 sudo fuser -k 8080/tcp
