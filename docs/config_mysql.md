@@ -58,11 +58,6 @@ Pour s'assurer que tous les changements soient bien pris en compte, redémarrez 
 sudo service mysql restart
 ```
 
-### CentOS / RHEL (Red Hat Enterprise Linux)
-```bash
-sudo systemctl restart mysqld
-```
-
 ### <img height="20" src="https://user-images.githubusercontent.com/25181517/186885787-4011a347-1f68-472c-bf8b-31ed1bb4f8ce.png"> Fedora
 ```bash
 sudo systemctl restart mariadb
