@@ -189,7 +189,9 @@
                     echo " €</p>";
                     // Bouton "Commander"
                     echo "<div class='center'>
-                    <button class='red-button'>Commander</button></div>";
+                    <form action='command.php' method='post'>
+                    <button class='red-button' type='submit'>Commander</button>
+                    </form></div>";
                 }
             ?>
         </div>
