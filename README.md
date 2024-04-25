@@ -16,7 +16,7 @@ La base de données utilisateurs
 
 ### Aperçu
 
-[Intégration de la vidéo YouTube, ou création d'un .gif de la vidéo (meilleure option) à mettre ici]
+[Intégration de la vidéo YouTube, ou création d'un .gif de la vidéo (meilleure option) à mettre ici]<br>
 Exemple :
 [![PUB BMW](https://img.youtube.com/vi/vQXvyV0zIP4/0.jpg)](https://www.youtube.com/watch?v=vQXvyV0zIP4 "Publicité BMW")
 
