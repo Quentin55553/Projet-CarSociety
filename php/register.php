@@ -104,7 +104,7 @@
 
                 // Met à jour le mot de passe dans la bdd sql
                 require_once '../bdd/CarSocietyData.php';
-                json_to_sql();
+                json_to_sql_users();
 
                 // Mise à jour des informations de session
                 $_SESSION['email'] = $email;
