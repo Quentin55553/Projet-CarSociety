@@ -22,6 +22,26 @@
 
         unset($_SESSION['just_connected']);
 
+    } else if (isset($_SESSION['just_ordered'])) {
+        $message = "<div class='info-message'>
+                        <div class='wrapper-success'>
+                            <div class='card'>
+                                <div class='icon'><i class='fas fa-check-circle'></i></div>
+                                <div class='subject'>
+                                    <h3>Merci "; 
+                                    
+        $message .= $_SESSION['firstname']; 
+        $message .= "</h3>
+                        <p>d'avoir commandé chez nous ! Nous vous livrerons dès que possible.</p>
+                    </div>
+
+                    <div class='icon-times'><i class='fas fa-times'></i></div>
+                </div>
+            </div>
+            <br>
+        </div>";
+
+        unset($_SESSION['just_oredered']);
     } else {
         $message = "";
     }
