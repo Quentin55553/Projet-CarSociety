@@ -12,7 +12,7 @@ L'utilisateur peut consulter les différentes catégories de voitures en stock s
 
 Il peut également envoyer un mail de demande de contact au service client de la société à partir d'un formulaire dédiée et se créer un compte afin d'effectuer des commandes.
 
-La base de données utilisateurs est 
+La base de données utilisateurs est à la fois au format JSON ainsi qu'en SQL, toutes deux synchronisées.
 
 Toutes les données rentrées dans les formulaires sont vérifiées en JavaScript et en PHP pour garantir le respect du format des données envoyées au serveur.
 
