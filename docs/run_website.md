@@ -10,7 +10,7 @@
 
 ## Étape 1 : Ouvrir le terminal Linux
 Ouvrez l'explorateur de fichier et placez-vous à la racine du répertoire du site internet.<br>
-Faites un **CLIQUE DROIT** avec la souris et cliquez sur `Ouvrir dans un terminal`.
+Faites un **CLIC DROIT** avec la souris et cliquez sur `Ouvrir dans un terminal`.
 
 ## Étape 2 : Démarrer un serveur PHP localement
 ### Arrêter l'activité sur le port 8080
