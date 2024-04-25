@@ -104,7 +104,7 @@
                 $yehe=file_get_contents($json);
                 try {
                     // Connexion à la BDD
-                    $db = new PDO('mysql:host=localhost;dbname=CarSociety', $username, $password);
+                    $db = new PDO('mysql:host=localhost;port=8080;dbname=CarSociety', $username, $password);
     
                     //récupération des données utilisateurs
                     $donnees = json_decode($yehe, true);
@@ -136,48 +136,8 @@
                 catch (Exception $e) {
                     echo "Erreur : ".$e->getMessage()."<br/>";
                     return -4;
-                }   
+                }  
             }
-            
-            // Insertion des données dans la table SQL Products
-            // Génération des INSERT
-            
-            try {
-                // Connexion à la BDD
-                $db = new PDO('mysql:host=localhost;dbname=CarSociety', $username, $password);
-
-                //récupération des données utilisateurs
-                $donnees = json_decode($yehe, true);
-
-                // Parcours des utilisateurs
-                foreach ($donnees as $u => $infos) {
-                    // Parcours des infos de l'utilisateur
-                    $email= $u;
-                    $id = strval($infos['client_number']);
-                    $nom = $infos['lastname'];
-                    $prenom = $infos['firstname'];
-                    $ddn = $infos['birthdate'];
-                    $tel = $infos['tel'];
-                    $mdp = $infos['password'];
-
-                    // On utilise "replace into" pour ne pas avoir d'erreur si l'utilisateur est déjà inséré
-                    // Cela permet la mise à jour facile des données par simple appel de cette fonction si le json est à jour
-                    $sql = "REPLACE INTO Users VALUES('$id', '$nom', '$prenom', '$ddn', '$email', '$tel', '$mdp');";
-                    $db->exec($sql);
-                }
-
-                // Fermeture de la connexion
-                $db = null;
-
-                // Renvoi de la valeur de succès
-                return 0;
-            }
-            }
-            // Erreur inattendue
-            catch (Exception $e) {
-                echo "Erreur : ".$e->getMessage()."<br/>";
-                return -4;
-            }    
         }
 
 
