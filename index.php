@@ -28,20 +28,18 @@
                             <div class='card'>
                                 <div class='icon'><i class='fas fa-check-circle'></i></div>
                                 <div class='subject'>
-                                    <h3>Merci "; 
-                                    
-        $message .= $_SESSION['firstname']; 
-        $message .= "</h3>
-                        <p>d'avoir commandé chez nous ! Nous vous livrerons dès que possible.</p>
-                    </div>
+                                    <h3>Commande reçue</h3>
+                                    <p>Votre commande a bien été reçue. Nous vous livrerons dès que possible.</p>
+                                </div>
 
-                    <div class='icon-times'><i class='fas fa-times'></i></div>
-                </div>
-            </div>
-            <br>
-        </div>";
+                                <div class='icon-times'><i class='fas fa-times'></i></div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>";
 
-        unset($_SESSION['just_oredered']);
+        unset($_SESSION['just_ordered']);
+
     } else {
         $message = "";
     }

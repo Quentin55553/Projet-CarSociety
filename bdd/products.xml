@@ -41,7 +41,7 @@
     <car1>
       <img>sedan1.jpg</img>
       <reference>SE1001</reference>
-      <stock>35</stock>
+      <stock>33</stock>
       <nom>Serenity Sedan</nom>
       <prix>70000</prix>
     </car1>
@@ -78,7 +78,7 @@
     <car1>
       <img>urbancar1.jpg</img>
       <reference>UR1001</reference>
-      <stock>11</stock>
+      <stock>1</stock>
       <nom>Urbanite 2000</nom>
       <prix>10000</prix>
     </car1>

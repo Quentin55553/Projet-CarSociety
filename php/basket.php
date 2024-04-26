@@ -183,15 +183,18 @@
                     echo "<p> Voici les véhicules ajoutés à votre panier : </p>";
                     // Table
                     afficher_panier($_SESSION['panier']);
+
                     // Affichage du prix total
                     echo "<p id='prix-total'> Prix de la commande : ";
                     echo number_format(prix_total($_SESSION['panier']),0,'.',' ');
                     echo " €</p>";
+                    
                     // Bouton "Commander"
                     echo "<div class='center'>
-                    <form action='command.php' method='post'>
-                    <button class='red-button' type='submit'>Commander</button>
-                    </form></div>";
+                            <form action='command.php' method='post'>
+                                <button class='red-button' type='submit'>Commander</button>
+                            </form>
+                        </div>";
                 }
             ?>
         </div>
