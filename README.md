@@ -18,8 +18,9 @@ Toutes les données rentrées dans les formulaires sont vérifiées en JavaScrip
 
 ### 👀 Aperçu
 
-[Intégration de la vidéo YouTube, ou création d'un .gif de la vidéo (meilleure option) à mettre ici]
-[![PUB BMW](https://img.youtube.com/vi/vQXvyV0zIP4/0.jpg)](https://www.youtube.com/watch?v=vQXvyV0zIP4 "Publicité BMW")
+<div align="center">
+  <img src="img/carsociety_presentation.gif" />
+</div>
 
 ## 🚀 Lancer le site internet
 > [Accéder au tutoriel](docs/run_website.md)
