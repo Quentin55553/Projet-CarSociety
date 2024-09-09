@@ -6,7 +6,7 @@
 
 ## 📋 Projet
 
-Le projet CarSociety est le site internet d'une société fictive de vente de voitures souhaitant mettre en avant les produits qu'elle possède dans le but de les vendre à des particuliers ou a des entreprises.
+Le projet CarSociety est le site internet d'une société fictive de vente de voitures souhaitant mettre en avant les produits qu'elle possède dans le but de les vendre à des particuliers ou à des entreprises.
 
 L'utilisateur peut consulter les différentes catégories de voitures en stock sur une page dédiée à cet effet et à partir de laquelle la liste des produits disponibles est chargée depuis un fichier XML synchronisé avec une base de données en SQL. Sur la page des produits, un aperçu du stock est affiché et mis à jour en temps réel en fonction des ajouts de l'utilisateur à son panier.
 
